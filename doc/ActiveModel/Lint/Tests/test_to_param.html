@@ -1,0 +1,16 @@
+<h1>ActiveModel::Lint::Tests#test_to_param</h1>
+
+== Responds to <tt>to_param</tt>
+
+Returns a string representing the object's key suitable for use in URLs
+or nil if model.persisted? is false.
+
+Implementers can decide to either raise an exception or provide a default
+in case the record uses a composite primary key. There are no tests for this
+behavior in lint because it doesn't make sense to force any of the possible
+implementation strategies on the implementer. However, if the resource is
+not persisted?, then to_param should always return nil.
+
+
+
+

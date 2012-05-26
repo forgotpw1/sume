@@ -1,0 +1,17 @@
+<h1>ActiveModel::Naming.route_key</h1>
+
+Returns string to use while generating route names. It differs for
+namespaced models regarding whether it's inside isolated engine.
+
+For isolated engine:
+ActiveModel::Naming.route_key(Blog::Post) #=> posts
+
+For shared engine:
+ActiveModel::Naming.route_key(Blog::Post) #=> blog_posts
+
+The route key also considers if the noun is uncountable and, in
+such cases, automatically appends _index.
+
+
+
+

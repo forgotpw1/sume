@@ -1,67 +1,60 @@
 <h1>ActionDispatch::Routing::Mapper::Scoping#constraints</h1>
 
+=== Parameter Restriction
+Allows you to constrain the nested routes based on a set of rules.
+For instance, in order to change the routes to allow for a dot character in the +id+ parameter:
 
-<h3>Parameter Restriction</h3>
-
-<p>Allows you to constrain the nested routes based on a set of rules. For
-instance, in order to change the routes to allow for a dot character in the
-<tt>id</tt> parameter:</p>
-
-<pre data-language="ruby">constraints(:id =&gt; /\d+\.\d+) do
-  resources :posts
-end</pre>
-
-<p>Now routes such as <tt>/posts/1</tt> will no longer be valid, but
-<tt>/posts/1.1</tt> will be. The <tt>id</tt> parameter must match the
-constraint passed in for this example.</p>
-
-<p>You may use this to also restrict other parameters:</p>
-
-<pre data-language="ruby">resources :posts do
-  constraints(:post_id =&gt; /\d+\.\d+) do
-    resources :comments
+  constraints(:id => /\d+\.\d+/) do
+    resources :posts
   end
-end</pre>
 
-<h3>Restricting based on IP</h3>
+Now routes such as +/posts/1+ will no longer be valid, but +/posts/1.1+ will be.
+The +id+ parameter must match the constraint passed in for this example.
 
-<p>Routes can also be constrained to an IP or a certain range of IP addresses:</p>
+You may use this to also restrict other parameters:
 
-<pre data-language="ruby">constraints(:ip =&gt; /192.168.\d+.\d+/) do
-  resources :posts
-end</pre>
-
-<p>Any user connecting from the 192.168.* range will be able to see this
-resource, where as any user connecting outside of this range will be told
-there is no such route.</p>
-
-<h3>Dynamic request matching</h3>
-
-<p>Requests to routes can be constrained based on specific criteria:</p>
-
-<pre data-language="ruby">constraints(lambda { |req| req.env[&quot;HTTP_USER_AGENT&quot;] =~ /iPhone/ }) do
-  resources :iphones
-end</pre>
-
-<p>You are able to move this logic out into a class if it is too complex for
-routes. This class must have a <tt>matches?</tt> method defined on it which
-either returns <tt>true</tt> if the user should be given access to that
-route, or <tt>false</tt> if the user should not.</p>
-
-<pre data-language="ruby">class Iphone
-  def self.matches(request)
-    request.env[&quot;HTTP_USER_AGENT&quot;] =~ /iPhone/
+  resources :posts do
+    constraints(:post_id => /\d+\.\d+/) do
+      resources :comments
+    end
   end
-end</pre>
 
-<p>An expected place for this code would be <tt>lib/constraints</tt>.</p>
+=== Restricting based on IP
 
-<p>This class is then used like this:</p>
+Routes can also be constrained to an IP or a certain range of IP addresses:
 
-<pre data-language="ruby">constraints(Iphone) do
-  resources :iphones
-end</pre>
+  constraints(:ip => /192.168.\d+.\d+/) do
+    resources :posts
+  end
 
+Any user connecting from the 192.168.* range will be able to see this resource,
+where as any user connecting outside of this range will be told there is no such route.
+
+=== Dynamic request matching
+
+Requests to routes can be constrained based on specific criteria:
+
+   constraints(lambda { |req| req.env["HTTP_USER_AGENT"] =~ /iPhone/ }) do
+     resources :iphones
+   end
+
+You are able to move this logic out into a class if it is too complex for routes.
+This class must have a +matches?+ method defined on it which either returns +true+
+if the user should be given access to that route, or +false+ if the user should not.
+
+   class Iphone
+     def self.matches?(request)
+       request.env["HTTP_USER_AGENT"] =~ /iPhone/
+     end
+   end
+
+An expected place for this code would be +lib/constraints+.
+
+This class is then used like this:
+
+   constraints(Iphone) do
+     resources :iphones
+   end
 
 
 

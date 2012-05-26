@@ -1,17 +1,26 @@
-The PostgreSQL adapter works both with the native C (http://ruby.scripting.ca/postgres/) and the pure
-Ruby (available both as gem and from http://rubyforge.org/frs/?group_id=234&release_id=1944) drivers.
+The PostgreSQL adapter works with the native C (https://bitbucket.org/ged/ruby-pg) driver.
 
 Options:
 
-* <tt>:host</tt> - Defaults to "localhost".
+* <tt>:host</tt> - Defaults to a Unix-domain socket in /tmp. On machines without Unix-domain sockets,
+  the default is to connect to localhost.
 * <tt>:port</tt> - Defaults to 5432.
-* <tt>:username</tt> - Defaults to nothing.
-* <tt>:password</tt> - Defaults to nothing.
-* <tt>:database</tt> - The name of the database. No default, must be provided.
+* <tt>:username</tt> - Defaults to be the same as the operating system name of the user running the application.
+* <tt>:password</tt> - Password to be used if the server demands password authentication.
+* <tt>:database</tt> - Defaults to be the same as the user name.
 * <tt>:schema_search_path</tt> - An optional schema search path for the connection given
-  as a string of comma-separated schema names.  This is backward-compatible with the <tt>:schema_order</tt> option.
+  as a string of comma-separated schema names. This is backward-compatible with the <tt>:schema_order</tt> option.
 * <tt>:encoding</tt> - An optional client encoding that is used in a <tt>SET client_encoding TO
   <encoding></tt> call on the connection.
 * <tt>:min_messages</tt> - An optional client min messages that is used in a
   <tt>SET client_min_messages TO <min_messages></tt> call on the connection.
+* <tt>:insert_returning</tt> - An optional boolean to control the use or <tt>RETURNING</tt> for <tt>INSERT<tt> statements
+  defaults to true.
+
+Any further options are used as connection parameters to libpq. See
+http://www.postgresql.org/docs/9.1/static/libpq-connect.html for the
+list of parameters.
+
+In addition, default connection parameters of libpq can be set per environment variables.
+See http://www.postgresql.org/docs/9.1/static/libpq-envars.html .
 

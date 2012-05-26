@@ -1,30 +1,28 @@
 <h1>ActionView::Helpers::UrlHelper#convert_boolean_attributes!</h1>
 
+Processes the +html_options+ hash, converting the boolean
+attributes from true/false form into the form required by
+HTML/XHTML. (An attribute is considered to be boolean if
+its name is listed in the given +bool_attrs+ array.)
 
-<p>Processes the <tt>html_options</tt> hash, converting the boolean attributes
-from true/false form into the form required by HTML/XHTML.  (An attribute
-is considered to be boolean if its name is listed in the given
-<tt>bool_attrs</tt> array.)</p>
+More specifically, for each boolean attribute in +html_options+
+given as:
 
-<p>More specifically, for each boolean attribute in <tt>html_options</tt>
-given as:</p>
+  "attr" => bool_value
 
-<pre data-language="ruby">&quot;attr&quot; =&gt; bool_value</pre>
+if the associated +bool_value+ evaluates to true, it is
+replaced with the attribute's name; otherwise the attribute is
+removed from the +html_options+ hash. (See the XHTML 1.0 spec,
+section 4.5 "Attribute Minimization" for more:
+http://www.w3.org/TR/xhtml1/#h-4.5)
 
-<p>if the associated <tt>bool_value</tt> evaluates to true, it is replaced
-with the attribute's name; otherwise the attribute is removed from the
-<tt>html_options</tt> hash.  (See the XHTML 1.0 spec, section 4.5
-"Attribute Minimization" for more: <a
-href="http://www.w3.org/TR/xhtml1/#h-4.5">www.w3.org/TR/xhtml1/#h-4.5</a>)</p>
+Returns the updated +html_options+ hash, which is also modified
+in place.
 
-<p>Returns the updated <tt>html_options</tt> hash, which is also modified in
-place.</p>
+Example:
 
-<p>Example:</p>
-
-<pre data-language="ruby">convert_boolean_attributes!( html_options,
-                             %w( checked disabled readonly ) )</pre>
-
+  convert_boolean_attributes!( html_options,
+                               %w( checked disabled readonly ) )
 
 
 

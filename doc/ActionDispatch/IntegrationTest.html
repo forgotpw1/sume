@@ -57,7 +57,7 @@ reference any named routes you happen to have defined.
         end
 
         def speak(room, message)
-          xml_http_request "/say/#{room.id}", :message => message
+          xml_http_request "/say/#roomroom.id", :message => message
           assert(...)
           ...
         end

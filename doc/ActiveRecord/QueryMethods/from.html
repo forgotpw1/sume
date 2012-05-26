@@ -1,5 +1,18 @@
 <h1>ActiveRecord::QueryMethods#from</h1>
 
+Specifies table from which the records will be fetched. For example:
+
+  Topic.select('title').from('posts')
+  #=> SELECT title FROM posts
+
+Can accept other relation objects. For example:
+
+  Topic.select('title').from(Topics.approved)
+  # => SELECT title FROM (SELECT * FROM topics WHERE approved = 't') subquery
+
+  Topics.select('a.title').from(Topics.approved, :a)
+  # => SELECT a.title FROM (SELECT * FROM topics WHERE approved = 't') a
+
 
 
 

@@ -1,0 +1,10 @@
+<h1>ActiveRecord::Locking::Optimistic::ClassMethods#initialize_attributes</h1>
+
+If the locking column has no default value set,
+start the lock version at zero. Note we can't use
+<tt>locking_enabled?</tt> at this point as
+<tt>@attributes</tt> may not have been initialized yet.
+
+
+
+

@@ -1,26 +1,33 @@
 <h1>ActionController::TemplateAssertions#assert_template</h1>
 
+Asserts that the request was rendered with the appropriate template file or partials.
 
-<p>Asserts that the request was rendered with the appropriate template file or
-partials.</p>
+  # assert that the "new" view template was rendered
+  assert_template "new"
 
-<h4>Examples</h4>
+  # assert that the exact template "admin/posts/new" was rendered
+  assert_template %r{\Aadmin/posts/new\Z}
 
-<pre data-language="ruby"># assert that the &quot;new&quot; view template was rendered
-assert_template &quot;new&quot;
+  # assert that the layout 'admin' was rendered
+  assert_template :layout => 'admin'
+  assert_template :layout => 'layouts/admin'
+  assert_template :layout => :admin
 
-# assert that the &quot;_customer&quot; partial was rendered twice
-assert_template :partial =&gt; '_customer', :count =&gt; 2
+  # assert that no layout was rendered
+  assert_template :layout => nil
+  assert_template :layout => false
 
-# assert that no partials were rendered
-assert_template :partial =&gt; false</pre>
+  # assert that the "_customer" partial was rendered twice
+  assert_template :partial => '_customer', :count => 2
 
-<p>In a view test case, you can also assert that specific locals are passed to
-partials:</p>
+  # assert that no partials were rendered
+  assert_template :partial => false
 
-<pre data-language="ruby"># assert that the &quot;_customer&quot; partial was rendered with a specific object
-assert_template :partial =&gt; '_customer', :locals =&gt; { :customer =&gt; @customer }</pre>
+In a view test case, you can also assert that specific locals are passed
+to partials:
 
+  # assert that the "_customer" partial was rendered with a specific object
+  assert_template :partial => '_customer', :locals => { :customer => @customer }
 
 
 

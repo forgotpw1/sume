@@ -1,13 +1,10 @@
 <h1>ActionView::Helpers::SanitizeHelper::ClassMethods#sanitized_allowed_css_properties=</h1>
 
+Adds to the Set of allowed CSS properties for the #sanitize and +sanitize_css+ helpers.
 
-<p>Adds to the Set of allowed CSS properties for the #sanitize and
-<tt>sanitize_css</tt> helpers.</p>
-
-<pre data-language="ruby">class Application &lt; Rails::Application
-  config.action_view.sanitized_allowed_css_properties = 'expression'
-end</pre>
-
+  class Application < Rails::Application
+    config.action_view.sanitized_allowed_css_properties = 'expression'
+  end
 
 
 

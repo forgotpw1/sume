@@ -1,0 +1,15 @@
+<h1>ActionDispatch::RemoteIp::GetIp#calculate_ip</h1>
+
+Determines originating IP address. REMOTE_ADDR is the standard
+but will be wrong if the user is behind a proxy. Proxies will set
+HTTP_CLIENT_IP and/or HTTP_X_FORWARDED_FOR, so we prioritize those.
+HTTP_X_FORWARDED_FOR may be a comma-delimited list in the case of
+multiple chained proxies. The first address which is in this list
+if it's not a known proxy will be the originating IP.
+Format of HTTP_X_FORWARDED_FOR:
+client_ip, proxy_ip1, proxy_ip2...
+http://en.wikipedia.org/wiki/X-Forwarded-For
+
+
+
+

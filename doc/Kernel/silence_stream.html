@@ -1,14 +1,12 @@
 <h1>Kernel#silence_stream</h1>
 
+Silences any stream for the duration of the block.
 
-<p>Silences any stream for the duration of the block.</p>
+  silence_stream(STDOUT) do
+    puts 'This will never be seen'
+  end
 
-<pre data-language="ruby">silence_stream(STDOUT) do
-  puts 'This will never be seen'
-end
-
-puts 'But this will'</pre>
-
+  puts 'But this will'
 
 
 

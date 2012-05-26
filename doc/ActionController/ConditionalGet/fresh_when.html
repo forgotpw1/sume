@@ -1,31 +1,36 @@
 <h1>ActionController::ConditionalGet#fresh_when</h1>
 
+Sets the etag, last_modified, or both on the response and renders a
+<tt>304 Not Modified</tt> response if the request is already fresh.
 
-<p>Sets the etag, last_modified, or both on the response and renders a <tt>304
-Not Modified</tt> response if the request is already fresh.</p>
+Parameters:
+* <tt>:etag</tt>
+* <tt>:last_modified</tt>
+* <tt>:public</tt> By default the Cache-Control header is private, set this to true if you want your application to be cachable by other devices (proxy caches).
 
-<p>Parameters:</p>
-<ul><li>
-<p><tt>:etag</tt></p>
-</li><li>
-<p><tt>:last_modified</tt></p>
-</li><li>
-<p><tt>:public</tt> By default the Cache-Control header is private, set this
-to true if you want your application to be cachable by other devices (proxy
-caches).</p>
-</li></ul>
+Example:
 
-<p>Example:</p>
+  def show
+    @article = Article.find(params[:id])
+    fresh_when(:etag => @article, :last_modified => @article.created_at, :public => true)
+  end
 
-<pre data-language="ruby">def show
-  @article = Article.find(params[:id])
-  fresh_when(:etag =&gt; @article, :last_modified =&gt; @article.created_at, :public =&gt; true)
-end</pre>
+This will render the show template if the request isn't sending a matching etag or
+If-Modified-Since header and just a <tt>304 Not Modified</tt> response if there's a match.
 
-<p>This will render the show template if the request isn't sending a matching
-etag or If-Modified-Since header and just a <tt>304 Not Modified</tt>
-response if there's a match.</p>
+You can also just pass a record where last_modified will be set by calling updated_at and the etag by passing the object itself. Example:
 
+  def show
+    @article = Article.find(params[:id])
+    fresh_when(@article)
+  end
+
+When passing a record, you can still set whether the public header:
+
+  def show
+    @article = Article.find(params[:id])
+    fresh_when(@article, :public => true)
+  end
 
 
 

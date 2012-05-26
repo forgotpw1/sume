@@ -1,18 +1,14 @@
 <h1>Date#to_time</h1>
 
+Converts a Date instance to a Time, where the time is set to the beginning of the day.
+The timezone can be either :local or :utc (default :local).
 
-<p>Converts a Date instance to a Time, where the time is set to the beginning
-of the day. The timezone can be either :local or :utc (default :local).</p>
+  date = Date.new(2007, 11, 10)  # => Sat, 10 Nov 2007
 
-<h4>Examples</h4>
+  date.to_time                   # => Sat Nov 10 00:00:00 0800 2007
+  date.to_time(:local)           # => Sat Nov 10 00:00:00 0800 2007
 
-<pre data-language="ruby">date = Date.new(2007, 11, 10)  # =&gt; Sat, 10 Nov 2007
-
-date.to_time                   # =&gt; Sat Nov 10 00:00:00 0800 2007
-date.to_time(:local)           # =&gt; Sat Nov 10 00:00:00 0800 2007
-
-date.to_time(:utc)             # =&gt; Sat Nov 10 00:00:00 UTC 2007</pre>
-
+  date.to_time(:utc)             # => Sat Nov 10 00:00:00 UTC 2007
 
 
 

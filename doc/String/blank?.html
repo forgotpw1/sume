@@ -1,12 +1,11 @@
 <h1>String#blank?</h1>
 
+A string is blank if it's empty or contains whitespaces only:
 
-<p>A string is blank if it's empty or contains whitespaces only:</p>
-
-<pre data-language="ruby">&quot;&quot;.blank?                 # =&gt; true
-&quot;   &quot;.blank?              # =&gt; true
-&quot; something here &quot;.blank? # =&gt; false</pre>
-
+  ''.blank?                 # => true
+  '   '.blank?              # => true
+  '　'.blank?               # => true
+  ' something here '.blank? # => false
 
 
 

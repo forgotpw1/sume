@@ -1,16 +1,11 @@
 <h1>ActiveSupport::Inflector::Inflections#clear</h1>
 
+Clears the loaded inflections within a given scope (default is <tt>:all</tt>).
+Give the scope as a symbol of the inflection type, the options are: <tt>:plurals</tt>,
+<tt>:singulars</tt>, <tt>:uncountables</tt>, <tt>:humans</tt>.
 
-<p>Clears the loaded inflections within a given scope (default is
-<tt>:all</tt>). Give the scope as a symbol of the inflection type, the
-options are: <tt>:plurals</tt>, <tt>:singulars</tt>,
-<tt>:uncountables</tt>, <tt>:humans</tt>.</p>
-
-<p>Examples:</p>
-
-<pre data-language="ruby">clear :all
-clear :plurals</pre>
-
+  clear :all
+  clear :plurals
 
 
 

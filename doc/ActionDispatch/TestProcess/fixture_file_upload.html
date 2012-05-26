@@ -1,17 +1,13 @@
 <h1>ActionDispatch::TestProcess#fixture_file_upload</h1>
 
+Shortcut for <tt>Rack::Test::UploadedFile.new(ActionController::TestCase.fixture_path + path, type)</tt>:
 
-<p>Shortcut for
-<tt>Rack::Test::UploadedFile.new(ActionController::TestCase.fixture_path +
-path, type)</tt>:</p>
+  post :change_avatar, :avatar => fixture_file_upload('/files/spongebob.png', 'image/png')
 
-<pre data-language="ruby">post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png')</pre>
+To upload binary files on Windows, pass <tt>:binary</tt> as the last parameter.
+This will not affect other platforms:
 
-<p>To upload binary files on Windows, pass <tt>:binary</tt> as the last
-parameter. This will not affect other platforms:</p>
-
-<pre data-language="ruby">post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png', :binary)</pre>
-
+  post :change_avatar, :avatar => fixture_file_upload('/files/spongebob.png', 'image/png', :binary)
 
 
 

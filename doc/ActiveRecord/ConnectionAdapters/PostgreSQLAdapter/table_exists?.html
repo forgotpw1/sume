@@ -1,6 +1,8 @@
 <h1>ActiveRecord::ConnectionAdapters::PostgreSQLAdapter#table_exists?</h1>
 
-
+Returns true if table exists.
+If the schema is not specified as part of +name+ then it will only find tables within
+the current schema search path (regardless of permissions to access tables in other schemas)
 
 
 

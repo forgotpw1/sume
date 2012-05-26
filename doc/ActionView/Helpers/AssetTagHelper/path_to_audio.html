@@ -1,20 +1,15 @@
 <h1>ActionView::Helpers::AssetTagHelper#path_to_audio</h1>
 
+Computes the path to an audio asset in the public audios directory.
+Full paths from the document root will be passed through.
+Used internally by +audio_tag+ to build the audio path.
 
-<p>Computes the path to an audio asset in the public audios directory. Full
-paths from the document root will be passed through. Used internally by
-<tt>audio_tag</tt> to build the audio path.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby">audio_path(&quot;horse&quot;)                                            # =&gt; /audios/horse
-audio_path(&quot;horse.wav&quot;)                                        # =&gt; /audios/horse.wav
-audio_path(&quot;sounds/horse.wav&quot;)                                 # =&gt; /audios/sounds/horse.wav
-audio_path(&quot;/sounds/horse.wav&quot;)                                # =&gt; /sounds/horse.wav
-audio_path(&quot;http://www.example.com/sounds/horse.wav&quot;)          # =&gt; http://www.example.com/sounds/horse.wav</pre>
-
-<p>aliased to avoid conflicts with an audio_path named route</p>
-
+  audio_path("horse")                                            # => /audios/horse
+  audio_path("horse.wav")                                        # => /audios/horse.wav
+  audio_path("sounds/horse.wav")                                 # => /audios/sounds/horse.wav
+  audio_path("/sounds/horse.wav")                                # => /sounds/horse.wav
+  audio_path("http://www.example.com/sounds/horse.wav")          # => http://www.example.com/sounds/horse.wav
+aliased to avoid conflicts with an audio_path named route
 
 
 

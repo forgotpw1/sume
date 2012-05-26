@@ -1,19 +1,17 @@
 <h1>ActionDispatch::Routing::RouteSet::NamedRouteCollection#define_url_helper</h1>
 
+Create a url helper allowing ordered parameters to be associated
+with corresponding dynamic segments, so you can do:
 
-<p>Create a url helper allowing ordered parameters to be associated with
-corresponding dynamic segments, so you can do:</p>
+  foo_url(bar, baz, bang)
 
-<pre data-language="ruby">foo_url(bar, baz, bang)</pre>
+Instead of:
 
-<p>Instead of:</p>
+  foo_url(:bar => bar, :baz => baz, :bang => bang)
 
-<pre data-language="ruby">foo_url(:bar =&gt; bar, :baz =&gt; baz, :bang =&gt; bang)</pre>
+Also allow options hash, so you can do:
 
-<p>Also allow options hash, so you can do:</p>
-
-<pre data-language="ruby">foo_url(bar, baz, bang, :sort_by =&gt; 'baz')</pre>
-
+  foo_url(bar, baz, bang, :sort_by => 'baz')
 
 
 

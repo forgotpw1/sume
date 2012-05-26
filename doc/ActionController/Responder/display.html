@@ -1,23 +1,21 @@
 <h1>ActionController::Responder#display</h1>
 
+Display is just a shortcut to render a resource with the current format.
 
-<p>Display is just a shortcut to render a resource with the current format.</p>
+  display @user, :status => :ok
 
-<pre data-language="ruby">display @user, :status =&gt; :ok</pre>
+For XML requests it's equivalent to:
 
-<p>For XML requests it's equivalent to:</p>
+  render :xml => @user, :status => :ok
 
-<pre data-language="ruby">render :xml =&gt; @user, :status =&gt; :ok</pre>
+Options sent by the user are also used:
 
-<p>Options sent by the user are also used:</p>
+  respond_with(@user, :status => :created)
+  display(@user, :status => :ok)
 
-<pre data-language="ruby">respond_with(@user, :status =&gt; :created)
-display(@user, :status =&gt; :ok)</pre>
+Results in:
 
-<p>Results in:</p>
-
-<pre data-language="ruby">render :xml =&gt; @user, :status =&gt; :created</pre>
-
+  render :xml => @user, :status => :created
 
 
 

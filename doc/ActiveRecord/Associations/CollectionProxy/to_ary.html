@@ -1,5 +1,39 @@
 <h1>ActiveRecord::Associations::CollectionProxy#to_ary</h1>
 
+Returns a new array of objects from the collection. If the collection
+hasn't been loaded, it fetches the records from the database. 
+
+  class Person < ActiveRecord::Base
+    has_many :pets
+  end
+
+  person.pets
+  # => [
+  #       #<Pet id: 4, name: "Benny", person_id: 1>,
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
+  other_pets = person.pets.to_ary
+  # => [
+  #       #<Pet id: 4, name: "Benny", person_id: 1>,
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
+  other_pets.replace([Pet.new(name: 'BooGoo')])
+
+  other_pets
+  # => [#<Pet id: nil, name: "BooGoo", person_id: 1>]
+
+  person.pets
+  # This is not affected by replace
+  # => [
+  #       #<Pet id: 4, name: "Benny", person_id: 1>,
+  #       #<Pet id: 5, name: "Brain", person_id: 1>,
+  #       #<Pet id: 6, name: "Boss",  person_id: 1>
+  #    ]
+
 
 
 

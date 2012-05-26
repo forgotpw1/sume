@@ -1,17 +1,15 @@
 <h1>ActiveRecord::Associations::HasManyAssociation#inverse_updates_counter_cache?</h1>
 
+This shit is nasty. We need to avoid the following situation:
 
-<p>This shit is nasty. We need to avoid the following situation:</p>
+  * An associated record is deleted via record.destroy
+  * Hence the callbacks run, and they find a belongs_to on the record with a
+    :counter_cache options which points back at our owner. So they update the
+    counter cache.
+  * In which case, we must make sure to *not* update the counter cache, or else
+    it will be decremented twice.
 
-<pre data-language="ruby">* An associated record is deleted via record.destroy
-* Hence the callbacks run, and they find a belongs_to on the record with a
-  :counter_cache options which points back at our owner. So they update the
-  counter cache.
-* In which case, we must make sure to *not* update the counter cache, or else
-  it will be decremented twice.</pre>
-
-<p>Hence this method.</p>
-
+Hence this method.
 
 
 

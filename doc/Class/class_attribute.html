@@ -1,73 +1,69 @@
 <h1>Class#class_attribute</h1>
 
+Declare a class-level attribute whose value is inheritable by subclasses.
+Subclasses can change their own value and it will not impact parent class.
 
-<p>Declare a class-level attribute whose value is inheritable by subclasses.
-Subclasses can change their own value and it will not impact parent class.</p>
+  class Base
+    class_attribute :setting
+  end
 
-<pre data-language="ruby">class Base
-  class_attribute :setting
-end
+  class Subclass < Base
+  end
 
-class Subclass &lt; Base
-end
+  Base.setting = true
+  Subclass.setting            # => true
+  Subclass.setting = false
+  Subclass.setting            # => false
+  Base.setting                # => true
 
-Base.setting = true
-Subclass.setting            # =&gt; true
-Subclass.setting = false
-Subclass.setting            # =&gt; false
-Base.setting                # =&gt; true</pre>
+In the above case as long as Subclass does not assign a value to setting
+by performing <tt>Subclass.setting = _something_ </tt>, <tt>Subclass.setting</tt>
+would read value assigned to parent class. Once Subclass assigns a value then
+the value assigned by Subclass would be returned.
 
-<p>In the above case as long as Subclass does not assign a value to setting by
-performing <tt>Subclass.setting = <em>something</em> </tt>,
-<tt>Subclass.setting</tt> would read value assigned to parent class. Once
-Subclass assigns a value then the value assigned by Subclass would be
-returned.</p>
+This matches normal Ruby method inheritance: think of writing an attribute
+on a subclass as overriding the reader method. However, you need to be aware
+when using +class_attribute+ with mutable structures as +Array+ or +Hash+.
+In such cases, you don't want to do changes in places but use setters:
 
-<p>This matches normal Ruby method inheritance: think of writing an attribute
-on a subclass as overriding the reader method. However, you need to be
-aware when using <tt>class_attribute</tt> with mutable structures as
-<tt>Array</tt> or <tt>Hash</tt>. In such cases, you don't want to do
-changes in places but use setters:</p>
+  Base.setting = []
+  Base.setting                # => []
+  Subclass.setting            # => []
 
-<pre data-language="ruby">Base.setting = []
-Base.setting                # =&gt; []
-Subclass.setting            # =&gt; []
+  # Appending in child changes both parent and child because it is the same object:
+  Subclass.setting << :foo
+  Base.setting               # => [:foo]
+  Subclass.setting           # => [:foo]
 
-# Appending in child changes both parent and child because it is the same object:
-Subclass.setting &lt;&lt; :foo
-Base.setting               # =&gt; [:foo]
-Subclass.setting           # =&gt; [:foo]
+  # Use setters to not propagate changes:
+  Base.setting = []
+  Subclass.setting += [:foo]
+  Base.setting               # => []
+  Subclass.setting           # => [:foo]
 
-# Use setters to not propagate changes:
-Base.setting = []
-Subclass.setting += [:foo]
-Base.setting               # =&gt; []
-Subclass.setting           # =&gt; [:foo]</pre>
+For convenience, a query method is defined as well:
 
-<p>For convenience, a query method is defined as well:</p>
+  Subclass.setting?       # => false
 
-<pre data-language="ruby">Subclass.setting?       # =&gt; false</pre>
+Instances may overwrite the class value in the same way:
 
-<p>Instances may overwrite the class value in the same way:</p>
+  Base.setting = true
+  object = Base.new
+  object.setting          # => true
+  object.setting = false
+  object.setting          # => false
+  Base.setting            # => true
 
-<pre data-language="ruby">Base.setting = true
-object = Base.new
-object.setting          # =&gt; true
-object.setting = false
-object.setting          # =&gt; false
-Base.setting            # =&gt; true</pre>
+To opt out of the instance reader method, pass :instance_reader => false.
 
-<p>To opt out of the instance reader method, pass :instance_reader =&gt;
-false.</p>
+  object.setting          # => NoMethodError
+  object.setting?         # => NoMethodError
 
-<pre data-language="ruby">object.setting          # =&gt; NoMethodError
-object.setting?         # =&gt; NoMethodError</pre>
+To opt out of the instance writer method, pass :instance_writer => false.
 
-<p>To opt out of the instance writer method, pass :instance_writer =&gt;
-false.</p>
+  object.setting = false  # => NoMethodError
 
-<pre data-language="ruby">object.setting = false  # =&gt; NoMethodError</pre>
-
+To opt out of both instance methods, pass :instance_accessor => false.
 
 
 

@@ -1,29 +1,20 @@
 <h1>ActionView::Helpers::TextHelper#word_wrap</h1>
 
+Wraps the +text+ into lines no longer than +line_width+ width. This method
+breaks on the first whitespace character that does not exceed +line_width+
+(which is 80 by default).
 
-<p>Wraps the <tt>text</tt> into lines no longer than <tt>line_width</tt>
-width. This method breaks on the first whitespace character that does not
-exceed <tt>line_width</tt> (which is 80 by default).</p>
+  word_wrap('Once upon a time')
+  # => Once upon a time
 
-<h4>Examples</h4>
+  word_wrap('Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding a successor to the throne turned out to be more trouble than anyone could have imagined...')
+  # => Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding\na successor to the throne turned out to be more trouble than anyone could have\nimagined...
 
-<pre data-language="ruby">word_wrap('Once upon a time')
-# =&gt; Once upon a time
+  word_wrap('Once upon a time', :line_width => 8)
+  # => Once\nupon a\ntime
 
-word_wrap('Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding a successor to the throne turned out to be more trouble than anyone could have imagined...')
-# =&gt; Once upon a time, in a kingdom called Far Far Away, a king fell ill, and finding\n a successor to the throne turned out to be more trouble than anyone could have\n imagined...
-
-word_wrap('Once upon a time', :line_width =&gt; 8)
-# =&gt; Once upon\na time
-
-word_wrap('Once upon a time', :line_width =&gt; 1)
-# =&gt; Once\nupon\na\ntime</pre>
-
-<p>You can still use <tt>word_wrap</tt> with the old API that accepts the
-<tt>line_width</tt> as its optional second parameter:</p>
-
-<pre data-language="ruby">word_wrap('Once upon a time', 8)     # =&gt; Once upon\na time</pre>
-
+  word_wrap('Once upon a time', :line_width => 1)
+  # => Once\nupon\na\ntime
 
 
 

@@ -7,7 +7,7 @@ different HTTP requests).
 == Basic example
 
 Functional tests are written as follows:
-1. First, one uses the +get+, +post+, +put+, +delete+ or +head+ method to simulate
+1. First, one uses the +get+, +post+, +patch+, +put+, +delete+ or +head+ method to simulate
    an HTTP request.
 2. Then, one asserts whether the current state is as expected. "State" can be anything:
    the controller's HTTP response, the database contents, etc.
@@ -26,6 +26,13 @@ For example:
       # Assert that the controller really put the book in the database.
       assert_not_nil Book.find_by_title("Love Hina")
     end
+  end
+
+You can also send a real document in the simulated HTTP request.
+
+  def test_create
+    json = => { :title => "Love Hina" }.to_json
+    post :create, json
   end
 
 == Special instance variables
@@ -74,32 +81,30 @@ These collections can be used just like any other hash:
   assert_equal "Dave", cookies[:name] # makes sure that a cookie called :name was set as "Dave"
   assert flash.empty? # makes sure that there's nothing in the flash
 
-For historic reasons, the assigns hash uses string-based keys. So assigns[:person] won't work, but assigns["person"] will. To
+For historic reasons, the assigns hash uses string-based keys. So <tt>assigns[:person]</tt> won't work, but <tt>assigns["person"]</tt> will. To
 appease our yearning for symbols, though, an alternative accessor has been devised using a method call instead of index referencing.
-So assigns(:person) will work just like assigns["person"], but again, assigns[:person] will not work.
+So <tt>assigns(:person)</tt> will work just like <tt>assigns["person"]</tt>, but again, <tt>assigns[:person]</tt> will not work.
 
-On top of the collections, you have the complete url that a given action redirected to available in redirect_to_url.
+On top of the collections, you have the complete url that a given action redirected to available in <tt>redirect_to_url</tt>.
 
 For redirects within the same controller, you can even call follow_redirect and the redirect will be followed, triggering another
 action call which can then be asserted against.
 
-== Manipulating the request collections
+== Manipulating session and cookie variables
 
-The collections described above link to the response, so you can test if what the actions were expected to do happened. But
-sometimes you also want to manipulate these collections in the incoming request. This is really only relevant for sessions
-and cookies, though. For sessions, you just do:
+Sometimes you need to set up the session and cookie variables for a test.
+To do this just assign a value to the session or cookie collection:
 
-  @request.session[:key] = "value"
-  @request.cookies[:key] = "value"
+  session[:key] = "value"
+  cookies[:key] = "value"
 
-To clear the cookies for a test just clear the request's cookies hash:
+To clear the cookies for a test just clear the cookie collection:
 
-  @request.cookies.clear
+  cookies.clear
 
 == \Testing named routes
 
 If you're using named routes, they can be easily tested using the original named routes' methods straight in the test case.
-Example:
 
  assert_redirected_to page_url(:title => 'foo')
 

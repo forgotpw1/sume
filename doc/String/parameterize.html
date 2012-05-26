@@ -1,23 +1,18 @@
 <h1>String#parameterize</h1>
 
+Replaces special characters in a string so that it may be used as part of a 'pretty' URL.
 
-<p>Replaces special characters in a string so that it may be used as part of a
-'pretty' URL.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby">class Person
-  def to_param
-    &quot;#{id}-#{name.parameterize}&quot;
+  class Person
+    def to_param
+      "#{id}-#{name.parameterize}"
+    end
   end
-end
 
-@person = Person.find(1)
-# =&gt; #&lt;Person id: 1, name: &quot;Donald E. Knuth&quot;&gt;
+  @person = Person.find(1)
+  # => #<Person id: 1, name: "Donald E. Knuth">
 
-&lt;%= link_to(@person.name, person_path %&gt;
-# =&gt; &lt;a href=&quot;/person/1-donald-e-knuth&quot;&gt;Donald E. Knuth&lt;/a&gt;</pre>
-
+  <%= link_to(@person.name, person_path %>
+  # => <a href="/person/1-donald-e-knuth">Donald E. Knuth</a>
 
 
 

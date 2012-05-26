@@ -1,15 +1,18 @@
 <h1>String#from</h1>
 
+Returns a substring from the given position to the end of the string.
+If the position is negative, it is counted from the end of the string.
 
-<p>Returns the remaining of the string from the <tt>position</tt> treating the
-string as an array (where 0 is the first character).</p>
+  str = "hello"
+  str.from(0)  #=> "hello"
+  str.from(3)  #=> "lo"
+  str.from(-2) #=> "lo"
 
-<p>Examples:</p>
+You can mix it with +to+ method and do fun things like:
 
-<pre data-language="ruby">&quot;hello&quot;.from(0)  # =&gt; &quot;hello&quot;
-&quot;hello&quot;.from(2)  # =&gt; &quot;llo&quot;
-&quot;hello&quot;.from(10) # =&gt; &quot;&quot; if &lt; 1.9, nil in 1.9</pre>
-
+  str = "hello"
+  str.from(0).to(-1) #=> "hello"
+  str.from(1).to(-2) #=> "ell"
 
 
 

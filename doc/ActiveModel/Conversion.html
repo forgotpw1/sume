@@ -1,0 +1,21 @@
+== Active Model Conversions
+
+Handles default conversions: to_model, to_key, to_param, and to_partial_path.
+
+Let's take for example this non-persisted object.
+
+  class ContactMessage
+    include ActiveModel::Conversion
+
+    # ContactMessage are never persisted in the DB
+    def persisted?
+      false
+    end
+  end
+
+  cm = ContactMessage.new
+  cm.to_model == self # => true
+  cm.to_key           # => nil
+  cm.to_param         # => nil
+  cm.to_partial_path  # => "contact_messages/contact_message"
+

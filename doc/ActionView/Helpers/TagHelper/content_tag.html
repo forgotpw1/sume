@@ -1,33 +1,28 @@
 <h1>ActionView::Helpers::TagHelper#content_tag</h1>
 
+Returns an HTML block tag of type +name+ surrounding the +content+. Add
+HTML attributes by passing an attributes hash to +options+.
+Instead of passing the content as an argument, you can also use a block
+in which case, you pass your +options+ as the second parameter.
+Set escape to false to disable attribute value escaping.
 
-<p>Returns an HTML block tag of type <tt>name</tt> surrounding the
-<tt>content</tt>. Add HTML attributes by passing an attributes hash to
-<tt>options</tt>. Instead of passing the content as an argument, you can
-also use a block in which case, you pass your <tt>options</tt> as the
-second parameter. Set escape to false to disable attribute value escaping.</p>
+==== Options
+The +options+ hash is used with attributes with no value like (<tt>disabled</tt> and
+<tt>readonly</tt>), which you can give a value of true in the +options+ hash. You can use
+symbols or strings for the attribute names.
 
-<h4>Options</h4>
+==== Examples
+  content_tag(:p, "Hello world!")
+   # => <p>Hello world!</p>
+  content_tag(:div, content_tag(:p, "Hello world!"), :class => "strong")
+   # => <div class="strong"><p>Hello world!</p></div>
+  content_tag("select", options, :multiple => true)
+   # => <select multiple="multiple">...options...</select>
 
-<p>The <tt>options</tt> hash is used with attributes with no value like
-(<tt>disabled</tt> and <tt>readonly</tt>), which you can give a value of
-true in the <tt>options</tt> hash. You can use symbols or strings for the
-attribute names.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby">content_tag(:p, &quot;Hello world!&quot;)
- # =&gt; &lt;p&gt;Hello world!&lt;/p&gt;
-content_tag(:div, content_tag(:p, &quot;Hello world!&quot;), :class =&gt; &quot;strong&quot;)
- # =&gt; &lt;div class=&quot;strong&quot;&gt;&lt;p&gt;Hello world!&lt;/p&gt;&lt;/div&gt;
-content_tag(&quot;select&quot;, options, :multiple =&gt; true)
- # =&gt; &lt;select multiple=&quot;multiple&quot;&gt;...options...&lt;/select&gt;
-
-&lt;%= content_tag :div, :class =&gt; &quot;strong&quot; do -%&gt;
-  Hello world!
-&lt;% end -%&gt;
- # =&gt; &lt;div class=&quot;strong&quot;&gt;Hello world!&lt;/div&gt;</pre>
-
+  <%= content_tag :div, :class => "strong" do -%>
+    Hello world!
+  <% end -%>
+   # => <div class="strong">Hello world!</div>
 
 
 

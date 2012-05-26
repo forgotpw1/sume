@@ -1,0 +1,38 @@
+Mass assignment security provides an interface for protecting attributes
+from end-user assignment. For more complex permissions, mass assignment security
+may be handled outside the model by extending a non-ActiveRecord class,
+such as a controller, with this behavior.
+
+For example, a logged in user may need to assign additional attributes depending
+on their role:
+
+  class AccountsController < ApplicationController
+    include ActiveModel::MassAssignmentSecurity
+
+    attr_accessible :first_name, :last_name
+    attr_accessible :first_name, :last_name, :plan_id, :as => :admin
+
+    def update
+      ...
+      @account.update_attributes(account_params)
+      ...
+    end
+
+    protected
+
+    def account_params
+      role = admin ? :admin : :default
+      sanitize_for_mass_assignment(params[:account], role)
+    end
+
+  end
+
+= Configuration options
+
+* <tt>mass_assignment_sanitizer</tt> - Defines sanitize method. Possible values are:
+  * <tt>:logger</tt> (default) - writes filtered attributes to logger
+  * <tt>:strict</tt> - raise <tt>ActiveModel::MassAssignmentSecurity::Error</tt> on any protected attribute update
+
+You can specify your own sanitizer object eg. MySanitizer.new.
+See <tt>ActiveModel::MassAssignmentSecurity::LoggerSanitizer</tt> for example implementation.
+

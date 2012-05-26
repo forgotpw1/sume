@@ -1,23 +1,18 @@
 <h1>ActionDispatch::Cookies::CookieJar#signed</h1>
 
+Returns a jar that'll automatically generate a signed representation of cookie value and verify it when reading from
+the cookie again. This is useful for creating cookies with values that the user is not supposed to change. If a signed
+cookie was tampered with by the user (or a 3rd party), an ActiveSupport::MessageVerifier::InvalidSignature exception will
+be raised.
 
-<p>Returns a jar that'll automatically generate a signed representation of
-cookie value and verify it when reading from the cookie again. This is
-useful for creating cookies with values that the user is not supposed to
-change. If a signed cookie was tampered with by the user (or a 3rd party),
-an ActiveSupport::MessageVerifier::InvalidSignature exception will be
-raised.</p>
+This jar requires that you set a suitable secret for the verification on your app's +config.secret_token+.
 
-<p>This jar requires that you set a suitable secret for the verification on
-your app's config.secret_token.</p>
+Example:
 
-<p>Example:</p>
+  cookies.signed[:discount] = 45
+  # => Set-Cookie: discount=BAhpMg==--2c1c6906c90a3bc4fd54a51ffb41dffa4bf6b5f7; path=/
 
-<pre data-language="ruby">cookies.signed[:discount] = 45
-# =&gt; Set-Cookie: discount=BAhpMg==--2c1c6906c90a3bc4fd54a51ffb41dffa4bf6b5f7; path=/
-
-cookies.signed[:discount] # =&gt; 45</pre>
-
+  cookies.signed[:discount] # => 45
 
 
 

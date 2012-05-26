@@ -1,197 +1,251 @@
 <h1>ActionView::Helpers::FormHelper#fields_for</h1>
 
+Creates a scope around a specific model object like form_for, but
+doesn't create the form tags themselves. This makes fields_for suitable
+for specifying additional model objects in the same form.
 
-<p>Creates a scope around a specific model object like form_for, but doesn't
-create the form tags themselves. This makes fields_for suitable for
-specifying additional model objects in the same form.</p>
+=== Generic Examples
 
-<h3>Generic Examples</h3>
+Although the usage and purpose of +field_for+ is similar to +form_for+'s,
+its method signature is slightly different. Like +form_for+, it yields
+a FormBuilder object associated with a particular model object to a block,
+and within the block allows methods to be called on the builder to
+generate fields associated with the model object. Fields may reflect
+a model object in two ways - how they are named (hence how submitted
+values appear within the +params+ hash in the controller) and what
+default values are shown when the form the fields appear in is first
+displayed. In order for both of these features to be specified independently,
+both an object name (represented by either a symbol or string) and the
+object itself can be passed to the method separately -
 
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  First name: &lt;%= person_form.text_field :first_name %&gt;
-  Last name : &lt;%= person_form.text_field :last_name %&gt;
+  <%= form_for @person do |person_form| %>
+    First name: <%= person_form.text_field :first_name %>
+    Last name : <%= person_form.text_field :last_name %>
 
-  &lt;%= fields_for @person.permission do |permission_fields| %&gt;
-    Admin?  : &lt;%= permission_fields.check_box :admin %&gt;
-  &lt;% end %&gt;
+    <%= fields_for :permission, @person.permission do |permission_fields| %>
+      Admin?  : <%= permission_fields.check_box :admin %>
+    <% end %>
 
-  &lt;%= f.submit %&gt;
-&lt;% end %&gt;</pre>
+    <%= f.submit %>
+  <% end %>
 
-<p>...or if you have an object that needs to be represented as a different
-parameter, like a Client that acts as a Person:</p>
+In this case, the checkbox field will be represented by an HTML +input+
+tag with the +name+ attribute <tt>permission[admin]</tt>, and the submitted
+value will appear in the controller as <tt>params[:permission][:admin]</tt>.
+If <tt>@person.permission</tt> is an existing record with an attribute
++admin+, the initial state of the checkbox when first displayed will
+reflect the value of <tt>@person.permission.admin</tt>.
 
-<pre data-language="ruby">&lt;%= fields_for :person, @client do |permission_fields| %&gt;
-  Admin?: &lt;%= permission_fields.check_box :admin %&gt;
-&lt;% end %&gt;</pre>
+Often this can be simplified by passing just the name of the model
+object to +fields_for+ -
 
-<p>...or if you don't have an object, just a name of the parameter:</p>
+  <%= fields_for :permission do |permission_fields| %>
+    Admin?: <%= permission_fields.check_box :admin %>
+  <% end %>
 
-<pre data-language="ruby">&lt;%= fields_for :person do |permission_fields| %&gt;
-  Admin?: &lt;%= permission_fields.check_box :admin %&gt;
-&lt;% end %&gt;</pre>
+...in which case, if <tt>:permission</tt> also happens to be the name of an
+instance variable <tt>@permission</tt>, the initial state of the input
+field will reflect the value of that variable's attribute <tt>@permission.admin</tt>.
 
-<p>Note: This also works for the methods in FormOptionHelper and DateHelper
-that are designed to work with an object as base, like
-FormOptionHelper#collection_select and DateHelper#datetime_select.</p>
+Alternatively, you can pass just the model object itself (if the first
+argument isn't a string or symbol +fields_for+ will realize that the
+name has been omitted) -
 
-<h3>Nested Attributes Examples</h3>
+  <%= fields_for @person.permission do |permission_fields| %>
+    Admin?: <%= permission_fields.check_box :admin %>
+  <% end %>
 
-<p>When the object belonging to the current scope has a nested attribute
-writer for a certain attribute, fields_for will yield a new scope for that
-attribute. This allows you to create forms that set or change the
-attributes of a parent object and its associations in one go.</p>
+and +fields_for+ will derive the required name of the field from the
+_class_ of the model object, e.g. if <tt>@person.permission</tt>, is
+of class +Permission+, the field will still be named <tt>permission[admin]</tt>.
 
-<p>Nested attribute writers are normal setter methods named after an
-association. The most common way of defining these writers is either with
-<tt>accepts_nested_attributes_for</tt> in a model definition or by defining
-a method with the proper name. For example: the attribute writer for the
-association <tt>:address</tt> is called <tt>address_attributes=</tt>.</p>
+Note: This also works for the methods in FormOptionHelper and
+DateHelper that are designed to work with an object as base, like
+FormOptionHelper#collection_select and DateHelper#datetime_select.
 
-<p>Whether a one-to-one or one-to-many style form builder will be yielded
-depends on whether the normal reader method returns a <em>single</em>
-object or an <em>array</em> of objects.</p>
+=== Nested Attributes Examples
 
-<h4>One-to-one</h4>
+When the object belonging to the current scope has a nested attribute
+writer for a certain attribute, fields_for will yield a new scope
+for that attribute. This allows you to create forms that set or change
+the attributes of a parent object and its associations in one go.
 
-<p>Consider a Person class which returns a <em>single</em> Address from the
+Nested attribute writers are normal setter methods named after an
+association. The most common way of defining these writers is either
+with +accepts_nested_attributes_for+ in a model definition or by
+defining a method with the proper name. For example: the attribute
+writer for the association <tt>:address</tt> is called
+<tt>address_attributes=</tt>.
+
+Whether a one-to-one or one-to-many style form builder will be yielded
+depends on whether the normal reader method returns a _single_ object
+or an _array_ of objects.
+
+==== One-to-one
+
+Consider a Person class which returns a _single_ Address from the
 <tt>address</tt> reader method and responds to the
-<tt>address_attributes=</tt> writer method:</p>
+<tt>address_attributes=</tt> writer method:
 
-<pre data-language="ruby">class Person
-  def address
-    @address
+  class Person
+    def address
+      @address
+    end
+
+    def address_attributes=(attributes)
+      # Process the attributes hash
+    end
   end
 
-  def address_attributes=(attributes)
-    # Process the attributes hash
-  end
-end</pre>
+This model can now be used with a nested fields_for, like so:
 
-<p>This model can now be used with a nested fields_for, like so:</p>
-
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;%= person_form.fields_for :address do |address_fields| %&gt;
-    Street  : &lt;%= address_fields.text_field :street %&gt;
-    Zip code: &lt;%= address_fields.text_field :zip_code %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
-
-<p>When address is already an association on a Person you can use
-<tt>accepts_nested_attributes_for</tt> to define the writer method for you:</p>
-
-<pre data-language="ruby">class Person &lt; ActiveRecord::Base
-  has_one :address
-  accepts_nested_attributes_for :address
-end</pre>
-
-<p>If you want to destroy the associated model through the form, you have to
-enable it first using the <tt>:allow_destroy</tt> option for
-<tt>accepts_nested_attributes_for</tt>:</p>
-
-<pre data-language="ruby">class Person &lt; ActiveRecord::Base
-  has_one :address
-  accepts_nested_attributes_for :address, :allow_destroy =&gt; true
-end</pre>
-
-<p>Now, when you use a form element with the <tt>_destroy</tt> parameter, with
-a value that evaluates to <tt>true</tt>, you will destroy the associated
-model (eg. 1, '1', true, or 'true'):</p>
-
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;%= person_form.fields_for :address do |address_fields| %&gt;
+  <%= form_for @person do |person_form| %>
     ...
-    Delete: &lt;%= address_fields.check_box :_destroy %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
+    <%= person_form.fields_for :address do |address_fields| %>
+      Street  : <%= address_fields.text_field :street %>
+      Zip code: <%= address_fields.text_field :zip_code %>
+    <% end %>
+    ...
+  <% end %>
 
-<h4>One-to-many</h4>
+When address is already an association on a Person you can use
++accepts_nested_attributes_for+ to define the writer method for you:
 
-<p>Consider a Person class which returns an <em>array</em> of Project
-instances from the <tt>projects</tt> reader method and responds to the
-<tt>projects_attributes=</tt> writer method:</p>
-
-<pre data-language="ruby">class Person
-  def projects
-    [@project1, @project2]
+  class Person < ActiveRecord::Base
+    has_one :address
+    accepts_nested_attributes_for :address
   end
 
-  def projects_attributes=(attributes)
-    # Process the attributes hash
+If you want to destroy the associated model through the form, you have
+to enable it first using the <tt>:allow_destroy</tt> option for
++accepts_nested_attributes_for+:
+
+  class Person < ActiveRecord::Base
+    has_one :address
+    accepts_nested_attributes_for :address, :allow_destroy => true
   end
-end</pre>
 
-<p>This model can now be used with a nested fields_for. The block given to the
-nested fields_for call will be repeated for each instance in the
-collection:</p>
+Now, when you use a form element with the <tt>_destroy</tt> parameter,
+with a value that evaluates to +true+, you will destroy the associated
+model (eg. 1, '1', true, or 'true'):
 
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;%= person_form.fields_for :projects do |project_fields| %&gt;
-    &lt;% if project_fields.object.active? %&gt;
-      Name: &lt;%= project_fields.text_field :name %&gt;
-    &lt;% end %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
+  <%= form_for @person do |person_form| %>
+    ...
+    <%= person_form.fields_for :address do |address_fields| %>
+      ...
+      Delete: <%= address_fields.check_box :_destroy %>
+    <% end %>
+    ...
+  <% end %>
 
-<p>It's also possible to specify the instance to be used:</p>
+==== One-to-many
 
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;% @person.projects.each do |project| %&gt;
-    &lt;% if project.active? %&gt;
-      &lt;%= person_form.fields_for :projects, project do |project_fields| %&gt;
-        Name: &lt;%= project_fields.text_field :name %&gt;
-      &lt;% end %&gt;
-    &lt;% end %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
+Consider a Person class which returns an _array_ of Project instances
+from the <tt>projects</tt> reader method and responds to the
+<tt>projects_attributes=</tt> writer method:
 
-<p>Or a collection to be used:</p>
+  class Person
+    def projects
+      [@project1, @project2]
+    end
 
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;%= person_form.fields_for :projects, @active_projects do |project_fields| %&gt;
-    Name: &lt;%= project_fields.text_field :name %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
+    def projects_attributes=(attributes)
+      # Process the attributes hash
+    end
+  end
 
-<p>When projects is already an association on Person you can use
-<tt>accepts_nested_attributes_for</tt> to define the writer method for you:</p>
+Note that the <tt>projects_attributes=</tt> writer method is in fact
+required for fields_for to correctly identify <tt>:projects</tt> as a
+collection, and the correct indices to be set in the form markup.
 
-<pre data-language="ruby">class Person &lt; ActiveRecord::Base
-  has_many :projects
-  accepts_nested_attributes_for :projects
-end</pre>
+When projects is already an association on Person you can use
++accepts_nested_attributes_for+ to define the writer method for you:
 
-<p>If you want to destroy any of the associated models through the form, you
-have to enable it first using the <tt>:allow_destroy</tt> option for
-<tt>accepts_nested_attributes_for</tt>:</p>
+  class Person < ActiveRecord::Base
+    has_many :projects
+    accepts_nested_attributes_for :projects
+  end
 
-<pre data-language="ruby">class Person &lt; ActiveRecord::Base
-  has_many :projects
-  accepts_nested_attributes_for :projects, :allow_destroy =&gt; true
-end</pre>
+This model can now be used with a nested fields_for. The block given to
+the nested fields_for call will be repeated for each instance in the
+collection:
 
-<p>This will allow you to specify which models to destroy in the attributes
-hash by adding a form element for the <tt>_destroy</tt> parameter with a
-value that evaluates to <tt>true</tt> (eg. 1, '1', true, or 'true'):</p>
+  <%= form_for @person do |person_form| %>
+    ...
+    <%= person_form.fields_for :projects do |project_fields| %>
+      <% if project_fields.object.active? %>
+        Name: <%= project_fields.text_field :name %>
+      <% end %>
+    <% end %>
+    ...
+  <% end %>
 
-<pre data-language="ruby">&lt;%= form_for @person do |person_form| %&gt;
-  ...
-  &lt;%= person_form.fields_for :projects do |project_fields| %&gt;
-    Delete: &lt;%= project_fields.check_box :_destroy %&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;</pre>
+It's also possible to specify the instance to be used:
 
+  <%= form_for @person do |person_form| %>
+    ...
+    <% @person.projects.each do |project| %>
+      <% if project.active? %>
+        <%= person_form.fields_for :projects, project do |project_fields| %>
+          Name: <%= project_fields.text_field :name %>
+        <% end %>
+      <% end %>
+    <% end %>
+    ...
+  <% end %>
+
+Or a collection to be used:
+
+  <%= form_for @person do |person_form| %>
+    ...
+    <%= person_form.fields_for :projects, @active_projects do |project_fields| %>
+      Name: <%= project_fields.text_field :name %>
+    <% end %>
+    ...
+  <% end %>
+
+When projects is already an association on Person you can use
++accepts_nested_attributes_for+ to define the writer method for you:
+
+  class Person < ActiveRecord::Base
+    has_many :projects
+    accepts_nested_attributes_for :projects
+  end
+
+If you want to destroy any of the associated models through the
+form, you have to enable it first using the <tt>:allow_destroy</tt>
+option for +accepts_nested_attributes_for+:
+
+  class Person < ActiveRecord::Base
+    has_many :projects
+    accepts_nested_attributes_for :projects, :allow_destroy => true
+  end
+
+This will allow you to specify which models to destroy in the
+attributes hash by adding a form element for the <tt>_destroy</tt>
+parameter with a value that evaluates to +true+
+(eg. 1, '1', true, or 'true'):
+
+  <%= form_for @person do |person_form| %>
+    ...
+    <%= person_form.fields_for :projects do |project_fields| %>
+      Delete: <%= project_fields.check_box :_destroy %>
+    <% end %>
+    ...
+  <% end %>
+
+When a collection is used you might want to know the index of each
+object into the array. For this purpose, the <tt>index</tt> method
+is available in the FormBuilder object.
+
+  <%= form_for @person do |person_form| %>
+    ...
+    <%= person_form.fields_for :projects do |project_fields| %>
+      Project #<%= project_fields.index %>
+      ...
+    <% end %>
+    ...
+  <% end %>
 
 
 

@@ -1,36 +1,29 @@
 <h1>ActionView::Helpers::TextHelper#truncate</h1>
 
+Truncates a given +text+ after a given <tt>:length</tt> if +text+ is longer than <tt>:length</tt>
+(defaults to 30). The last characters will be replaced with the <tt>:omission</tt> (defaults to "...")
+for a total length not exceeding <tt>:length</tt>.
 
-<p>Truncates a given <tt>text</tt> after a given <tt>:length</tt> if
-<tt>text</tt> is longer than <tt>:length</tt> (defaults to 30). The last
-characters will be replaced with the <tt>:omission</tt> (defaults to "...")
-for a total length not exceeding <tt>:length</tt>.</p>
+Pass a <tt>:separator</tt> to truncate +text+ at a natural break.
 
-<p>Pass a <tt>:separator</tt> to truncate <tt>text</tt> at a natural break.</p>
+The result is not marked as HTML-safe, so will be subject to the default escaping when
+used in views, unless wrapped by <tt>raw()</tt>. Care should be taken if +text+ contains HTML tags
+or entities, because truncation may produce invalid HTML (such as unbalanced or incomplete tags).
 
-<p>The result is not marked as HTML-safe, so will be subject to the default
-escaping when used in views, unless wrapped by <tt>raw()</tt>. Care should
-be taken if <tt>text</tt> contains HTML tags or entities, because
-truncation may produce invalid HTML (such as unbalanced or incomplete
-tags).</p>
+  truncate("Once upon a time in a world far far away")
+  # => "Once upon a time in a world..."
 
-<h4>Examples</h4>
+  truncate("Once upon a time in a world far far away", :length => 17)
+  # => "Once upon a ti..."
 
-<pre data-language="ruby">truncate(&quot;Once upon a time in a world far far away&quot;)
-# =&gt; &quot;Once upon a time in a world...&quot;
+  truncate("Once upon a time in a world far far away", :length => 17, :separator => ' ')
+  # => "Once upon a..."
 
-truncate(&quot;Once upon a time in a world far far away&quot;, :length =&gt; 17)
-# =&gt; &quot;Once upon a ti...&quot;
+  truncate("And they found that many people were sleeping better.", :length => 25, :omission => '... (continued)')
+  # => "And they f... (continued)"
 
-truncate(&quot;Once upon a time in a world far far away&quot;, :length =&gt; 17, :separator =&gt; ' ')
-# =&gt; &quot;Once upon a...&quot;
-
-truncate(&quot;And they found that many people were sleeping better.&quot;, :length =&gt; 25, :omission =&gt; '... (continued)')
-# =&gt; &quot;And they f... (continued)&quot;
-
-truncate(&quot;&lt;p&gt;Once upon a time in a world far far away&lt;/p&gt;&quot;)
-# =&gt; &quot;&lt;p&gt;Once upon a time in a wo...&quot;</pre>
-
+  truncate("<p>Once upon a time in a world far far away</p>")
+  # => "<p>Once upon a time in a wo..."
 
 
 

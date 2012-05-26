@@ -1,55 +1,52 @@
 <h1>ActionView::Helpers::SanitizeHelper#sanitize</h1>
 
+This +sanitize+ helper will html encode all tags and strip all attributes that
+aren't specifically allowed.
 
-<p>This <tt>sanitize</tt> helper will html encode all tags and strip all
-attributes that aren't specifically allowed.</p>
+It also strips href/src tags with invalid protocols, like javascript: especially.
+It does its best to counter any  tricks that hackers may use, like throwing in
+unicode/ascii/hex values to get past the javascript: filters. Check out
+the extensive test suite.
 
-<p>It also strips href/src tags with invalid protocols, like javascript:
-especially. It does its best to counter any  tricks that hackers may use,
-like throwing in unicode/ascii/hex values to get past the javascript:
-filters.  Check out the extensive test suite.</p>
+  <%= sanitize @article.body %>
 
-<pre data-language="ruby">&lt;%= sanitize @article.body %&gt;</pre>
+You can add or remove tags/attributes if you want to customize it a bit.
+See ActionView::Base for full docs on the available options. You can add
+tags/attributes for single uses of +sanitize+ by passing either the
+<tt>:attributes</tt> or <tt>:tags</tt> options:
 
-<p>You can add or remove tags/attributes if you want to customize it a bit.
-See ActionView::Base for full docs on the available options.  You can add
-tags/attributes for single uses of <tt>sanitize</tt> by passing either the
-<tt>:attributes</tt> or <tt>:tags</tt> options:</p>
+Normal Use
 
-<p>Normal Use</p>
+  <%= sanitize @article.body %>
 
-<pre data-language="ruby">&lt;%= sanitize @article.body %&gt;</pre>
+Custom Use (only the mentioned tags and attributes are allowed, nothing else)
 
-<p>Custom Use (only the mentioned tags and attributes are allowed, nothing
-else)</p>
+  <%= sanitize @article.body, :tags => %w(table tr td), :attributes => %w(id class style) %>
 
-<pre data-language="ruby">&lt;%= sanitize @article.body, :tags =&gt; %w(table tr td), :attributes =&gt; %w(id class style) %&gt;</pre>
+Add table tags to the default allowed tags
 
-<p>Add table tags to the default allowed tags</p>
-
-<pre data-language="ruby">class Application &lt; Rails::Application
-  config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td'
-end</pre>
-
-<p>Remove tags to the default allowed tags</p>
-
-<pre data-language="ruby">class Application &lt; Rails::Application
-  config.after_initialize do
-    ActionView::Base.sanitized_allowed_tags.delete 'div'
+  class Application < Rails::Application
+    config.action_view.sanitized_allowed_tags = 'table', 'tr', 'td'
   end
-end</pre>
 
-<p>Change allowed default attributes</p>
+Remove tags to the default allowed tags
 
-<pre data-language="ruby">class Application &lt; Rails::Application
-  config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style'
-end</pre>
+  class Application < Rails::Application
+    config.after_initialize do
+      ActionView::Base.sanitized_allowed_tags.delete 'div'
+    end
+  end
 
-<p>Please note that sanitizing user-provided text does not guarantee that the
-resulting markup is valid (conforming to a document type) or even
-well-formed. The output may still contain e.g. unescaped '&lt;', '&gt;',
-'&amp;' characters and confuse browsers.</p>
+Change allowed default attributes
 
+  class Application < Rails::Application
+    config.action_view.sanitized_allowed_attributes = 'id', 'class', 'style'
+  end
+
+Please note that sanitizing user-provided text does not guarantee that the
+resulting markup is valid (conforming to a document type) or even well-formed.
+The output may still contain e.g. unescaped '<', '>', '&' characters and
+confuse browsers.
 
 
 

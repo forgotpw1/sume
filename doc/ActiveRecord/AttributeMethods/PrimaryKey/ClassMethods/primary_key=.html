@@ -1,8 +1,19 @@
 <h1>ActiveRecord::AttributeMethods::PrimaryKey::ClassMethods#primary_key=</h1>
 
+Sets the name of the primary key column.
 
-<p>Attribute writer for the primary key column</p>
+  class Project < ActiveRecord::Base
+    self.primary_key = "sysid"
+  end
 
+You can also define the primary_key method yourself:
+
+  class Project < ActiveRecord::Base
+    def self.primary_key
+      "foo_" + super
+    end
+  end
+  Project.primary_key # => "foo_id"
 
 
 

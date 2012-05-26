@@ -1,5 +1,43 @@
 <h1>Class#cattr_writer</h1>
 
+Defines a class attribute if it's not defined and creates a writer method to allow
+assignment to the attribute.
+
+  class Person
+    cattr_writer :hair_colors
+  end
+
+  Person.hair_colors = [:brown, :black]
+  Person.class_variable_get("@@hair_colors") # => [:brown, :black]
+  Person.new.hair_colors = [:blonde, :red]
+  Person.class_variable_get("@@hair_colors") # => [:blonde, :red]
+
+The attribute name must be a valid method name in Ruby.
+
+  class Person
+    cattr_writer :"1_Badname "
+  end
+  # => NameError: invalid attribute name
+
+If you want to opt out the instance writer method, pass <tt>instance_writer: false</tt>
+or <tt>instance_accessor: false</tt>.
+
+  class Person
+    cattr_writer :hair_colors, instance_writer: false
+  end
+
+  Person.new.hair_colors = [:blonde, :red] # => NoMethodError
+
+Also, you can pass a block to set up the attribute with a default value.
+
+  class Person
+    cattr_writer :hair_colors do
+      [:brown, :black, :blonde, :red]
+    end
+  end
+
+  Person.class_variable_get("@@hair_colors") # => [:brown, :black, :blonde, :red]
+
 
 
 

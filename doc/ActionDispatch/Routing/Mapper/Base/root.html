@@ -1,16 +1,18 @@
 <h1>ActionDispatch::Routing::Mapper::Base#root</h1>
 
+You can specify what Rails should route "/" to with the root method:
 
-<p>You can specify what Rails should route "/" to with the root method:</p>
+  root :to => 'pages#main'
 
-<pre data-language="ruby">root :to =&gt; 'pages#main'</pre>
+For options, see +match+, as +root+ uses it internally.
 
-<p>For options, see <tt>match</tt>, as <tt>root</tt> uses it internally.</p>
+You can also pass a string which will expand
 
-<p>You should put the root route at the top of <tt>config/routes.rb</tt>,
-because this means it will be matched first. As this is the most popular
-route of most Rails applications, this is beneficial.</p>
+  root 'pages#main'
 
+You should put the root route at the top of <tt>config/routes.rb</tt>,
+because this means it will be matched first. As this is the most popular route
+of most Rails applications, this is beneficial.
 
 
 

@@ -1,18 +1,16 @@
 <h1>ActionDispatch::Routing::Mapper::Resources#member</h1>
 
+To add a member route, add a member block into the resource block:
 
-<p>To add a member route, add a member block into the resource block:</p>
-
-<pre data-language="ruby">resources :photos do
-  member do
-    get 'preview'
+  resources :photos do
+    member do
+      get 'preview'
+    end
   end
-end</pre>
 
-<p>This will recognize <tt>/photos/1/preview</tt> with GET, and route to the
-preview action of <tt>PhotosController</tt>. It will also create the
-<tt>preview_photo_url</tt> and <tt>preview_photo_path</tt> helpers.</p>
-
+This will recognize <tt>/photos/1/preview</tt> with GET, and route to the
+preview action of +PhotosController+. It will also create the
+<tt>preview_photo_url</tt> and <tt>preview_photo_path</tt> helpers.
 
 
 

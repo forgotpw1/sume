@@ -1,16 +1,14 @@
 <h1>ActiveRecord::ConnectionAdapters::DatabaseStatements#sanitize_limit</h1>
 
+Sanitizes the given LIMIT parameter in order to prevent SQL injection.
 
-<p>Sanitizes the given LIMIT parameter in order to prevent SQL injection.</p>
+The +limit+ may be anything that can evaluate to a string via #to_s. It
+should look like an integer, or a comma-delimited list of integers, or
+an Arel SQL literal.
 
-<p>The <tt>limit</tt> may be anything that can evaluate to a string via #to_s.
-It should look like an integer, or a comma-delimited list of integers, or 
-an Arel SQL literal.</p>
-
-<p>Returns Integer and Arel::Nodes::SqlLiteral limits as is.  Returns the
-sanitized limit parameter, either as an integer, or as a string which
-contains a comma-delimited list of integers.</p>
-
+Returns Integer and Arel::Nodes::SqlLiteral limits as is.
+Returns the sanitized limit parameter, either as an integer, or as a
+string which contains a comma-delimited list of integers.
 
 
 

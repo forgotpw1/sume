@@ -1,22 +1,18 @@
 <h1>ActiveRecord::ConnectionAdapters::SchemaStatements#index_exists?</h1>
 
+Checks to see if an index exists on a table for a given index definition.
 
-<p>Checks to see if an index exists on a table for a given index definition.</p>
+ # Check an index exists
+ index_exists?(:suppliers, :company_id)
 
-<h3>Examples</h3>
+ # Check an index on multiple columns exists
+ index_exists?(:suppliers, [:company_id, :company_type])
 
-<pre data-language="ruby"># Check an index exists
-index_exists?(:suppliers, :company_id)
+ # Check a unique index exists
+ index_exists?(:suppliers, :company_id, :unique => true)
 
-# Check an index on multiple columns exists
-index_exists?(:suppliers, [:company_id, :company_type])
-
-# Check a unique index exists
-index_exists?(:suppliers, :company_id, :unique =&gt; true)
-
-# Check an index with a custom name exists
-index_exists?(:suppliers, :company_id, :name =&gt; &quot;idx_company_id&quot;</pre>
-
+ # Check an index with a custom name exists
+ index_exists?(:suppliers, :company_id, :name => "idx_company_id"
 
 
 

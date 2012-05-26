@@ -1,9 +1,14 @@
 <h1>ActiveRecord::FinderMethods#first</h1>
 
+Find the first record (or first N records if a parameter is supplied).
+If no order is defined it will order by primary key.
 
-<p>A convenience wrapper for <tt>find(:first, *args)</tt>. You can pass in all
-the same arguments to this method as you can to <tt>find(:first)</tt>.</p>
+Examples:
 
+  Person.first # returns the first object fetched by SELECT * FROM people
+  Person.where(["user_name = ?", user_name]).first
+  Person.where(["user_name = :u", { :u => user_name }]).first
+  Person.order("created_on DESC").offset(5).first
 
 
 

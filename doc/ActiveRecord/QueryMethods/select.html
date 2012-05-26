@@ -1,38 +1,34 @@
 <h1>ActiveRecord::QueryMethods#select</h1>
 
+Works in two unique ways.
 
-<p>Works in two unique ways.</p>
+First: takes a block so it can be used just like Array#select.
 
-<p>First: takes a block so it can be used just like Array#select.</p>
+  Model.scoped.select { |m| m.field == value }
 
-<pre data-language="ruby">Model.scoped.select { |m| m.field == value }</pre>
+This will build an array of objects from the database for the scope,
+converting them into an array and iterating through them using Array#select.
 
-<p>This will build an array of objects from the database for the scope,
-converting them into an array and iterating through them using
-Array#select.</p>
+Second: Modifies the SELECT statement for the query so that only certain
+fields are retrieved:
 
-<p>Second: Modifies the SELECT statement for the query so that only certain
-fields are retrieved:</p>
+  >> Model.select(:field)
+  => [#<Model field:value>]
 
-<pre data-language="ruby">&gt;&gt; Model.select(:field)
-=&gt; [#&lt;Model field:value&gt;]</pre>
-
-<p>Although in the above example it looks as though this method returns an
+Although in the above example it looks as though this method returns an
 array, it actually returns a relation object and can have other query
-methods appended to it, such as the other methods in
-ActiveRecord::QueryMethods.</p>
+methods appended to it, such as the other methods in ActiveRecord::QueryMethods.
 
-<p>This method will also take multiple parameters:</p>
+The argument to the method can also be an array of fields.
 
-<pre data-language="ruby">&gt;&gt; Model.select(:field, :other_field, :and_one_more)
-=&gt; [#&lt;Model field: &quot;value&quot;, other_field: &quot;value&quot;, and_one_more: &quot;value&quot;&gt;]</pre>
+  >> Model.select([:field, :other_field, :and_one_more])
+  => [#<Model field: "value", other_field: "value", and_one_more: "value">]
 
-<p>Any attributes that do not have fields retrieved by a select will return
-`nil` when the getter method for that attribute is used:</p>
+Accessing attributes of an object that do not have fields retrieved by a select
+will throw <tt>ActiveModel::MissingAttributeError</tt>:
 
-<pre data-language="ruby">&gt;&gt; Model.select(:field).first.other_field
-=&gt; nil</pre>
-
+  >> Model.select(:field).first.other_field
+  => ActiveModel::MissingAttributeError: missing attribute: other_field
 
 
 

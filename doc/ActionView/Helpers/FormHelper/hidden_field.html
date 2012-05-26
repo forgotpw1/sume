@@ -1,23 +1,19 @@
 <h1>ActionView::Helpers::FormHelper#hidden_field</h1>
 
+Returns a hidden input tag tailored for accessing a specified attribute (identified by +method+) on an object
+assigned to the template (identified by +object+). Additional options on the input tag can be passed as a
+hash with +options+. These options will be tagged onto the HTML as an HTML element attribute as in the example
+shown.
 
-<p>Returns a hidden input tag tailored for accessing a specified attribute
-(identified by <tt>method</tt>) on an object assigned to the template
-(identified by <tt>object</tt>). Additional options on the input tag can be
-passed as a hash with <tt>options</tt>. These options will be tagged onto
-the HTML as an HTML element attribute as in the example shown.</p>
+==== Examples
+  hidden_field(:signup, :pass_confirm)
+  # => <input type="hidden" id="signup_pass_confirm" name="signup[pass_confirm]" value="#{@signup.pass_confirm}" />
 
-<h4>Examples</h4>
+  hidden_field(:post, :tag_list)
+  # => <input type="hidden" id="post_tag_list" name="post[tag_list]" value="#{@post.tag_list}" />
 
-<pre data-language="ruby">hidden_field(:signup, :pass_confirm)
-# =&gt; &lt;input type=&quot;hidden&quot; id=&quot;signup_pass_confirm&quot; name=&quot;signup[pass_confirm]&quot; value=&quot;#{@signup.pass_confirm}&quot; /&gt;
-
-hidden_field(:post, :tag_list)
-# =&gt; &lt;input type=&quot;hidden&quot; id=&quot;post_tag_list&quot; name=&quot;post[tag_list]&quot; value=&quot;#{@post.tag_list}&quot; /&gt;
-
-hidden_field(:user, :token)
-# =&gt; &lt;input type=&quot;hidden&quot; id=&quot;user_token&quot; name=&quot;user[token]&quot; value=&quot;#{@user.token}&quot; /&gt;</pre>
-
+  hidden_field(:user, :token)
+  # => <input type="hidden" id="user_token" name="user[token]" value="#{@user.token}" />
 
 
 

@@ -1,0 +1,39 @@
+<h1>ActiveModel::AttributeMethods::ClassMethods#attribute_method_prefix</h1>
+
+Declares a method available for all attributes with the given prefix.
+Uses +method_missing+ and <tt>respond_to?</tt> to rewrite the method.
+
+  #{prefix}#{attr}(*args, &block)
+
+to
+
+  #{prefix}attribute(#{attr}, *args, &block)
+
+An instance method <tt>#{prefix}attribute</tt> must exist and accept
+at least the +attr+ argument.
+
+For example:
+
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name
+    attribute_method_prefix 'clear_'
+    define_attribute_methods :name
+
+    private
+
+    def clear_attribute(attr)
+      send("#{attr}=", nil)
+    end
+  end
+
+  person = Person.new
+  person.name = "Bob"
+  person.name          # => "Bob"
+  person.clear_name
+  person.name          # => nil
+
+
+
+

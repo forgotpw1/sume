@@ -1,20 +1,14 @@
 <h1>ActiveSupport::Inflector#classify</h1>
 
+Create a class name from a plural table name like Rails does for table names to models.
+Note that this returns a string and not a Class. (To convert to an actual class
+follow +classify+ with +constantize+.)
 
-<p>Create a class name from a plural table name like Rails does for table
-names to models. Note that this returns a string and not a Class. (To
-convert to an actual class follow <tt>classify</tt> with
-<tt>constantize</tt>.)</p>
+  "egg_and_hams".classify # => "EggAndHam"
+  "posts".classify        # => "Post"
 
-<p>Examples:</p>
-
-<pre data-language="ruby">&quot;egg_and_hams&quot;.classify # =&gt; &quot;EggAndHam&quot;
-&quot;posts&quot;.classify        # =&gt; &quot;Post&quot;</pre>
-
-<p>Singular names are not handled correctly:</p>
-
-<pre data-language="ruby">&quot;business&quot;.classify     # =&gt; &quot;Busines&quot;</pre>
-
+Singular names are not handled correctly:
+  "business".classify     # => "Busines"
 
 
 

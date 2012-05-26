@@ -1,0 +1,9 @@
+<h1>ActiveRecord::Sanitization::ClassMethods#sanitize_sql_for_assignment</h1>
+
+Accepts an array, hash, or string of SQL conditions and sanitizes
+them into a valid SQL fragment for a SET clause.
+  { :name => nil, :group_id => 4 }  returns "name = NULL , group_id='4'"
+
+
+
+

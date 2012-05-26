@@ -1,0 +1,14 @@
+<h1>ActionView::Helpers::AssetTagHelper#font_path</h1>
+
+Computes the path to a font asset.
+Full paths from the document root will be passed through.
+
+  font_path("font")                                           # => /assets/font
+  font_path("font.ttf")                                       # => /assets/font.ttf
+  font_path("dir/font.ttf")                                   # => /assets/dir/font.ttf
+  font_path("/dir/font.ttf")                                  # => /dir/font.ttf
+  font_path("http://www.example.com/dir/font.ttf")            # => http://www.example.com/dir/font.ttf
+
+
+
+

@@ -1,14 +1,25 @@
 <h1>ActiveSupport::Deprecation.behavior=</h1>
 
+Sets the behavior to the specified value. Can be a single value, array, or
+an object that responds to +call+.
 
-<p>Sets the behavior to the specified value. Can be a single value or an
-array.</p>
+Available behaviors:
 
-<p>Examples</p>
+[+stderr+]  Log all deprecation warnings to <tt>$stderr</tt>.
+[+log+]     Log all deprecation warnings to +Rails.logger+.
+[+notify+]  Use <tt>ActiveSupport::Notifications</tt> to notify +deprecation.rails+.
+[+silence+] Do nothing.
 
-<pre data-language="ruby">ActiveSupport::Deprecation.behavior = :stderr
-ActiveSupport::Deprecation.behavior = [:stderr, :log]</pre>
+Setting behaviors only affects deprecations that happen after boot time.
+Deprecation warnings raised by gems are not affected by this setting because
+they happen before Rails boots up.
 
+  ActiveSupport::Deprecation.behavior = :stderr
+  ActiveSupport::Deprecation.behavior = [:stderr, :log]
+  ActiveSupport::Deprecation.behavior = MyCustomHandler
+  ActiveSupport::Deprecation.behavior = proc { |message, callstack| 
+    # custom stuff
+  }
 
 
 

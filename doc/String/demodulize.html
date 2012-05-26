@@ -1,11 +1,11 @@
 <h1>String#demodulize</h1>
 
+Removes the module part from the constant expression in the string.
 
-<p>Removes the module part from the constant expression in the string.</p>
+  'ActiveRecord::CoreExtensions::String::Inflections'.demodulize # => "Inflections"
+  'Inflections'.demodulize                                       # => "Inflections"
 
-<pre data-language="ruby">&quot;ActiveRecord::CoreExtensions::String::Inflections&quot;.demodulize # =&gt; &quot;Inflections&quot;
-&quot;Inflections&quot;.demodulize                                       # =&gt; &quot;Inflections&quot;</pre>
-
+See also +deconstantize+.
 
 
 

@@ -1,5 +1,12 @@
 <h1>DateTime.civil_from_format</h1>
 
+Returns DateTime with local offset for given year if format is local else offset is zero
+
+  DateTime.civil_from_format :local, 2012
+  # => Sun, 01 Jan 2012 00:00:00 +0300
+  DateTime.civil_from_format :local, 2012, 12, 17
+  # => Mon, 17 Dec 2012 00:00:00 +0000
+
 
 
 

@@ -1,0 +1,91 @@
+== Active Model Validator
+
+A simple base class that can be used along with
+ActiveModel::Validations::ClassMethods.validates_with
+
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator
+  end
+
+  class MyValidator < ActiveModel::Validator
+    def validate(record)
+      if some_complex_logic
+        record.errors[:base] = "This record is invalid"
+      end
+    end
+
+    private
+      def some_complex_logic
+        # ...
+      end
+  end
+
+Any class that inherits from ActiveModel::Validator must implement a method
+called <tt>validate</tt> which accepts a <tt>record</tt>.
+
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator
+  end
+
+  class MyValidator < ActiveModel::Validator
+    def validate(record)
+      record # => The person instance being validated
+      options # => Any non-standard options passed to validates_with
+    end
+  end
+
+To cause a validation error, you must add to the <tt>record</tt>'s errors directly
+from within the validators message
+
+  class MyValidator < ActiveModel::Validator
+    def validate(record)
+      record.errors.add :base, "This is some custom error message"
+      record.errors.add :first_name, "This is some complex validation"
+      # etc...
+    end
+  end
+
+To add behavior to the initialize method, use the following signature:
+
+  class MyValidator < ActiveModel::Validator
+    def initialize(options)
+      super
+      @my_custom_field = options[:field_name] || :first_name
+    end
+  end
+
+The easiest way to add custom validators for validating individual attributes
+is with the convenient <tt>ActiveModel::EachValidator</tt>. For example:
+
+  class TitleValidator < ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      record.errors.add attribute, 'must be Mr. Mrs. or Dr.' unless value.in?(['Mr.', 'Mrs.', 'Dr.'])
+    end
+  end
+
+This can now be used in combination with the +validates+ method
+(see <tt>ActiveModel::Validations::ClassMethods.validates</tt> for more on this)
+
+  class Person
+    include ActiveModel::Validations
+    attr_accessor :title
+
+    validates :title, :presence => true
+  end
+
+Validator may also define a +setup+ instance method which will get called
+with the class that using that validator as its argument. This can be
+useful when there are prerequisites such as an +attr_accessor+ being present
+for example:
+
+  class MyValidator < ActiveModel::Validator
+    def setup(klass)
+      klass.send :attr_accessor, :custom_attribute
+    end
+  end
+
+This setup method is only called when used with validation macros or the
+class level <tt>validates_with</tt> method.
+

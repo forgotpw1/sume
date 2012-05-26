@@ -1,31 +1,25 @@
 <h1>ActionView::Helpers::JavaScriptHelper#javascript_tag</h1>
 
+Returns a JavaScript tag with the +content+ inside. Example:
+  javascript_tag "alert('All is good')"
 
-<p>Returns a JavaScript tag with the <tt>content</tt> inside. Example:</p>
-
-<pre data-language="ruby">javascript_tag &quot;alert('All is good')&quot;</pre>
-
-<p>Returns:</p>
-
-<pre data-language="ruby">&lt;script type=&quot;text/javascript&quot;&gt;
-//&lt;![CDATA[
-alert('All is good')
-//]]&gt;
-&lt;/script&gt;</pre>
-
-<p><tt>html_options</tt> may be a hash of attributes for the
-<tt>&lt;script&gt;</tt> tag. Example:</p>
-
-<pre data-language="ruby">javascript_tag &quot;alert('All is good')&quot;, :defer =&gt; 'defer'
-# =&gt; &lt;script defer=&quot;defer&quot; type=&quot;text/javascript&quot;&gt;alert('All is good')&lt;/script&gt;</pre>
-
-<p>Instead of passing the content as an argument, you can also use a block in
-which case, you pass your <tt>html_options</tt> as the first parameter.</p>
-
-<pre data-language="ruby">&lt;%= javascript_tag :defer =&gt; 'defer' do -%&gt;
+Returns:
+  <script>
+  //<![CDATA[
   alert('All is good')
-&lt;% end -%&gt;</pre>
+  //]]>
+  </script>
 
++html_options+ may be a hash of attributes for the <tt>\<script></tt>
+tag. Example:
+  javascript_tag "alert('All is good')", :defer => 'defer'
+  # => <script defer="defer">alert('All is good')</script>
+
+Instead of passing the content as an argument, you can also use a block
+in which case, you pass your +html_options+ as the first parameter.
+  <%= javascript_tag :defer => 'defer' do -%>
+    alert('All is good')
+  <% end -%>
 
 
 

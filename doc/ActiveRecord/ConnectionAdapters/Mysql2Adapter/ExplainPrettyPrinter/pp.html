@@ -1,0 +1,18 @@
+<h1>ActiveRecord::ConnectionAdapters::Mysql2Adapter::ExplainPrettyPrinter#pp</h1>
+
+Pretty prints the result of a EXPLAIN in a way that resembles the output of the
+MySQL shell:
+
+  +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
+  | id | select_type | table | type  | possible_keys | key     | key_len | ref   | rows | Extra       |
+  +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
+  |  1 | SIMPLE      | users | const | PRIMARY       | PRIMARY | 4       | const |    1 |             |
+  |  1 | SIMPLE      | posts | ALL   | NULL          | NULL    | NULL    | NULL  |    1 | Using where |
+  +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
+  2 rows in set (0.00 sec)
+
+This is an exercise in Ruby hyperrealism :).
+
+
+
+

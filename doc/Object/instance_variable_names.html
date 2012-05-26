@@ -1,5 +1,15 @@
 <h1>Object#instance_variable_names</h1>
 
+Returns an array of instance variable names including "@".
+
+  class C
+    def initialize(x, y)
+      @x, @y = x, y
+    end
+  end
+
+  C.new(0, 1).instance_variable_names # => ["@y", "@x"]
+
 
 
 

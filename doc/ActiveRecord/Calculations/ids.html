@@ -1,0 +1,12 @@
+<h1>ActiveRecord::Calculations#ids</h1>
+
+Pluck all the ID's for the relation using the table's primary key
+
+Examples:
+
+  Person.ids # SELECT people.id FROM people
+  Person.joins(:companies).ids # SELECT people.id FROM people INNER JOIN companies ON companies.person_id = people.id
+
+
+
+

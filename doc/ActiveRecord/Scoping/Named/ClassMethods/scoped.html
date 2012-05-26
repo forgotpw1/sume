@@ -1,0 +1,22 @@
+<h1>ActiveRecord::Scoping::Named::ClassMethods#scoped</h1>
+
+Returns an anonymous \scope.
+
+  posts = Post.scoped
+  posts.size # Fires "select count(*) from  posts" and returns the count
+  posts.each {|p| puts p.name } # Fires "select * from posts" and loads post objects
+
+  fruits = Fruit.scoped
+  fruits = fruits.where(:color => 'red') if options[:red_only]
+  fruits = fruits.limit(10) if limited?
+
+Anonymous \scopes tend to be useful when procedurally generating complex
+queries, where passing intermediate values (\scopes) around as first-class
+objects is convenient.
+
+You can define a \scope that applies to all finders using
+ActiveRecord::Base.default_scope.
+
+
+
+

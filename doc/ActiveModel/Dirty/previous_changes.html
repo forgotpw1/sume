@@ -1,0 +1,11 @@
+<h1>ActiveModel::Dirty#previous_changes</h1>
+
+Map of attributes that were changed when the model was saved.
+  person.name # => 'bob'
+  person.name = 'robert'
+  person.save
+  person.previous_changes # => {'name' => ['bob, 'robert']}
+
+
+
+

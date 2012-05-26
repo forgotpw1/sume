@@ -1,12 +1,10 @@
 <h1>ActiveRecord::Associations::CollectionAssociation#length</h1>
 
+Returns the size of the collection calling +size+ on the target.
 
-<p>Returns the size of the collection calling <tt>size</tt> on the target.</p>
-
-<p>If the collection has been already loaded <tt>length</tt> and <tt>size</tt>
-are equivalent. If not and you are going to need the records anyway this
-method will take one less query. Otherwise <tt>size</tt> is more efficient.</p>
-
+If the collection has been already loaded +length+ and +size+ are
+equivalent. If not and you are going to need the records anyway this
+method will take one less query. Otherwise +size+ is more efficient.
 
 
 

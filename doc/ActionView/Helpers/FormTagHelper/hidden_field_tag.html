@@ -1,26 +1,21 @@
 <h1>ActionView::Helpers::FormTagHelper#hidden_field_tag</h1>
 
+Creates a hidden form input field used to transmit data that would be lost due to HTTP's statelessness or
+data that should be hidden from the user.
 
-<p>Creates a hidden form input field used to transmit data that would be lost
-due to HTTP's statelessness or data that should be hidden from the user.</p>
+==== Options
+* Creates standard HTML attributes for the tag.
 
-<h4>Options</h4>
-<ul><li>
-<p>Creates standard HTML attributes for the tag.</p>
-</li></ul>
+==== Examples
+  hidden_field_tag 'tags_list'
+  # => <input id="tags_list" name="tags_list" type="hidden" />
 
-<h4>Examples</h4>
+  hidden_field_tag 'token', 'VUBJKB23UIVI1UU1VOBVI@'
+  # => <input id="token" name="token" type="hidden" value="VUBJKB23UIVI1UU1VOBVI@" />
 
-<pre data-language="ruby">hidden_field_tag 'tags_list'
-# =&gt; &lt;input id=&quot;tags_list&quot; name=&quot;tags_list&quot; type=&quot;hidden&quot; /&gt;
-
-hidden_field_tag 'token', 'VUBJKB23UIVI1UU1VOBVI@'
-# =&gt; &lt;input id=&quot;token&quot; name=&quot;token&quot; type=&quot;hidden&quot; value=&quot;VUBJKB23UIVI1UU1VOBVI@&quot; /&gt;
-
-hidden_field_tag 'collected_input', '', :onchange =&gt; &quot;alert('Input collected!')&quot;
-# =&gt; &lt;input id=&quot;collected_input&quot; name=&quot;collected_input&quot; onchange=&quot;alert('Input collected!')&quot;
-#    type=&quot;hidden&quot; value=&quot;&quot; /&gt;</pre>
-
+  hidden_field_tag 'collected_input', '', :onchange => "alert('Input collected!')"
+  # => <input id="collected_input" name="collected_input" onchange="alert('Input collected!')"
+  #    type="hidden" value="" />
 
 
 

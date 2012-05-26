@@ -1,0 +1,53 @@
+== Active Model Errors
+
+Provides a modified +Hash+ that you can include in your object
+for handling error messages and interacting with Action Pack helpers.
+
+A minimal implementation could be:
+
+  class Person
+
+    # Required dependency for ActiveModel::Errors
+    extend ActiveModel::Naming
+
+    def initialize
+      @errors = ActiveModel::Errors.new(self)
+    end
+
+    attr_accessor :name
+    attr_reader   :errors
+
+    def validate!
+      errors.add(:name, "can not be nil") if name == nil
+    end
+
+    # The following methods are needed to be minimally implemented
+
+    def read_attribute_for_validation(attr)
+      send(attr)
+    end
+
+    def Person.human_attribute_name(attr, options = {})
+      attr
+    end
+
+    def Person.lookup_ancestors
+      [self]
+    end
+
+  end
+
+The last three methods are required in your object for Errors to be
+able to generate error messages correctly and also handle multiple
+languages. Of course, if you extend your object with ActiveModel::Translation
+you will not need to implement the last two. Likewise, using
+ActiveModel::Validations will handle the validation related methods
+for you.
+
+The above allows you to do:
+
+  p = Person.new
+  p.validate!             # => ["can not be nil"]
+  p.errors.full_messages  # => ["name can not be nil"]
+  # etc..
+

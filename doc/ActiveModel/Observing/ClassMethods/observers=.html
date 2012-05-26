@@ -1,0 +1,26 @@
+<h1>ActiveModel::Observing::ClassMethods#observers=</h1>
+
+== Active Model Observers Activation
+
+Activates the observers assigned. Examples:
+
+  class ORM
+    include ActiveModel::Observing
+  end
+
+  # Calls PersonObserver.instance
+  ORM.observers = :person_observer
+
+  # Calls Cacher.instance and GarbageCollector.instance
+  ORM.observers = :cacher, :garbage_collector
+
+  # Same as above, just using explicit class references
+  ORM.observers = Cacher, GarbageCollector
+
+Note: Setting this does not instantiate the observers yet.
++instantiate_observers+ is called during startup, and before
+each development request.
+
+
+
+

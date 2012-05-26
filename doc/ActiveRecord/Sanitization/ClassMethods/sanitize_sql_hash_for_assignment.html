@@ -1,0 +1,9 @@
+<h1>ActiveRecord::Sanitization::ClassMethods#sanitize_sql_hash_for_assignment</h1>
+
+Sanitizes a hash of attribute/value pairs into SQL conditions for a SET clause.
+  { :status => nil, :group_id => 1 }
+    # => "status = NULL , group_id = 1"
+
+
+
+

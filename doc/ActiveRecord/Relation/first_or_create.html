@@ -1,0 +1,30 @@
+<h1>ActiveRecord::Relation#first_or_create</h1>
+
+Tries to load the first record; if it fails, then <tt>create</tt> is called with the same arguments as this method.
+
+Expects arguments in the same format as <tt>Base.create</tt>.
+
+==== Examples
+  # Find the first user named Penélope or create a new one.
+  User.where(:first_name => 'Penélope').first_or_create
+  # => <User id: 1, first_name: 'Penélope', last_name: nil>
+
+  # Find the first user named Penélope or create a new one.
+  # We already have one so the existing record will be returned.
+  User.where(:first_name => 'Penélope').first_or_create
+  # => <User id: 1, first_name: 'Penélope', last_name: nil>
+
+  # Find the first user named Scarlett or create a new one with a particular last name.
+  User.where(:first_name => 'Scarlett').first_or_create(:last_name => 'Johansson')
+  # => <User id: 2, first_name: 'Scarlett', last_name: 'Johansson'>
+
+  # Find the first user named Scarlett or create a new one with a different last name.
+  # We already have one so the existing record will be returned.
+  User.where(:first_name => 'Scarlett').first_or_create do |user|
+    user.last_name = "O'Hara"
+  end
+  # => <User id: 2, first_name: 'Scarlett', last_name: 'Johansson'>
+
+
+
+

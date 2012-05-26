@@ -1,17 +1,14 @@
 <h1>HTML::Selector#initialize</h1>
 
+:call-seq:
+  Selector.new(string, [values ...]) => selector
 
-<p>:call-seq:</p>
+Creates a new selector from a CSS 2 selector expression.
 
-<pre data-language="ruby">Selector.new(string, [values ...]) =&gt; selector</pre>
+The first argument is the selector expression. All other arguments
+are used for value substitution.
 
-<p>Creates a new selector from a CSS 2 selector expression.</p>
-
-<p>The first argument is the selector expression. All other arguments are used
-for value substitution.</p>
-
-<p>Throws InvalidSelectorError is the selector expression is invalid.</p>
-
+Throws InvalidSelectorError is the selector expression is invalid.
 
 
 

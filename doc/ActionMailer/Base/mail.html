@@ -1,0 +1,91 @@
+<h1>ActionMailer::Base#mail</h1>
+
+The main method that creates the message and renders the email templates. There are
+two ways to call this method, with a block, or without a block.
+
+Both methods accept a headers hash. This hash allows you to specify the most used headers
+in an email message, these are:
+
+* <tt>:subject</tt> - The subject of the message, if this is omitted, Action Mailer will
+  ask the Rails I18n class for a translated <tt>:subject</tt> in the scope of
+  <tt>[mailer_scope, action_name]</tt> or if this is missing, will translate the
+  humanized version of the <tt>action_name</tt>
+* <tt>:to</tt> - Who the message is destined for, can be a string of addresses, or an array
+  of addresses.
+* <tt>:from</tt> - Who the message is from
+* <tt>:cc</tt> - Who you would like to Carbon-Copy on this email, can be a string of addresses,
+  or an array of addresses.
+* <tt>:bcc</tt> - Who you would like to Blind-Carbon-Copy on this email, can be a string of
+  addresses, or an array of addresses.
+* <tt>:reply_to</tt> - Who to set the Reply-To header of the email to.
+* <tt>:date</tt> - The date to say the email was sent on.
+
+You can set default values for any of the above headers (except :date) by using the <tt>default</tt>
+class method:
+
+ class Notifier < ActionMailer::Base
+   self.default :from => 'no-reply@test.lindsaar.net',
+                :bcc => 'email_logger@test.lindsaar.net',
+                :reply_to => 'bounces@test.lindsaar.net'
+ end
+
+If you need other headers not listed above, you can either pass them in
+as part of the headers hash or use the <tt>headers['name'] = value</tt>
+method.
+
+When a <tt>:return_path</tt> is specified as header, that value will be used as the 'envelope from'
+address for the Mail message. Setting this is useful when you want delivery notifications
+sent to a different address than the one in <tt>:from</tt>. Mail will actually use the
+<tt>:return_path</tt> in preference to the <tt>:sender</tt> in preference to the <tt>:from</tt>
+field for the 'envelope from' value.
+
+If you do not pass a block to the +mail+ method, it will find all templates in the
+view paths using by default the mailer name and the method name that it is being
+called from, it will then create parts for each of these templates intelligently,
+making educated guesses on correct content type and sequence, and return a fully
+prepared Mail::Message ready to call <tt>:deliver</tt> on to send.
+
+For example:
+
+  class Notifier < ActionMailer::Base
+    default :from => 'no-reply@test.lindsaar.net',
+
+    def welcome
+      mail(:to => 'mikel@test.lindsaar.net')
+    end
+  end
+
+Will look for all templates at "app/views/notifier" with name "welcome". However, those
+can be customized:
+
+  mail(:template_path => 'notifications', :template_name => 'another')
+
+And now it will look for all templates at "app/views/notifications" with name "another".
+
+If you do pass a block, you can render specific templates of your choice:
+
+  mail(:to => 'mikel@test.lindsaar.net') do |format|
+    format.text
+    format.html
+  end
+
+You can even render text directly without using a template:
+
+  mail(:to => 'mikel@test.lindsaar.net') do |format|
+    format.text { render :text => "Hello Mikel!" }
+    format.html { render :text => "<h1>Hello Mikel!</h1>" }
+  end
+
+Which will render a <tt>multipart/alternative</tt> email with <tt>text/plain</tt> and
+<tt>text/html</tt> parts.
+
+The block syntax also allows you to customize the part headers if desired:
+
+  mail(:to => 'mikel@test.lindsaar.net') do |format|
+    format.text(:content_transfer_encoding => "base64")
+    format.html
+  end
+
+
+
+

@@ -1,15 +1,12 @@
 <h1>Kernel#silence_warnings</h1>
 
+Sets $VERBOSE to nil for the duration of the block and back to its original value afterwards.
 
-<p>Sets $VERBOSE to nil for the duration of the block and back to its original
-value afterwards.</p>
+  silence_warnings do
+    value = noisy_call # no warning voiced
+  end
 
-<pre data-language="ruby">silence_warnings do
-  value = noisy_call # no warning voiced
-end
-
-noisy_call # warning voiced</pre>
-
+  noisy_call # warning voiced
 
 
 

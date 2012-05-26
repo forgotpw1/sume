@@ -1,2 +1,9 @@
+Extends the API for constants to be able to deal with qualified names. Arguments
+are assumed to be relative to the receiver.
 
+--
+Qualified names are required to be relative because we are extending existing
+methods that expect constant names, ie, relative paths of length 1. For example,
+Object.const_get('::String') raises NameError and so does qualified_const_get.
+++
 

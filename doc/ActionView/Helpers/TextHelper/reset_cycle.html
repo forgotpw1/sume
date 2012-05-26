@@ -1,27 +1,23 @@
 <h1>ActionView::Helpers::TextHelper#reset_cycle</h1>
 
+Resets a cycle so that it starts from the first element the next time
+it is called. Pass in +name+ to reset a named cycle.
 
-<p>Resets a cycle so that it starts from the first element the next time it is
-called. Pass in <tt>name</tt> to reset a named cycle.</p>
+  # Alternate CSS classes for even and odd numbers...
+  @items = [[1,2,3,4], [5,6,3], [3,4,5,6,7,4]]
+  <table>
+  <% @items.each do |item| %>
+    <tr class="<%= cycle("even", "odd") -%>">
+        <% item.each do |value| %>
+          <span style="color:<%= cycle("#333", "#666", "#999", :name => "colors") -%>">
+            <%= value %>
+          </span>
+        <% end %>
 
-<h4>Example</h4>
-
-<pre data-language="ruby"># Alternate CSS classes for even and odd numbers...
-@items = [[1,2,3,4], [5,6,3], [3,4,5,6,7,4]]
-&lt;table&gt;
-&lt;% @items.each do |item| %&gt;
-  &lt;tr class=&quot;&lt;%= cycle(&quot;even&quot;, &quot;odd&quot;) -%&gt;&quot;&gt;
-      &lt;% item.each do |value| %&gt;
-        &lt;span style=&quot;color:&lt;%= cycle(&quot;#333&quot;, &quot;#666&quot;, &quot;#999&quot;, :name =&gt; &quot;colors&quot;) -%&gt;&quot;&gt;
-          &lt;%= value %&gt;
-        &lt;/span&gt;
-      &lt;% end %&gt;
-
-      &lt;% reset_cycle(&quot;colors&quot;) %&gt;
-  &lt;/tr&gt;
-&lt;% end %&gt;
-&lt;/table&gt;</pre>
-
+        <% reset_cycle("colors") %>
+    </tr>
+  <% end %>
+  </table>
 
 
 

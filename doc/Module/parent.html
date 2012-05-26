@@ -1,22 +1,20 @@
 <h1>Module#parent</h1>
 
+Returns the module which contains this one according to its name.
 
-<p>Returns the module which contains this one according to its name.</p>
-
-<pre data-language="ruby">module M
-  module N
+  module M
+    module N
+    end
   end
-end
-X = M::N
+  X = M::N
 
-M::N.parent # =&gt; M
-X.parent    # =&gt; M</pre>
+  M::N.parent # => M
+  X.parent    # => M
 
-<p>The parent of top-level and anonymous modules is Object.</p>
+The parent of top-level and anonymous modules is Object.
 
-<pre data-language="ruby">M.parent          # =&gt; Object
-Module.new.parent # =&gt; Object</pre>
-
+  M.parent          # => Object
+  Module.new.parent # => Object
 
 
 

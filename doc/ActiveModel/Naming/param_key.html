@@ -1,0 +1,14 @@
+<h1>ActiveModel::Naming.param_key</h1>
+
+Returns string to use for params names. It differs for
+namespaced models regarding whether it's inside isolated engine.
+
+For isolated engine:
+ActiveModel::Naming.param_key(Blog::Post) #=> post
+
+For shared engine:
+ActiveModel::Naming.param_key(Blog::Post) #=> blog_post
+
+
+
+

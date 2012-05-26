@@ -1,15 +1,16 @@
 <h1>Object#in?</h1>
 
+Returns true if this object is included in the argument(s). Argument must be
+any object which responds to +#include?+ or optionally, multiple arguments can be passed in. Usage:
 
-<p>Returns true if this object is included in the argument. Argument must be
-any object which responds to <tt>#include?</tt>. Usage:</p>
+  characters = ['Konata', 'Kagami', 'Tsukasa']
+  'Konata'.in?(characters) # => true
 
-<pre data-language="ruby">characters = [&quot;Konata&quot;, &quot;Kagami&quot;, &quot;Tsukasa&quot;]
-&quot;Konata&quot;.in?(characters) # =&gt; true</pre>
+  character = 'Konata'
+  character.in?('Konata', 'Kagami', 'Tsukasa') # => true
 
-<p>This will throw an ArgumentError if the argument doesn't respond to
-<tt>#include?</tt>.</p>
-
+This will throw an ArgumentError if a single argument is passed in and it doesn't respond
+to +#include?+.
 
 
 

@@ -1,0 +1,69 @@
+== Active Model Serialization
+
+Provides a basic serialization to a serializable_hash for your object.
+
+A minimal implementation could be:
+
+  class Person
+    include ActiveModel::Serialization
+
+    attr_accessor :name
+
+    def attributes
+      => nil
+    end
+  end
+
+Which would provide you with:
+
+  person = Person.new
+  person.serializable_hash   # => &quot;name&quot;=&gt;nil
+  person.name = "Bob"
+  person.serializable_hash   # => &quot;name&quot;=&gt;&quot;Bob&quot;
+
+You need to declare an attributes hash which contains the attributes
+you want to serialize. Attributes must be strings, not symbols.
+When called, serializable hash will use
+instance methods that match the name of the attributes hash's keys.
+In order to override this behavior, take a look at the private
+method +read_attribute_for_serialization+.
+
+Most of the time though, you will want to include the JSON or XML
+serializations. Both of these modules automatically include the
+<tt>ActiveModel::Serialization</tt> module, so there is no need to explicitly
+include it.
+
+A minimal implementation including XML and JSON would be:
+
+  class Person
+    include ActiveModel::Serializers::JSON
+    include ActiveModel::Serializers::Xml
+
+    attr_accessor :name
+
+    def attributes
+      => nil
+    end
+  end
+
+Which would provide you with:
+
+  person = Person.new
+  person.serializable_hash   # => &quot;name&quot;=&gt;nil
+  person.as_json             # => &quot;name&quot;=&gt;nil
+  person.to_json             # => "\&quot;name\&quot;:null"
+  person.to_xml              # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<serial-person...
+
+  person.name = "Bob"
+  person.serializable_hash   # => &quot;name&quot;=&gt;&quot;Bob&quot;
+  person.as_json             # => &quot;name&quot;=&gt;&quot;Bob&quot;
+  person.to_json             # => "\&quot;name\&quot;:\&quot;Bob\&quot;"
+  person.to_xml              # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<serial-person...
+
+Valid options are <tt>:only</tt>, <tt>:except</tt>, <tt>:methods</tt> and <tt>:include</tt>.
+The following are all valid examples:
+
+  person.serializable_hash(:only => 'name')
+  person.serializable_hash(:include => :address)
+  person.serializable_hash(:include => { :address => { :only => 'city' }})
+

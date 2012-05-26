@@ -1,59 +1,64 @@
 <h1>ActionView::Helpers::FormOptionsHelper#options_for_select</h1>
 
+Accepts a container (hash, array, enumerable, your type) and returns a string of option tags. Given a container
+where the elements respond to first and last (such as a two-element array), the "lasts" serve as option values and
+the "firsts" as option text. Hashes are turned into this form automatically, so the keys become "firsts" and values
+become lasts. If +selected+ is specified, the matching "last" or element will get the selected option-tag. +selected+
+may also be an array of values to be selected when using a multiple select.
 
-<p>Accepts a container (hash, array, enumerable, your type) and returns a
-string of option tags. Given a container where the elements respond to
-first and last (such as a two-element array), the "lasts" serve as option
-values and the "firsts" as option text. Hashes are turned into this form
-automatically, so the keys become "firsts" and values become lasts. If
-<tt>selected</tt> is specified, the matching "last" or element will get the
-selected option-tag.  <tt>selected</tt> may also be an array of values to
-be selected when using a multiple select.</p>
+Examples (call, result):
+  options_for_select([["Dollar", "$"], ["Kroner", "DKK"]])
+  # <option value="$">Dollar</option>
+  # <option value="DKK">Kroner</option>
 
-<p>Examples (call, result):</p>
+  options_for_select([ "VISA", "MasterCard" ], "MasterCard")
+  # <option>VISA</option>
+  # <option selected="selected">MasterCard</option>
 
-<pre data-language="ruby">options_for_select([[&quot;Dollar&quot;, &quot;$&quot;], [&quot;Kroner&quot;, &quot;DKK&quot;]])
-  &lt;option value=&quot;$&quot;&gt;Dollar&lt;/option&gt;\n&lt;option value=&quot;DKK&quot;&gt;Kroner&lt;/option&gt;
+  options_for_select({ "Basic" => "$20", "Plus" => "$40" }, "$40")
+  # <option value="$20">Basic</option>
+  # <option value="$40" selected="selected">Plus</option>
 
-options_for_select([ &quot;VISA&quot;, &quot;MasterCard&quot; ], &quot;MasterCard&quot;)
-  &lt;option&gt;VISA&lt;/option&gt;\n&lt;option selected=&quot;selected&quot;&gt;MasterCard&lt;/option&gt;
+  options_for_select([ "VISA", "MasterCard", "Discover" ], ["VISA", "Discover"])
+  # <option selected="selected">VISA</option>
+  # <option>MasterCard</option>
+  # <option selected="selected">Discover</option>
 
-options_for_select({ &quot;Basic&quot; =&gt; &quot;$20&quot;, &quot;Plus&quot; =&gt; &quot;$40&quot; }, &quot;$40&quot;)
-  &lt;option value=&quot;$20&quot;&gt;Basic&lt;/option&gt;\n&lt;option value=&quot;$40&quot; selected=&quot;selected&quot;&gt;Plus&lt;/option&gt;
+You can optionally provide html attributes as the last element of the array.
 
-options_for_select([ &quot;VISA&quot;, &quot;MasterCard&quot;, &quot;Discover&quot; ], [&quot;VISA&quot;, &quot;Discover&quot;])
-  &lt;option selected=&quot;selected&quot;&gt;VISA&lt;/option&gt;\n&lt;option&gt;MasterCard&lt;/option&gt;\n&lt;option selected=&quot;selected&quot;&gt;Discover&lt;/option&gt;</pre>
+Examples:
+  options_for_select([ "Denmark", ["USA", {:class => 'bold'}], "Sweden" ], ["USA", "Sweden"])
+  # <option value="Denmark">Denmark</option>
+  # <option value="USA" class="bold" selected="selected">USA</option>
+  # <option value="Sweden" selected="selected">Sweden</option>
 
-<p>You can optionally provide html attributes as the last element of the
-array.</p>
+  options_for_select([["Dollar", "$", {:class => "bold"}], ["Kroner", "DKK", {:onclick => "alert('HI');"}]])
+  # <option value="$" class="bold">Dollar</option>
+  # <option value="DKK" onclick="alert('HI');">Kroner</option>
 
-<p>Examples:</p>
+If you wish to specify disabled option tags, set +selected+ to be a hash, with <tt>:disabled</tt> being either a value
+or array of values to be disabled. In this case, you can use <tt>:selected</tt> to specify selected option tags.
 
-<pre data-language="ruby">options_for_select([ &quot;Denmark&quot;, [&quot;USA&quot;, {:class =&gt; 'bold'}], &quot;Sweden&quot; ], [&quot;USA&quot;, &quot;Sweden&quot;])
-  &lt;option value=&quot;Denmark&quot;&gt;Denmark&lt;/option&gt;\n&lt;option value=&quot;USA&quot; class=&quot;bold&quot; selected=&quot;selected&quot;&gt;USA&lt;/option&gt;\n&lt;option value=&quot;Sweden&quot; selected=&quot;selected&quot;&gt;Sweden&lt;/option&gt;
+Examples:
+  options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], :disabled => "Super Platinum")
+  # <option value="Free">Free</option>
+  # <option value="Basic">Basic</option>
+  # <option value="Advanced">Advanced</option>
+  # <option value="Super Platinum" disabled="disabled">Super Platinum</option>
 
-options_for_select([[&quot;Dollar&quot;, &quot;$&quot;, {:class =&gt; &quot;bold&quot;}], [&quot;Kroner&quot;, &quot;DKK&quot;, {:onclick =&gt; &quot;alert('HI');&quot;}]])
-  &lt;option value=&quot;$&quot; class=&quot;bold&quot;&gt;Dollar&lt;/option&gt;\n&lt;option value=&quot;DKK&quot; onclick=&quot;alert('HI');&quot;&gt;Kroner&lt;/option&gt;</pre>
+  options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], :disabled => ["Advanced", "Super Platinum"])
+  # <option value="Free">Free</option>
+  # <option value="Basic">Basic</option>
+  # <option value="Advanced" disabled="disabled">Advanced</option>
+  # <option value="Super Platinum" disabled="disabled">Super Platinum</option>
 
-<p>If you wish to specify disabled option tags, set <tt>selected</tt> to be a
-hash, with <tt>:disabled</tt> being either a value or array of values to be
-disabled. In this case, you can use <tt>:selected</tt> to specify selected
-option tags.</p>
+  options_for_select(["Free", "Basic", "Advanced", "Super Platinum"], :selected => "Free", :disabled => "Super Platinum")
+  # <option value="Free" selected="selected">Free</option>
+  # <option value="Basic">Basic</option>
+  # <option value="Advanced">Advanced</option>
+  # <option value="Super Platinum" disabled="disabled">Super Platinum</option>
 
-<p>Examples:</p>
-
-<pre data-language="ruby">options_for_select([&quot;Free&quot;, &quot;Basic&quot;, &quot;Advanced&quot;, &quot;Super Platinum&quot;], :disabled =&gt; &quot;Super Platinum&quot;)
-  &lt;option value=&quot;Free&quot;&gt;Free&lt;/option&gt;\n&lt;option value=&quot;Basic&quot;&gt;Basic&lt;/option&gt;\n&lt;option value=&quot;Advanced&quot;&gt;Advanced&lt;/option&gt;\n&lt;option value=&quot;Super Platinum&quot; disabled=&quot;disabled&quot;&gt;Super Platinum&lt;/option&gt;
-
-options_for_select([&quot;Free&quot;, &quot;Basic&quot;, &quot;Advanced&quot;, &quot;Super Platinum&quot;], :disabled =&gt; [&quot;Advanced&quot;, &quot;Super Platinum&quot;])
-  &lt;option value=&quot;Free&quot;&gt;Free&lt;/option&gt;\n&lt;option value=&quot;Basic&quot;&gt;Basic&lt;/option&gt;\n&lt;option value=&quot;Advanced&quot; disabled=&quot;disabled&quot;&gt;Advanced&lt;/option&gt;\n&lt;option value=&quot;Super Platinum&quot; disabled=&quot;disabled&quot;&gt;Super Platinum&lt;/option&gt;
-
-options_for_select([&quot;Free&quot;, &quot;Basic&quot;, &quot;Advanced&quot;, &quot;Super Platinum&quot;], :selected =&gt; &quot;Free&quot;, :disabled =&gt; &quot;Super Platinum&quot;)
-  &lt;option value=&quot;Free&quot; selected=&quot;selected&quot;&gt;Free&lt;/option&gt;\n&lt;option value=&quot;Basic&quot;&gt;Basic&lt;/option&gt;\n&lt;option value=&quot;Advanced&quot;&gt;Advanced&lt;/option&gt;\n&lt;option value=&quot;Super Platinum&quot; disabled=&quot;disabled&quot;&gt;Super Platinum&lt;/option&gt;</pre>
-
-<p>NOTE: Only the option tags are returned, you have to wrap this call in a
-regular HTML select tag.</p>
-
+NOTE: Only the option tags are returned, you have to wrap this call in a regular HTML select tag.
 
 
 

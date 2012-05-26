@@ -1,47 +1,43 @@
 <h1>ActionView::Helpers::UrlHelper#link_to_unless_current</h1>
 
+Creates a link tag of the given +name+ using a URL created by the set of
++options+ unless the current request URI is the same as the links, in
+which case only the name is returned (or the given block is yielded, if
+one exists). You can give +link_to_unless_current+ a block which will
+specialize the default behavior (e.g., show a "Start Here" link rather
+than the link's text).
 
-<p>Creates a link tag of the given <tt>name</tt> using a URL created by the
-set of <tt>options</tt> unless the current request URI is the same as the
-links, in which case only the name is returned (or the given block is
-yielded, if one exists).  You can give <tt>link_to_unless_current</tt> a
-block which will specialize the default behavior (e.g., show a "Start Here"
-link rather than the link's text).</p>
+==== Examples
+Let's say you have a navigation menu...
 
-<h4>Examples</h4>
+  <ul id="navbar">
+    <li><%= link_to_unless_current("Home", { :action => "index" }) %></li>
+    <li><%= link_to_unless_current("About Us", { :action => "about" }) %></li>
+  </ul>
 
-<p>Let's say you have a navigation menu...</p>
+If in the "about" action, it will render...
 
-<pre data-language="ruby">&lt;ul id=&quot;navbar&quot;&gt;
-  &lt;li&gt;&lt;%= link_to_unless_current(&quot;Home&quot;, { :action =&gt; &quot;index&quot; }) %&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;%= link_to_unless_current(&quot;About Us&quot;, { :action =&gt; &quot;about&quot; }) %&gt;&lt;/li&gt;
-&lt;/ul&gt;</pre>
+  <ul id="navbar">
+    <li><a href="/controller/index">Home</a></li>
+    <li>About Us</li>
+  </ul>
 
-<p>If in the "about" action, it will render...</p>
+...but if in the "index" action, it will render:
 
-<pre data-language="ruby">&lt;ul id=&quot;navbar&quot;&gt;
-  &lt;li&gt;&lt;a href=&quot;/controller/index&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;About Us&lt;/li&gt;
-&lt;/ul&gt;</pre>
+  <ul id="navbar">
+    <li>Home</li>
+    <li><a href="/controller/about">About Us</a></li>
+  </ul>
 
-<p>...but if in the "index" action, it will render:</p>
+The implicit block given to +link_to_unless_current+ is evaluated if the current
+action is the action given. So, if we had a comments page and wanted to render a
+"Go Back" link instead of a link to the comments page, we could do something like this...
 
-<pre data-language="ruby">&lt;ul id=&quot;navbar&quot;&gt;
-  &lt;li&gt;Home&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/controller/about&quot;&gt;About Us&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</pre>
-
-<p>The implicit block given to <tt>link_to_unless_current</tt> is evaluated if
-the current action is the action given.  So, if we had a comments page and
-wanted to render a "Go Back" link instead of a link to the comments page,
-we could do something like this...</p>
-
-<pre data-language="ruby">&lt;%=
-    link_to_unless_current(&quot;Comment&quot;, { :controller =&gt; &quot;comments&quot;, :action =&gt; &quot;new&quot; }) do
-       link_to(&quot;Go back&quot;, { :controller =&gt; &quot;posts&quot;, :action =&gt; &quot;index&quot; })
-    end
- %&gt;</pre>
-
+   <%=
+       link_to_unless_current("Comment", { :controller => "comments", :action => "new" }) do
+          link_to("Go back", { :controller => "posts", :action => "index" })
+       end
+    %>
 
 
 

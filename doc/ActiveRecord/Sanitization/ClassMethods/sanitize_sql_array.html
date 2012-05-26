@@ -1,0 +1,9 @@
+<h1>ActiveRecord::Sanitization::ClassMethods#sanitize_sql_array</h1>
+
+Accepts an array of conditions. The array has each value
+sanitized and interpolated into the SQL statement.
+  ["name='%s' and group_id='%s'", "foo'bar", 4]  returns  "name='foo''bar' and group_id='4'"
+
+
+
+

@@ -1,40 +1,37 @@
 <h1>ActionDispatch::Assertions::SelectorAssertions#assert_select_encoded</h1>
 
+Extracts the content of an element, treats it as encoded HTML and runs
+nested assertion on it.
 
-<p>Extracts the content of an element, treats it as encoded HTML and runs
-nested assertion on it.</p>
+You typically call this method within another assertion to operate on
+all currently selected elements. You can also pass an element or array
+of elements.
 
-<p>You typically call this method within another assertion to operate on all
-currently selected elements. You can also pass an element or array of
-elements.</p>
+The content of each element is un-encoded, and wrapped in the root
+element +encoded+. It then calls the block with all un-encoded elements.
 
-<p>The content of each element is un-encoded, and wrapped in the root element
-<tt>encoded</tt>. It then calls the block with all un-encoded elements.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby"># Selects all bold tags from within the title of an ATOM feed's entries (perhaps to nab a section name prefix)
-assert_select_feed :atom, 1.0 do
-  # Select each entry item and then the title item
-  assert_select &quot;entry&gt;title&quot; do
-    # Run assertions on the encoded title elements
-    assert_select_encoded do
-      assert_select &quot;b&quot;
+  # Selects all bold tags from within the title of an Atom feed's entries (perhaps to nab a section name prefix)
+  assert_select "feed[xmlns='http://www.w3.org/2005/Atom']" do
+    # Select each entry item and then the title item
+    assert_select "entry>title" do
+      # Run assertions on the encoded title elements
+      assert_select_encoded do
+        assert_select "b"
+      end
     end
   end
-end
 
-# Selects all paragraph tags from within the description of an RSS feed
-assert_select_feed :rss, 2.0 do
-  # Select description element of each feed item.
-  assert_select &quot;channel&gt;item&gt;description&quot; do
-    # Run assertions on the encoded elements.
-    assert_select_encoded do
-      assert_select &quot;p&quot;
+
+  # Selects all paragraph tags from within the description of an RSS feed
+  assert_select "rss[version=2.0]" do
+    # Select description element of each feed item.
+    assert_select "channel>item>description" do
+      # Run assertions on the encoded elements.
+      assert_select_encoded do
+        assert_select "p"
+      end
     end
   end
-end</pre>
-
 
 
 

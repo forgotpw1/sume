@@ -1,0 +1,16 @@
+<h1>ActiveRecord::Core#init_with</h1>
+
+Initialize an empty model object from +coder+. +coder+ must contain
+the attributes necessary for initializing an empty model object. For
+example:
+
+  class Post < ActiveRecord::Base
+  end
+
+  post = Post.allocate
+  post.init_with('attributes' => { 'title' => 'hello world' })
+  post.title # => 'hello world'
+
+
+
+

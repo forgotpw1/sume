@@ -1,0 +1,8 @@
+<h1>Float#as_json</h1>
+
+Encoding Infinity or NaN to JSON should return "null". The default returns
+"Infinity" or "NaN" what breaks parsing the JSON. E.g. JSON.parse('[NaN]').
+
+
+
+

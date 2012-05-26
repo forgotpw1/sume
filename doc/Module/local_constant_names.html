@@ -1,9 +1,16 @@
 <h1>Module#local_constant_names</h1>
 
+*DEPRECATED*: Use +local_constants+ instead.
 
-<p>Returns the names of the constants defined locally rather than the
-constants themselves. See <tt>local_constants</tt>.</p>
+Returns the names of the constants defined locally as strings.
 
+  module M
+    X = 1
+  end
+  M.local_constant_names # => ["X"]
+
+This method is useful for forward compatibility, since Ruby 1.8 returns
+constant names as strings, whereas 1.9 returns them as symbols.
 
 
 

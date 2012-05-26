@@ -1,16 +1,12 @@
 <h1>Hash#assert_valid_keys</h1>
 
+Validate all keys in a hash match *valid keys, raising ArgumentError on a mismatch.
+Note that keys are NOT treated indifferently, meaning if you use strings for keys but assert symbols
+as keys, this will fail.
 
-<p>Validate all keys in a hash match *valid keys, raising ArgumentError on a
-mismatch. Note that keys are NOT treated indifferently, meaning if you use
-strings for keys but assert symbols as keys, this will fail.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby">{ :name =&gt; &quot;Rob&quot;, :years =&gt; &quot;28&quot; }.assert_valid_keys(:name, :age) # =&gt; raises &quot;ArgumentError: Unknown key: years&quot;
-{ :name =&gt; &quot;Rob&quot;, :age =&gt; &quot;28&quot; }.assert_valid_keys(&quot;name&quot;, &quot;age&quot;) # =&gt; raises &quot;ArgumentError: Unknown key: name&quot;
-{ :name =&gt; &quot;Rob&quot;, :age =&gt; &quot;28&quot; }.assert_valid_keys(:name, :age) # =&gt; passes, raises nothing</pre>
-
+  { :name => 'Rob', :years => '28' }.assert_valid_keys(:name, :age) # => raises "ArgumentError: Unknown key: years"
+  { :name => 'Rob', :age => '28' }.assert_valid_keys('name', 'age') # => raises "ArgumentError: Unknown key: name"
+  { :name => 'Rob', :age => '28' }.assert_valid_keys(:name, :age) # => passes, raises nothing
 
 
 

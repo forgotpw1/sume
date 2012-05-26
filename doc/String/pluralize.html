@@ -1,15 +1,19 @@
 <h1>String#pluralize</h1>
 
+Returns the plural form of the word in the string.
 
-<p>Returns the plural form of the word in the string.</p>
+If the optional parameter +count+ is specified,
+the singular form will be returned if <tt>count == 1</tt>.
+For any other value of +count+ the plural will be returned.
 
-<pre data-language="ruby">&quot;post&quot;.pluralize             # =&gt; &quot;posts&quot;
-&quot;octopus&quot;.pluralize          # =&gt; &quot;octopi&quot;
-&quot;sheep&quot;.pluralize            # =&gt; &quot;sheep&quot;
-&quot;words&quot;.pluralize            # =&gt; &quot;words&quot;
-&quot;the blue mailman&quot;.pluralize # =&gt; &quot;the blue mailmen&quot;
-&quot;CamelOctopus&quot;.pluralize     # =&gt; &quot;CamelOctopi&quot;</pre>
-
+  'post'.pluralize             # => "posts"
+  'octopus'.pluralize          # => "octopi"
+  'sheep'.pluralize            # => "sheep"
+  'words'.pluralize            # => "words"
+  'the blue mailman'.pluralize # => "the blue mailmen"
+  'CamelOctopus'.pluralize     # => "CamelOctopi"
+  'apple'.pluralize(1)         # => "apple"
+  'apple'.pluralize(2)         # => "apples"
 
 
 

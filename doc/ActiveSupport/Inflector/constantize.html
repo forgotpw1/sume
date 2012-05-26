@@ -1,25 +1,22 @@
 <h1>ActiveSupport::Inflector#constantize</h1>
 
+Tries to find a constant with the name specified in the argument string:
 
-<p>Tries to find a constant with the name specified in the argument string:</p>
+  "Module".constantize     # => Module
+  "Test::Unit".constantize # => Test::Unit
 
-<pre data-language="ruby">&quot;Module&quot;.constantize     # =&gt; Module
-&quot;Test::Unit&quot;.constantize # =&gt; Test::Unit</pre>
+The name is assumed to be the one of a top-level constant, no matter whether
+it starts with "::" or not. No lexical context is taken into account:
 
-<p>The name is assumed to be the one of a top-level constant, no matter
-whether it starts with "::" or not. No lexical context is taken into
-account:</p>
+  C = 'outside'
+  module M
+    C = 'inside'
+    C               # => 'inside'
+    "C".constantize # => 'outside', same as ::C
+  end
 
-<pre data-language="ruby">C = 'outside'
-module M
-  C = 'inside'
-  C               # =&gt; 'inside'
-  &quot;C&quot;.constantize # =&gt; 'outside', same as ::C
-end</pre>
-
-<p>NameError is raised when the name is not in CamelCase or the constant is
-unknown.</p>
-
+NameError is raised when the name is not in CamelCase or the constant is
+unknown.
 
 
 

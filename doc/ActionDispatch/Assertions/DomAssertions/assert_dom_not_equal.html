@@ -1,13 +1,9 @@
 <h1>ActionDispatch::Assertions::DomAssertions#assert_dom_not_equal</h1>
 
+The negated form of +assert_dom_equivalent+.
 
-<p>The negated form of <tt>assert_dom_equivalent</tt>.</p>
-
-<h4>Examples</h4>
-
-<pre data-language="ruby"># assert that the referenced method does not generate the specified HTML string
-assert_dom_not_equal '&lt;a href=&quot;http://www.example.com&quot;&gt;Apples&lt;/a&gt;', link_to(&quot;Oranges&quot;, &quot;http://www.example.com&quot;)</pre>
-
+  # assert that the referenced method does not generate the specified HTML string
+  assert_dom_not_equal '<a href="http://www.example.com">Apples</a>', link_to("Oranges", "http://www.example.com")
 
 
 

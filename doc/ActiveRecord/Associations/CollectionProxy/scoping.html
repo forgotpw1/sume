@@ -1,0 +1,10 @@
+<h1>ActiveRecord::Associations::CollectionProxy#scoping</h1>
+
+We don't want this object to be put on the scoping stack, because
+that could create an infinite loop where we call an @association
+method, which gets the current scope, which is this object, which
+delegates to @association, and so on.
+
+
+
+

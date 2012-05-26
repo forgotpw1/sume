@@ -1,26 +1,23 @@
 <h1>HTML::Selector#match</h1>
 
+:call-seq:
+  match(element, first?) => array or nil
 
-<p>:call-seq:</p>
+Matches an element against the selector.
 
-<pre data-language="ruby">match(element, first?) =&gt; array or nil</pre>
+For a simple selector this method returns an array with the
+element if the element matches, nil otherwise.
 
-<p>Matches an element against the selector.</p>
+For a complex selector (sibling and descendant) this method
+returns an array with all matching elements, nil if no match is
+found.
 
-<p>For a simple selector this method returns an array with the element if the
-element matches, nil otherwise.</p>
+Use +first_only=true+ if you are only interested in the first element.
 
-<p>For a complex selector (sibling and descendant) this method returns an
-array with all matching elements, nil if no match is found.</p>
-
-<p>Use <tt>first_only=true</tt> if you are only interested in the first element.</p>
-
-<p>For example:</p>
-
-<pre data-language="ruby">if selector.match(element)
-  puts &quot;Element is a login form&quot;
-end</pre>
-
+For example:
+  if selector.match(element)
+    puts "Element is a login form"
+  end
 
 
 

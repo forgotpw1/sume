@@ -1,14 +1,12 @@
 <h1>ActiveRecord::Associations::CollectionAssociation#delete</h1>
 
+Removes +records+ from this association calling +before_remove+ and
++after_remove+ callbacks.
 
-<p>Removes <tt>records</tt> from this association calling
-<tt>before_remove</tt> and <tt>after_remove</tt> callbacks.</p>
-
-<p>This method is abstract in the sense that <tt>delete_records</tt> has to be
-provided by descendants. Note this method does not imply the records are
-actually removed from the database, that depends precisely on
-<tt>delete_records</tt>. They are in any case removed from the collection.</p>
-
+This method is abstract in the sense that +delete_records+ has to be
+provided by descendants. Note this method does not imply the records
+are actually removed from the database, that depends precisely on
++delete_records+. They are in any case removed from the collection.
 
 
 

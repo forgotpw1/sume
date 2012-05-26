@@ -1,16 +1,14 @@
 <h1>ActiveRecord::Associations::CollectionAssociation#transaction</h1>
 
+Starts a transaction in the association class's database connection.
 
-<p>Starts a transaction in the association class's database connection.</p>
+  class Author < ActiveRecord::Base
+    has_many :books
+  end
 
-<pre data-language="ruby">class Author &lt; ActiveRecord::Base
-  has_many :books
-end
-
-Author.first.books.transaction do
-  # same effect as calling Book.transaction
-end</pre>
-
+  Author.first.books.transaction do
+    # same effect as calling Book.transaction
+  end
 
 
 

@@ -1,72 +1,51 @@
 <h1>ActionView::Helpers::FormOptionsHelper#option_groups_from_collection_for_select</h1>
 
+Returns a string of <tt><option></tt> tags, like <tt>options_from_collection_for_select</tt>, but
+groups them by <tt><optgroup></tt> tags based on the object relationships of the arguments.
 
-<p>Returns a string of <tt>&lt;option&gt;</tt> tags, like
-<tt>options_from_collection_for_select</tt>, but groups them by
-<tt>&lt;optgroup&gt;</tt> tags based on the object relationships of the
-arguments.</p>
+Parameters:
+* +collection+ - An array of objects representing the <tt><optgroup></tt> tags.
+* +group_method+ - The name of a method which, when called on a member of +collection+, returns an
+  array of child objects representing the <tt><option></tt> tags.
+* group_label_method+ - The name of a method which, when called on a member of +collection+, returns a
+  string to be used as the +label+ attribute for its <tt><optgroup></tt> tag.
+* +option_key_method+ - The name of a method which, when called on a child object of a member of
+  +collection+, returns a value to be used as the +value+ attribute for its <tt><option></tt> tag.
+* +option_value_method+ - The name of a method which, when called on a child object of a member of
+  +collection+, returns a value to be used as the contents of its <tt><option></tt> tag.
+* +selected_key+ - A value equal to the +value+ attribute for one of the <tt><option></tt> tags,
+  which will have the +selected+ attribute set. Corresponds to the return value of one of the calls
+  to +option_key_method+. If +nil+, no selection is made. Can also be a hash if disabled values are
+  to be specified.
 
-<p>Parameters:</p>
-<ul><li>
-<p><tt>collection</tt> - An array of objects representing the
-<tt>&lt;optgroup&gt;</tt> tags.</p>
-</li><li>
-<p><tt>group_method</tt> - The name of a method which, when called on a member
-of <tt>collection</tt>, returns an array of child objects representing the
-<tt>&lt;option&gt;</tt> tags.</p>
-</li><li>
-<p>group_label_method+ - The name of a method which, when called on a member
-of <tt>collection</tt>, returns a string to be used as the <tt>label</tt>
-attribute for its <tt>&lt;optgroup&gt;</tt> tag.</p>
-</li><li>
-<p><tt>option_key_method</tt> - The name of a method which, when called on a
-child object of a member of <tt>collection</tt>, returns a value to be used
-as the <tt>value</tt> attribute for its <tt>&lt;option&gt;</tt> tag.</p>
-</li><li>
-<p><tt>option_value_method</tt> - The name of a method which, when called on a
-child object of a member of <tt>collection</tt>, returns a value to be used
-as the contents of its <tt>&lt;option&gt;</tt> tag.</p>
-</li><li>
-<p><tt>selected_key</tt> - A value equal to the <tt>value</tt> attribute for
-one of the <tt>&lt;option&gt;</tt> tags, which will have the
-<tt>selected</tt> attribute set. Corresponds to the return value of one of
-the calls to <tt>option_key_method</tt>. If <tt>nil</tt>, no selection is
-made. Can also be a hash if disabled values are to be specified.</p>
-</li></ul>
+Example object structure for use with this method:
+  class Continent < ActiveRecord::Base
+    has_many :countries
+    # attribs: id, name
+  end
+  class Country < ActiveRecord::Base
+    belongs_to :continent
+    # attribs: id, name, continent_id
+  end
 
-<p>Example object structure for use with this method:</p>
+Sample usage:
+  option_groups_from_collection_for_select(@continents, :countries, :name, :id, :name, 3)
 
-<pre data-language="ruby">class Continent &lt; ActiveRecord::Base
-  has_many :countries
-  # attribs: id, name
-end
-class Country &lt; ActiveRecord::Base
-  belongs_to :continent
-  # attribs: id, name, continent_id
-end</pre>
+Possible output:
+  <optgroup label="Africa">
+    <option value="1">Egypt</option>
+    <option value="4">Rwanda</option>
+    ...
+  </optgroup>
+  <optgroup label="Asia">
+    <option value="3" selected="selected">China</option>
+    <option value="12">India</option>
+    <option value="5">Japan</option>
+    ...
+  </optgroup>
 
-<p>Sample usage:</p>
-
-<pre data-language="ruby">option_groups_from_collection_for_select(@continents, :countries, :name, :id, :name, 3)</pre>
-
-<p>Possible output:</p>
-
-<pre data-language="ruby">&lt;optgroup label=&quot;Africa&quot;&gt;
-  &lt;option value=&quot;1&quot;&gt;Egypt&lt;/option&gt;
-  &lt;option value=&quot;4&quot;&gt;Rwanda&lt;/option&gt;
-  ...
-&lt;/optgroup&gt;
-&lt;optgroup label=&quot;Asia&quot;&gt;
-  &lt;option value=&quot;3&quot; selected=&quot;selected&quot;&gt;China&lt;/option&gt;
-  &lt;option value=&quot;12&quot;&gt;India&lt;/option&gt;
-  &lt;option value=&quot;5&quot;&gt;Japan&lt;/option&gt;
-  ...
-&lt;/optgroup&gt;</pre>
-
-<p><b>Note:</b> Only the <tt>&lt;optgroup&gt;</tt> and <tt>&lt;option&gt;</tt>
-tags are returned, so you still have to wrap the output in an appropriate
-<tt>&lt;select&gt;</tt> tag.</p>
-
+<b>Note:</b> Only the <tt><optgroup></tt> and <tt><option></tt> tags are returned, so you still have to
+wrap the output in an appropriate <tt><select></tt> tag.
 
 
 

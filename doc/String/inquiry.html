@@ -1,13 +1,11 @@
 <h1>String#inquiry</h1>
 
+Wraps the current string in the <tt>ActiveSupport::StringInquirer</tt> class,
+which gives you a prettier way to test for equality.
 
-<p>Wraps the current string in the <tt>ActiveSupport::StringInquirer</tt>
-class, which gives you a prettier way to test for equality. Example:</p>
-
-<pre data-language="ruby">env = &quot;production&quot;.inquiry
-env.production?  # =&gt; true
-env.development? # =&gt; false</pre>
-
+  env = 'production'.inquiry
+  env.production?  # => true
+  env.development? # => false
 
 
 

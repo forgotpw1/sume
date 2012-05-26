@@ -1,24 +1,20 @@
 <h1>ActionView::Helpers::TextHelper#pluralize</h1>
 
+Attempts to pluralize the +singular+ word unless +count+ is 1. If
++plural+ is supplied, it will use that when count is > 1, otherwise
+it will use the Inflector to determine the plural form.
 
-<p>Attempts to pluralize the <tt>singular</tt> word unless <tt>count</tt> is
-1. If <tt>plural</tt> is supplied, it will use that when count is &gt; 1,
-otherwise it will use the Inflector to determine the plural form</p>
+  pluralize(1, 'person')
+  # => 1 person
 
-<h4>Examples</h4>
+  pluralize(2, 'person')
+  # => 2 people
 
-<pre data-language="ruby">pluralize(1, 'person')
-# =&gt; 1 person
+  pluralize(3, 'person', 'users')
+  # => 3 users
 
-pluralize(2, 'person')
-# =&gt; 2 people
-
-pluralize(3, 'person', 'users')
-# =&gt; 3 users
-
-pluralize(0, 'person')
-# =&gt; 0 people</pre>
-
+  pluralize(0, 'person')
+  # => 0 people
 
 
 

@@ -20,7 +20,7 @@ This Observer sends an email when a Comment#save is finished.
     end
 
     def after_destroy(contact)
-      contact.logger.warn("Contact with an id of #{contact.id} was destroyed!")
+      contact.logger.warn("Contact with an id of #contactcontact.id was destroyed!")
     end
   end
 

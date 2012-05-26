@@ -1,9 +1,10 @@
 <h1>Hash#symbolize_keys</h1>
 
+Return a new hash with all keys converted to symbols, as long as
+they respond to +to_sym+.
 
-<p>Return a new hash with all keys converted to symbols, as long as they
-respond to <tt>to_sym</tt>.</p>
-
+  { 'name' => 'Rob', 'years' => '28' }.symbolize_keys
+  #=> { :name => "Rob", :years => "28" }
 
 
 

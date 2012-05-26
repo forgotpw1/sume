@@ -1,10 +1,10 @@
 <h1>ActionController::RequestForgeryProtection#handle_unverified_request</h1>
 
+This is the method that defines the application behavior when a request is found to be unverified.
+By default, \Rails uses <tt>request_forgery_protection_method</tt> when it finds an unverified request:
 
-<p>This is the method that defines the application behavior when a request is
-found to be unverified. By default, Rails resets the session when it finds
-an unverified request.</p>
-
+* <tt>:reset_session</tt> - Resets the session.
+* <tt>:exception</tt>: - Raises ActionController::InvalidAuthenticityToken exception.
 
 
 

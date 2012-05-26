@@ -1,0 +1,38 @@
+<h1>ActiveModel::AttributeMethods::ClassMethods#attribute_method_suffix</h1>
+
+Declares a method available for all attributes with the given suffix.
+Uses +method_missing+ and <tt>respond_to?</tt> to rewrite the method.
+
+  #{attr}#{suffix}(*args, &block)
+
+to
+
+  attribute#{suffix}(#{attr}, *args, &block)
+
+An <tt>attribute#{suffix}</tt> instance method must exist and accept at least
+the +attr+ argument.
+
+For example:
+
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name
+    attribute_method_suffix '_short?'
+    define_attribute_methods :name
+
+    private
+
+    def attribute_short?(attr)
+      send(attr).length < 5
+    end
+  end
+
+  person = Person.new
+  person.name = "Bob"
+  person.name          # => "Bob"
+  person.name_short?   # => true
+
+
+
+

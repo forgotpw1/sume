@@ -1,20 +1,16 @@
 <h1>ActiveSupport::Inflector#underscore</h1>
 
+Makes an underscored, lowercase form from the expression in the string.
 
-<p>Makes an underscored, lowercase form from the expression in the string.</p>
+Changes '::' to '/' to convert namespaces to paths.
 
-<p>Changes '::' to '/' to convert namespaces to paths.</p>
+  "ActiveModel".underscore         # => "active_model"
+  "ActiveModel::Errors".underscore # => "active_model/errors"
 
-<p>Examples:</p>
+As a rule of thumb you can think of +underscore+ as the inverse of +camelize+,
+though there are cases where that does not hold:
 
-<pre data-language="ruby">&quot;ActiveRecord&quot;.underscore         # =&gt; &quot;active_record&quot;
-&quot;ActiveRecord::Errors&quot;.underscore # =&gt; active_record/errors</pre>
-
-<p>As a rule of thumb you can think of <tt>underscore</tt> as the inverse of
-<tt>camelize</tt>, though there are cases where that does not hold:</p>
-
-<pre data-language="ruby">&quot;SSLError&quot;.underscore.camelize # =&gt; &quot;SslError&quot;</pre>
-
+  "SSLError".underscore.camelize # => "SslError"
 
 
 

@@ -1,18 +1,16 @@
 <h1>ActiveSupport::Configurable::ClassMethods#config_accessor</h1>
 
+Allows you to add shortcut so that you don't have to refer to attribute through config.
+Also look at the example for config to contrast.
 
-<p>Allows you to add shortcut so that you don't have to refer to attribute
-through config. Also look at the example for config to contrast.</p>
+  class User
+    include ActiveSupport::Configurable
+    config_accessor :allowed_access
+  end
 
-<pre data-language="ruby">class User
-  include ActiveSupport::Configurable
-  config_accessor :allowed_access
-end
-
-user = User.new
-user.allowed_access = true
-user.allowed_access # =&gt; true</pre>
-
+  user = User.new
+  user.allowed_access = true
+  user.allowed_access # => true
 
 
 

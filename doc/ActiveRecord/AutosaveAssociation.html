@@ -18,6 +18,21 @@ be destroyed directly. They will however still be marked for destruction.
 Note that <tt>:autosave => false</tt> is not same as not declaring <tt>:autosave</tt>.
 When the <tt>:autosave</tt> option is not present new associations are saved.
 
+== Validation
+
+Children records are validated unless <tt>:validate</tt> is +false+.
+
+== Callbacks
+
+Association with autosave option defines several callbacks on your
+model (before_save, after_create, after_update). Please note that
+callbacks are executed in the order they were defined in
+model. You should avoid modifying the association content, before
+autosave callbacks are executed. Placing your callbacks after
+associations is usually a good practice.
+
+== Examples
+
 === One-to-one Example
 
   class Post
@@ -62,7 +77,7 @@ Now it _is_ removed from the database:
 When <tt>:autosave</tt> is not declared new children are saved when their parent is saved:
 
   class Post
-    has_many :comments # :autosave option is no declared
+    has_many :comments # :autosave option is not declared
   end
 
   post = Post.new(:title => 'ruby rocks')
@@ -77,7 +92,8 @@ When <tt>:autosave</tt> is not declared new children are saved when their parent
   post.comments.create(:body => 'hello world')
   post.save # => saves both post and comment
 
-When <tt>:autosave</tt> is true all children is saved, no matter whether they are new records:
+When <tt>:autosave</tt> is true all children are saved, no matter whether they
+are new records or not:
 
   class Post
     has_many :comments, :autosave => true
@@ -106,8 +122,4 @@ Note that the model is _not_ yet removed from the database:
 Now it _is_ removed from the database:
 
   Comment.find_by_id(id).nil? # => true
-
-=== Validation
-
-Children records are validated unless <tt>:validate</tt> is +false+.
 
