@@ -1,94 +1,115 @@
 <h1>ActionDispatch::Assertions::SelectorAssertions#assert_select</h1>
 
-An assertion that selects elements and makes one or more equality tests.
 
-If the first argument is an element, selects all matching elements
-starting from (and including) that element and all its children in
-depth-first order.
+<p>An assertion that selects elements and makes one or more equality tests.</p>
 
-If no element if specified, calling +assert_select+ selects from the
-response HTML unless +assert_select+ is called from within an +assert_select+ block.
+<p>If the first argument is an element, selects all matching elements starting
+from (and including) that element and all its children in depth-first
+order.</p>
 
-When called with a block +assert_select+ passes an array of selected elements
-to the block. Calling +assert_select+ from the block, with no element specified,
-runs the assertion on the complete set of elements selected by the enclosing assertion.
-Alternatively the array may be iterated through so that +assert_select+ can be called
-separately for each element.
+<p>If no element if specified, calling <tt>assert_select</tt> selects from the
+response HTML unless <tt>assert_select</tt> is called from within an
+<tt>assert_select</tt> block.</p>
 
+<p>When called with a block <tt>assert_select</tt> passes an array of selected
+elements to the block. Calling <tt>assert_select</tt> from the block, with
+no element specified, runs the assertion on the complete set of elements
+selected by the enclosing assertion. Alternatively the array may be
+iterated through so that <tt>assert_select</tt> can be called separately
+for each element.</p>
 
-==== Example
-If the response contains two ordered lists, each with four list elements then:
-  assert_select "ol" do |elements|
-    elements.each do |element|
-      assert_select element, "li", 4
-    end
+<h4>Example</h4>
+
+<p>If the response contains two ordered lists, each with four list elements
+then:</p>
+
+<pre data-language="ruby">assert_select &quot;ol&quot; do |elements|
+  elements.each do |element|
+    assert_select element, &quot;li&quot;, 4
   end
+end</pre>
 
-will pass, as will:
-  assert_select "ol" do
-    assert_select "li", 8
-  end
+<p>will pass, as will:</p>
 
-The selector may be a CSS selector expression (String), an expression
-with substitution values, or an HTML::Selector object.
+<pre data-language="ruby">assert_select &quot;ol&quot; do
+  assert_select &quot;li&quot;, 8
+end</pre>
 
-=== Equality Tests
+<p>The selector may be a CSS selector expression (String), an expression with
+substitution values, or an HTML::Selector object.</p>
 
-The equality test may be one of the following:
-* <tt>true</tt> - Assertion is true if at least one element selected.
-* <tt>false</tt> - Assertion is true if no element selected.
-* <tt>String/Regexp</tt> - Assertion is true if the text value of at least
-  one element matches the string or regular expression.
-* <tt>Integer</tt> - Assertion is true if exactly that number of
-  elements are selected.
-* <tt>Range</tt> - Assertion is true if the number of selected
-  elements fit the range.
-If no equality test specified, the assertion is true if at least one
-element selected.
+<h3>Equality Tests</h3>
 
-To perform more than one equality tests, use a hash with the following keys:
-* <tt>:text</tt> - Narrow the selection to elements that have this text
-  value (string or regexp).
-* <tt>:html</tt> - Narrow the selection to elements that have this HTML
-  content (string or regexp).
-* <tt>:count</tt> - Assertion is true if the number of selected elements
-  is equal to this value.
-* <tt>:minimum</tt> - Assertion is true if the number of selected
-  elements is at least this value.
-* <tt>:maximum</tt> - Assertion is true if the number of selected
-  elements is at most this value.
+<p>The equality test may be one of the following:</p>
+<ul><li>
+<p><tt>true</tt> - Assertion is true if at least one element selected.</p>
+</li><li>
+<p><tt>false</tt> - Assertion is true if no element selected.</p>
+</li><li>
+<p><tt>String/Regexp</tt> - Assertion is true if the text value of at least
+one element matches the string or regular expression.</p>
+</li><li>
+<p><tt>Integer</tt> - Assertion is true if exactly that number of elements are
+selected.</p>
+</li><li>
+<p><tt>Range</tt> - Assertion is true if the number of selected elements fit
+the range.</p>
+</li></ul>
 
-If the method is called with a block, once all equality tests are
-evaluated the block is called with an array of all matched elements.
+<p>If no equality test specified, the assertion is true if at least one
+element selected.</p>
 
-==== Examples
+<p>To perform more than one equality tests, use a hash with the following
+keys:</p>
+<ul><li>
+<p><tt>:text</tt> - Narrow the selection to elements that have this text value
+(string or regexp).</p>
+</li><li>
+<p><tt>:html</tt> - Narrow the selection to elements that have this HTML
+content (string or regexp).</p>
+</li><li>
+<p><tt>:count</tt> - Assertion is true if the number of selected elements is
+equal to this value.</p>
+</li><li>
+<p><tt>:minimum</tt> - Assertion is true if the number of selected elements is
+at least this value.</p>
+</li><li>
+<p><tt>:maximum</tt> - Assertion is true if the number of selected elements is
+at most this value.</p>
+</li></ul>
 
-  # At least one form element
-  assert_select "form"
+<p>If the method is called with a block, once all equality tests are evaluated
+the block is called with an array of all matched elements.</p>
 
-  # Form element includes four input fields
-  assert_select "form input", 4
+<h4>Examples</h4>
 
-  # Page title is "Welcome"
-  assert_select "title", "Welcome"
+<pre data-language="ruby"># At least one form element
+assert_select &quot;form&quot;
 
-  # Page title is "Welcome" and there is only one title element
-  assert_select "title", {:count => 1, :text => "Welcome"},
-      "Wrong title or more than one title element"
+# Form element includes four input fields
+assert_select &quot;form input&quot;, 4
 
-  # Page contains no forms
-  assert_select "form", false, "This page must contain no forms"
+# Page title is &quot;Welcome&quot;
+assert_select &quot;title&quot;, &quot;Welcome&quot;
 
-  # Test the content and style
-  assert_select "body div.header ul.menu"
+# Page title is &quot;Welcome&quot; and there is only one title element
+assert_select &quot;title&quot;, {:count =&gt; 1, :text =&gt; &quot;Welcome&quot;},
+    &quot;Wrong title or more than one title element&quot;
 
-  # Use substitution values
-  assert_select "ol>li#?", /item-\d+/
+# Page contains no forms
+assert_select &quot;form&quot;, false, &quot;This page must contain no forms&quot;
 
-  # All input fields in the form have a name
-  assert_select "form input" do
-    assert_select "[name=?]", /.+/  # Not empty
-  end
+# Test the content and style
+assert_select &quot;body div.header ul.menu&quot;
+
+# Use substitution values
+assert_select &quot;ol&gt;li#?&quot;, /item-\d+/
+
+# All input fields in the form have a name
+assert_select &quot;form input&quot; do
+  assert_select &quot;[name=?]&quot;, /.+/  # Not empty
+end</pre>
+
 
 
 

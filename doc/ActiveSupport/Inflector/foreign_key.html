@@ -1,12 +1,16 @@
 <h1>ActiveSupport::Inflector#foreign_key</h1>
 
-Creates a foreign key name from a class name.
-+separate_class_name_and_id_with_underscore+ sets whether
-the method should put '_' between the name and 'id'.
 
-  "Message".foreign_key        # => "message_id"
-  "Message".foreign_key(false) # => "messageid"
-  "Admin::Post".foreign_key    # => "post_id"
+<p>Creates a foreign key name from a class name.
+<tt>separate_class_name_and_id_with_underscore</tt> sets whether the method
+should put '_' between the name and 'id'.</p>
+
+<p>Examples:</p>
+
+<pre data-language="ruby">&quot;Message&quot;.foreign_key        # =&gt; &quot;message_id&quot;
+&quot;Message&quot;.foreign_key(false) # =&gt; &quot;messageid&quot;
+&quot;Admin::Post&quot;.foreign_key    # =&gt; &quot;post_id&quot;</pre>
+
 
 
 

@@ -1,15 +1,17 @@
 <h1>ActionView::Helpers::OutputSafetyHelper#safe_join</h1>
 
-This method returns a html safe string similar to what <tt>Array#join</tt>
+
+<p>This method returns a html safe string similar to what <tt>Array#join</tt>
 would return. All items in the array, including the supplied separator, are
 html escaped unless they are html safe, and the returned string is marked
-as html safe.
+as html safe.</p>
 
-  safe_join(["<p>foo</p>".html_safe, "<p>bar</p>"], "<br />")
-  # => "<p>foo</p>&lt;br /&gt;&lt;p&gt;bar&lt;/p&gt;"
+<pre data-language="ruby">safe_join([&quot;&lt;p&gt;foo&lt;/p&gt;&quot;.html_safe, &quot;&lt;p&gt;bar&lt;/p&gt;&quot;], &quot;&lt;br /&gt;&quot;)
+# =&gt; &quot;&lt;p&gt;foo&lt;/p&gt;&amp;lt;br /&amp;gt;&amp;lt;p&amp;gt;bar&amp;lt;/p&amp;gt;&quot;
 
-  safe_join(["<p>foo</p>".html_safe, "<p>bar</p>".html_safe], "<br />".html_safe)
-  # => "<p>foo</p><br /><p>bar</p>"
+safe_join([&quot;&lt;p&gt;foo&lt;/p&gt;&quot;.html_safe, &quot;&lt;p&gt;bar&lt;/p&gt;&quot;.html_safe], &quot;&lt;br /&gt;&quot;.html_safe)
+# =&gt; &quot;&lt;p&gt;foo&lt;/p&gt;&lt;br /&gt;&lt;p&gt;bar&lt;/p&gt;&quot;</pre>
+
 
 
 

@@ -17,30 +17,10 @@ manipulation of its relationships:
 * <tt>Project#portfolio, Project#portfolio=(portfolio), Project#portfolio.nil?</tt>
 * <tt>Project#project_manager, Project#project_manager=(project_manager), Project#project_manager.nil?,</tt>
 * <tt>Project#milestones.empty?, Project#milestones.size, Project#milestones, Project#milestones<<(milestone),</tt>
-  <tt>Project#milestones.delete(milestone), Project#milestones.find(milestone_id), Project#milestones.all(options),</tt>
+  <tt>Project#milestones.delete(milestone), Project#milestones.find(milestone_id), Project#milestones.find(:all, options),</tt>
   <tt>Project#milestones.build, Project#milestones.create</tt>
 * <tt>Project#categories.empty?, Project#categories.size, Project#categories, Project#categories<<(category1),</tt>
   <tt>Project#categories.delete(category1)</tt>
-
-=== Overriding generated methods
-
-Association methods are generated in a module that is included into the model class,
-which allows you to easily override with your own methods and call the original
-generated method with +super+. For example:
-
-  class Car < ActiveRecord::Base
-    belongs_to :owner
-    belongs_to :old_owner
-    def owner=(new_owner)
-      self.old_owner = self.owner
-      super
-    end
-  end
-
-If your model class is <tt>Project</tt>, the module is
-named <tt>Project::GeneratedFeatureMethods</tt>. The GeneratedFeatureMethods module is
-included in the model class immediately after the (anonymous) generated attributes methods
-module, meaning an association will override the methods for an attribute with the same name.
 
 === A word of warning
 
@@ -315,9 +295,9 @@ association extensions.
 === Association Join Models
 
 Has Many associations can be configured with the <tt>:through</tt> option to use an
-explicit join model to retrieve the data. This operates similarly to a
-+has_and_belongs_to_many+ association. The advantage is that you're able to add validations,
-callbacks, and extra attributes on the join model. Consider the following schema:
+explicit join model to retrieve the data.  This operates similarly to a
++has_and_belongs_to_many+ association.  The advantage is that you're able to add validations,
+callbacks, and extra attributes on the join model.  Consider the following schema:
 
   class Author < ActiveRecord::Base
     has_many :authorships
@@ -370,11 +350,11 @@ Similarly you can go through a +has_one+ association on the join model:
   end
 
   @group = Group.first
-  @group.users.collect { |u| u.avatar }.compact # select all avatars for all users in the group
+  @group.users.collect { |u| u.avatar }.flatten # select all avatars for all users in the group
   @group.avatars                                # selects all avatars by going through the User join model.
 
 An important caveat with going through +has_one+ or +has_many+ associations on the
-join model is that these associations are *read-only*. For example, the following
+join model is that these associations are *read-only*.  For example, the following
 would not work following the previous example:
 
   @group.avatars << Avatar.new   # this would work if User belonged_to Avatar rather than the other way around
@@ -442,7 +422,7 @@ intermediate <tt>Post</tt> and <tt>Comment</tt> objects.
 === Polymorphic Associations
 
 Polymorphic associations on models are not restricted on what types of models they
-can be associated with. Rather, they specify an interface that a +has_many+ association
+can be associated with.  Rather, they specify an interface that a +has_many+ association
 must adhere to.
 
   class Asset < ActiveRecord::Base
@@ -456,7 +436,7 @@ must adhere to.
   @asset.attachable = @post
 
 This works by using a type column in addition to a foreign key to specify the associated
-record. In the Asset example, you'd need an +attachable_id+ integer column and an
+record.  In the Asset example, you'd need an +attachable_id+ integer column and an
 +attachable_type+ string column.
 
 Using polymorphic associations in combination with single table inheritance (STI) is
@@ -512,7 +492,7 @@ use of eager loading, the 101 queries can be reduced to 2.
 
 Consider the following loop using the class above:
 
-  Post.all.each do |post|
+  for post in Post.all
     puts "Post:            " + post.title
     puts "Written by:      " + post.author.name
     puts "Last comment on: " + post.comments.first.created_on
@@ -521,7 +501,7 @@ Consider the following loop using the class above:
 To iterate over these one hundred posts, we'll generate 201 database queries. Let's
 first just optimize it for retrieving the author:
 
-  Post.includes(:author).each do |post|
+  for post in Post.find(:all, :include => :author)
 
 This references the name of the +belongs_to+ association that also used the <tt>:author</tt>
 symbol. After loading the posts, find will collect the +author_id+ from each one and load
@@ -530,7 +510,7 @@ from 201 to 102.
 
 We can improve upon the situation further by referencing both associations in the finder with:
 
-  Post.includes(:author, :comments).each do |post|
+  for post in Post.find(:all, :include => [ :author, :comments ])
 
 This will load all comments with a single query. This reduces the total number of queries
 to 3. More generally the number of queries will be 1 plus the number of associations
@@ -538,7 +518,7 @@ named (except if some of the associations are polymorphic +belongs_to+ - see bel
 
 To include a deep hierarchy of associations, use a hash:
 
-  Post.includes(:author, => {:author => :gravatar}).each do |post|
+  for post in Post.find(:all, :include => [ :author, { :comments => { :author => :gravatar } } ])
 
 That'll grab not only all the comments but all their authors and gravatar pictures.
 You can mix and match symbols, arrays and hashes in any combination to describe the
@@ -566,13 +546,13 @@ You must disambiguate column references for this fallback to happen, for example
 <tt>:order => "author.name DESC"</tt> will work but <tt>:order => "name DESC"</tt> will not.
 
 If you do want eager load only some members of an association it is usually more natural
-to include an association which has conditions defined on it:
+to <tt>:include</tt> an association which has conditions defined on it:
 
   class Post < ActiveRecord::Base
     has_many :approved_comments, :class_name => 'Comment', :conditions => ['approved = ?', true]
   end
 
-  Post.includes(:approved_comments)
+  Post.find(:all, :include => :approved_comments)
 
 This will load posts and eager load the +approved_comments+ association, which contains
 only those comments that have been approved.
@@ -584,10 +564,10 @@ returning all the associated objects:
     has_many :most_recent_comments, :class_name => 'Comment', :order => 'id DESC', :limit => 10
   end
 
-  Picture.includes(:most_recent_comments).first.most_recent_comments # => returns all associated comments.
+  Picture.first(:include => :most_recent_comments).most_recent_comments # => returns all associated comments.
 
 When eager loaded, conditions are interpolated in the context of the model class, not
-the model instance. Conditions are lazily interpolated before the actual model exists.
+the model instance.  Conditions are lazily interpolated before the actual model exists.
 
 Eager loading is supported with polymorphic associations.
 
@@ -597,7 +577,7 @@ Eager loading is supported with polymorphic associations.
 
 A call that tries to eager load the addressable model
 
-  Address.includes(:addressable)
+  Address.find(:all, :include => :addressable)
 
 This will execute one query to load the addresses and load the addressables with one
 query per addressable type.
@@ -611,47 +591,47 @@ name cannot be put in the +FROM+/+JOIN+ clauses of that query.
 == Table Aliasing
 
 Active Record uses table aliasing in the case that a table is referenced multiple times
-in a join. If a table is referenced only once, the standard table name is used. The
+in a join.  If a table is referenced only once, the standard table name is used.  The
 second time, the table is aliased as <tt>#{reflection_name}_#{parent_table_name}</tt>.
 Indexes are appended for any more successive uses of the table name.
 
-  Post.joins(:comments)
+  Post.find :all, :joins => :comments
   # => SELECT ... FROM posts INNER JOIN comments ON ...
-  Post.joins(:special_comments) # STI
+  Post.find :all, :joins => :special_comments # STI
   # => SELECT ... FROM posts INNER JOIN comments ON ... AND comments.type = 'SpecialComment'
-  Post.joins(:comments, :special_comments) # special_comments is the reflection name, posts is the parent table name
+  Post.find :all, :joins => [:comments, :special_comments] # special_comments is the reflection name, posts is the parent table name
   # => SELECT ... FROM posts INNER JOIN comments ON ... INNER JOIN comments special_comments_posts
 
 Acts as tree example:
 
-  TreeMixin.joins(:children)
+  TreeMixin.find :all, :joins => :children
   # => SELECT ... FROM mixins INNER JOIN mixins childrens_mixins ...
-  TreeMixin.joins(:children => :parent)
+  TreeMixin.find :all, :joins => => :parent
   # => SELECT ... FROM mixins INNER JOIN mixins childrens_mixins ...
                               INNER JOIN parents_mixins ...
-  TreeMixin.joins(:children => => :children)
+  TreeMixin.find :all, :joins => => {:parent => :children}
   # => SELECT ... FROM mixins INNER JOIN mixins childrens_mixins ...
                               INNER JOIN parents_mixins ...
                               INNER JOIN mixins childrens_mixins_2
 
 Has and Belongs to Many join tables use the same idea, but add a <tt>_join</tt> suffix:
 
-  Post.joins(:categories)
+  Post.find :all, :joins => :categories
   # => SELECT ... FROM posts INNER JOIN categories_posts ... INNER JOIN categories ...
-  Post.joins(:categories => :posts)
+  Post.find :all, :joins => => :posts
   # => SELECT ... FROM posts INNER JOIN categories_posts ... INNER JOIN categories ...
                              INNER JOIN categories_posts posts_categories_join INNER JOIN posts posts_categories
-  Post.joins(:categories => => :categories)
+  Post.find :all, :joins => => {:posts => :categories}
   # => SELECT ... FROM posts INNER JOIN categories_posts ... INNER JOIN categories ...
                              INNER JOIN categories_posts posts_categories_join INNER JOIN posts posts_categories
                              INNER JOIN categories_posts categories_posts_join INNER JOIN categories categories_posts_2
 
-If you wish to specify your own custom joins using <tt>joins</tt> method, those table
+If you wish to specify your own custom joins using a <tt>:joins</tt> option, those table
 names will take precedence over the eager associations:
 
-  Post.joins(:comments).joins("inner join comments ...")
+  Post.find :all, :joins => :comments, :joins => "inner join comments ..."
   # => SELECT ... FROM posts INNER JOIN comments_posts ON ... INNER JOIN comments ...
-  Post.joins(:comments, :special_comments).joins("inner join comments ...")
+  Post.find :all, :joins => [:comments, :special_comments], :joins => "inner join comments ..."
   # => SELECT ... FROM posts INNER JOIN comments comments_posts ON ...
                              INNER JOIN comments special_comments_posts ...
                              INNER JOIN comments ...
@@ -693,7 +673,7 @@ specifying the complete class name.
 == Bi-directional associations
 
 When you specify an association there is usually an association on the associated model
-that specifies the same relationship in reverse. For example, with the following models:
+that specifies the same relationship in reverse.  For example, with the following models:
 
    class Dungeon < ActiveRecord::Base
      has_many :traps
@@ -710,9 +690,9 @@ that specifies the same relationship in reverse. For example, with the following
 
 The +traps+ association on +Dungeon+ and the +dungeon+ association on +Trap+ are
 the inverse of each other and the inverse of the +dungeon+ association on +EvilWizard+
-is the +evil_wizard+ association on +Dungeon+ (and vice-versa). By default,
+is the +evil_wizard+ association on +Dungeon+ (and vice-versa).  By default,
 Active Record doesn't know anything about these inverse relationships and so no object
-loading optimization is possible. For example:
+loading optimisation is possible.  For example:
 
    d = Dungeon.first
    t = d.traps.first
@@ -722,8 +702,8 @@ loading optimization is possible. For example:
 
 The +Dungeon+ instances +d+ and <tt>t.dungeon</tt> in the above example refer to
 the same object data from the database, but are actually different in-memory copies
-of that data. Specifying the <tt>:inverse_of</tt> option on associations lets you tell
-Active Record about inverse relationships and it will optimise object loading. For
+of that data.  Specifying the <tt>:inverse_of</tt> option on associations lets you tell
+Active Record about inverse relationships and it will optimise object loading.  For
 example, if we changed our model definitions to:
 
    class Dungeon < ActiveRecord::Base

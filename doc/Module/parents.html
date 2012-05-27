@@ -1,17 +1,19 @@
 <h1>Module#parents</h1>
 
-Returns all the parents of this module according to its name, ordered from
-nested outwards. The receiver is not contained within the result.
 
-  module M
-    module N
-    end
+<p>Returns all the parents of this module according to its name, ordered from
+nested outwards. The receiver is not contained within the result.</p>
+
+<pre data-language="ruby">module M
+  module N
   end
-  X = M::N
+end
+X = M::N
 
-  M.parents    # => [Object]
-  M::N.parents # => [M, Object]
-  X.parents    # => [M, Object]
+M.parents    # =&gt; [Object]
+M::N.parents # =&gt; [M, Object]
+X.parents    # =&gt; [M, Object]</pre>
+
 
 
 

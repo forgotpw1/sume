@@ -1,19 +1,18 @@
 <h1>ActionController::Caching::Pages::ClassMethods#caches_page</h1>
 
-Caches the +actions+ using the page-caching approach that'll store
-the cache in a path within the page_cache_directory that
-matches the triggering url.
 
-You can also pass a :gzip option to override the class configuration one.
+<p>Caches the <tt>actions</tt> using the page-caching approach that'll store
+the cache in a path within the page_cache_directory that matches the
+triggering url.</p>
 
-  # cache the index action
-  caches_page :index
+<p>Usage:</p>
 
-  # cache the index action except for JSON requests
-  caches_page :index, :if => Proc.new { !request.format.json? }
+<pre data-language="ruby"># cache the index action
+caches_page :index
 
-  # don't gzip images
-  caches_page :image, :gzip => false
+# cache the index action except for JSON requests
+caches_page :index, :if =&gt; Proc.new { |c| !c.request.format.json? }</pre>
+
 
 
 

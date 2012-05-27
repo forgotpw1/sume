@@ -1,13 +1,16 @@
 <h1>Kernel#suppress</h1>
 
-Blocks and ignores any exception passed as argument if raised within the block.
 
-  suppress(ZeroDivisionError) do
-    1/0
-    puts 'This code is NOT reached'
-  end
+<p>Blocks and ignores any exception passed as argument if raised within the
+block.</p>
 
-  puts 'This code gets executed and nothing related to ZeroDivisionError was seen'
+<pre data-language="ruby">suppress(ZeroDivisionError) do
+  1/0
+  puts &quot;This code is NOT reached&quot;
+end
+
+puts &quot;This code gets executed and nothing related to ZeroDivisionError was seen&quot;</pre>
+
 
 
 

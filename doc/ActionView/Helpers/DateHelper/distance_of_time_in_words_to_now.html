@@ -1,14 +1,18 @@
 <h1>ActionView::Helpers::DateHelper#distance_of_time_in_words_to_now</h1>
 
-Like <tt>distance_of_time_in_words</tt>, but where <tt>to_time</tt> is fixed to <tt>Time.now</tt>.
 
-  time_ago_in_words(3.minutes.from_now)                 # => 3 minutes
-  time_ago_in_words(Time.now - 15.hours)                # => about 15 hours
-  time_ago_in_words(Time.now)                           # => less than a minute
-  time_ago_in_words(Time.now, :include_seconds => true) # => less than 5 seconds
+<p>Like <tt>distance_of_time_in_words</tt>, but where <tt>to_time</tt> is
+fixed to <tt>Time.now</tt>.</p>
 
-  from_time = Time.now - 3.days - 14.minutes - 25.seconds
-  time_ago_in_words(from_time)      # => 3 days
+<h4>Examples</h4>
+
+<pre data-language="ruby">time_ago_in_words(3.minutes.from_now)       # =&gt; 3 minutes
+time_ago_in_words(Time.now - 15.hours)      # =&gt; about 15 hours
+time_ago_in_words(Time.now)                 # =&gt; less than a minute
+
+from_time = Time.now - 3.days - 14.minutes - 25.seconds
+time_ago_in_words(from_time)      # =&gt; 3 days</pre>
+
 
 
 

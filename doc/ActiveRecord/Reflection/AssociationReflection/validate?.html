@@ -1,14 +1,19 @@
 <h1>ActiveRecord::Reflection::AssociationReflection#validate?</h1>
 
-Returns whether or not the association should be validated as part of
-the parent's validation.
 
-Unless you explicitly disable validation with
-<tt>:validate => false</tt>, validation will take place when:
+<p>Returns whether or not the association should be validated as part of the
+parent's validation.</p>
 
-* you explicitly enable validation; <tt>:validate => true</tt>
-* you use autosave; <tt>:autosave => true</tt>
-* the association is a +has_many+ association
+<p>Unless you explicitly disable validation with <tt>:validate =&gt;
+false</tt>, validation will take place when:</p>
+<ul><li>
+<p>you explicitly enable validation; <tt>:validate =&gt; true</tt></p>
+</li><li>
+<p>you use autosave; <tt>:autosave =&gt; true</tt></p>
+</li><li>
+<p>the association is a <tt>has_many</tt> association</p>
+</li></ul>
+
 
 
 

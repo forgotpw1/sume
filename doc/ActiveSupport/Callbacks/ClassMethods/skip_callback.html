@@ -1,11 +1,14 @@
 <h1>ActiveSupport::Callbacks::ClassMethods#skip_callback</h1>
 
-Skip a previously set callback. Like +set_callback+, <tt>:if</tt> or <tt>:unless</tt>
-options may be passed in order to control when the callback is skipped.
 
-  class Writer < Person
-     skip_callback :validate, :before, :check_membership, :if => lambda { self.age > 18 }
-  end
+<p>Skip a previously set callback. Like <tt>set_callback</tt>, <tt>:if</tt> or
+<tt>:unless</tt> options may be passed in order to control when the
+callback is skipped.</p>
+
+<pre data-language="ruby">class Writer &lt; Person
+   skip_callback :validate, :before, :check_membership, :if =&gt; lambda { self.age &gt; 18 }
+end</pre>
+
 
 
 

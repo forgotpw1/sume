@@ -1,11 +1,14 @@
 <h1>ActionView::Helpers::SanitizeHelper::ClassMethods#white_list_sanitizer</h1>
 
-Gets the HTML::WhiteListSanitizer instance used by sanitize and +sanitize_css+.
-Replace with any object that responds to +sanitize+.
 
-  class Application < Rails::Application
-    config.action_view.white_list_sanitizer = MySpecialSanitizer.new
-  end
+<p>Gets the HTML::WhiteListSanitizer instance used by sanitize and
+<tt>sanitize_css</tt>. Replace with any object that responds to
+<tt>sanitize</tt>.</p>
+
+<pre data-language="ruby">class Application &lt; Rails::Application
+  config.action_view.white_list_sanitizer = MySpecialSanitizer.new
+end</pre>
+
 
 
 

@@ -1,23 +1,25 @@
 <h1>String#strip_heredoc</h1>
 
-Strips indentation in heredocs.
 
-For example in
+<p>Strips indentation in heredocs.</p>
 
-  if options[:usage]
-    puts <<-USAGE.strip_heredoc
-      This command does such and such.
+<p>For example in</p>
 
-      Supported options are:
-        -h         This message
-        ...
-    USAGE
-  end
+<pre data-language="ruby">if options[:usage]
+  puts &lt;&lt;-USAGE.strip_heredoc
+    This command does such and such.
 
-the user would see the usage message aligned against the left margin.
+    Supported options are:
+      -h         This message
+      ...
+  USAGE
+end</pre>
 
-Technically, it looks for the least indented line in the whole string, and removes
-that amount of leading whitespace.
+<p>the user would see the usage message aligned against the left margin.</p>
+
+<p>Technically, it looks for the least indented line in the whole string, and
+removes that amount of leading whitespace.</p>
+
 
 
 

@@ -1,25 +1,31 @@
 <h1>ActionView::Helpers::DateHelper#select_minute</h1>
 
-Returns a select tag with options for each of the minutes 0 through 59 with the current minute selected.
-Also can return a select tag with options by <tt>minute_step</tt> from 0 through 59 with the 00 minute
-selected. The <tt>datetime</tt> can be either a +Time+ or +DateTime+ object or an integer.
-Override the field name using the <tt>:field_name</tt> option, 'minute' by default.
 
-  my_time = Time.now + 6.hours
+<p>Returns a select tag with options for each of the minutes 0 through 59 with
+the current minute selected. Also can return a select tag with options by
+<tt>minute_step</tt> from 0 through 59 with the 00 minute selected. The
+<tt>datetime</tt> can be either a <tt>Time</tt> or <tt>DateTime</tt> object
+or an integer.  Override the field name using the <tt>:field_name</tt>
+option, 'minute' by default.</p>
 
-  # Generates a select field for minutes that defaults to the minutes for the time in my_time.
-  select_minute(my_time)
+<h4>Examples</h4>
 
-  # Generates a select field for minutes that defaults to the number given.
-  select_minute(14)
+<pre data-language="ruby">my_time = Time.now + 6.hours
 
-  # Generates a select field for minutes that defaults to the minutes for the time in my_time
-  # that is named 'moment' rather than 'minute'.
-  select_minute(my_time, :field_name => 'moment')
+# Generates a select field for minutes that defaults to the minutes for the time in my_time.
+select_minute(my_time)
 
-  # Generates a select field for minutes with a custom prompt. Use <tt>:prompt => true</tt> for a
-  # generic prompt.
-  select_minute(14, :prompt => 'Choose minutes')
+# Generates a select field for minutes that defaults to the number given.
+select_minute(14)
+
+# Generates a select field for minutes that defaults to the minutes for the time in my_time
+# that is named 'moment' rather than 'minute'.
+select_minute(my_time, :field_name =&gt; 'moment')
+
+# Generates a select field for minutes with a custom prompt. Use &lt;tt&gt;:prompt =&gt; true&lt;/tt&gt; for a
+# generic prompt.
+select_minute(14, :prompt =&gt; 'Choose minutes')</pre>
+
 
 
 

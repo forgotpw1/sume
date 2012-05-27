@@ -1,13 +1,15 @@
 <h1>ActiveRecord::Migration::CommandRecorder#inverse</h1>
 
-Returns a list that represents commands that are the inverse of the
-commands stored in +commands+. For example:
 
-  recorder.record(:rename_table, [:old, :new])
-  recorder.inverse # => [:rename_table, [:new, :old]]
+<p>Returns a list that represents commands that are the inverse of the
+commands stored in <tt>commands</tt>.  For example:</p>
 
-This method will raise an +IrreversibleMigration+ exception if it cannot
-invert the +commands+.
+<pre data-language="ruby">recorder.record(:rename_table, [:old, :new])
+recorder.inverse # =&gt; [:rename_table, [:new, :old]]</pre>
+
+<p>This method will raise an IrreversibleMigration exception if it cannot
+invert the <tt>commands</tt>.</p>
+
 
 
 

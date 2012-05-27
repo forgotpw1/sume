@@ -1,27 +1,19 @@
 <h1>ActionController::ForceSSL::ClassMethods#force_ssl</h1>
 
-Force the request to this particular controller or specified actions to be
-under HTTPS protocol.
 
-If you need to disable this for any reason (e.g. development) then you can use
-an +:if+ or +:unless+ condition.
+<p>Force the request to this particular controller or specified actions to be
+under HTTPS protocol.</p>
 
-    class AccountsController < ApplicationController
-      force_ssl :if => :ssl_configured?
+<p>Note that this method will not be effective on development environment.</p>
 
-      def ssl_configured?
-        !Rails.env.development?
-      end
-    end
+<h4>Options</h4>
+<ul><li>
+<p><tt>only</tt>   - The callback should be run only for this action</p>
+</li><li>
+<p>&lt;tt&gt;except&lt;tt&gt;  - The callback should be run for all actions
+except this action</p>
+</li></ul>
 
-==== Options
-* <tt>host</tt>   - Redirect to a different host name
-* <tt>only</tt>   - The callback should be run only for this action
-* <tt>except<tt>  - The callback should be run for all actions except this action
-* <tt>if</tt>     - A symbol naming an instance method or a proc; the callback
-                    will be called only when it returns a true value.
-* <tt>unless</tt> - A symbol naming an instance method or a proc; the callback
-                    will be called only when it returns a false value.
 
 
 

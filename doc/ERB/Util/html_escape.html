@@ -1,13 +1,19 @@
-<h1>ERB::Util.html_escape</h1>
+<h1>ERB::Util#html_escape</h1>
 
-A utility method for escaping HTML tag characters.
-This method is also aliased as <tt>h</tt>.
 
-In your ERB templates, use this method to escape any unsafe content. For example:
-  <%=h @person.name %>
+<p>A utility method for escaping HTML tag characters. This method is also
+aliased as <tt>h</tt>.</p>
 
-  puts html_escape('is a > 0 & a < 10?')
-  # => is a &gt; 0 &amp; a &lt; 10?
+<p>In your ERB templates, use this method to escape any unsafe content. For
+example:</p>
+
+<pre data-language="ruby">&lt;%=h @person.name %&gt;</pre>
+
+<h4>Example:</h4>
+
+<pre data-language="ruby">puts html_escape(&quot;is a &gt; 0 &amp; a &lt; 10?&quot;)
+# =&gt; is a &amp;gt; 0 &amp;amp; a &amp;lt; 10?</pre>
+
 
 
 

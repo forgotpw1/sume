@@ -1,38 +1,45 @@
 <h1>ActionView::Helpers::FormTagHelper#file_field_tag</h1>
 
-Creates a file upload field. If you are using file uploads then you will also need
-to set the multipart option for the form tag:
 
-  <%= form_tag '/upload', :multipart => true do %>
-    <label for="file">File to Upload</label> <%= file_field_tag "file" %>
-    <%= submit_tag %>
-  <% end %>
+<p>Creates a file upload field.  If you are using file uploads then you will
+also need to set the multipart option for the form tag:</p>
 
-The specified URL will then be passed a File object containing the selected file, or if the field
-was left blank, a StringIO object.
+<pre data-language="ruby">&lt;%= form_tag '/upload', :multipart =&gt; true do %&gt;
+  &lt;label for=&quot;file&quot;&gt;File to Upload&lt;/label&gt; &lt;%= file_field_tag &quot;file&quot; %&gt;
+  &lt;%= submit_tag %&gt;
+&lt;% end %&gt;</pre>
 
-==== Options
-* Creates standard HTML attributes for the tag.
-* <tt>:disabled</tt> - If set to true, the user will not be able to use this input.
+<p>The specified URL will then be passed a File object containing the selected
+file, or if the field was left blank, a StringIO object.</p>
 
-==== Examples
-  file_field_tag 'attachment'
-  # => <input id="attachment" name="attachment" type="file" />
+<h4>Options</h4>
+<ul><li>
+<p>Creates standard HTML attributes for the tag.</p>
+</li><li>
+<p><tt>:disabled</tt> - If set to true, the user will not be able to use this
+input.</p>
+</li></ul>
 
-  file_field_tag 'avatar', :class => 'profile_input'
-  # => <input class="profile_input" id="avatar" name="avatar" type="file" />
+<h4>Examples</h4>
 
-  file_field_tag 'picture', :disabled => true
-  # => <input disabled="disabled" id="picture" name="picture" type="file" />
+<pre data-language="ruby">file_field_tag 'attachment'
+# =&gt; &lt;input id=&quot;attachment&quot; name=&quot;attachment&quot; type=&quot;file&quot; /&gt;
 
-  file_field_tag 'resume', :value => '~/resume.doc'
-  # => <input id="resume" name="resume" type="file" value="~/resume.doc" />
+file_field_tag 'avatar', :class =&gt; 'profile_input'
+# =&gt; &lt;input class=&quot;profile_input&quot; id=&quot;avatar&quot; name=&quot;avatar&quot; type=&quot;file&quot; /&gt;
 
-  file_field_tag 'user_pic', :accept => 'image/png,image/gif,image/jpeg'
-  # => <input accept="image/png,image/gif,image/jpeg" id="user_pic" name="user_pic" type="file" />
+file_field_tag 'picture', :disabled =&gt; true
+# =&gt; &lt;input disabled=&quot;disabled&quot; id=&quot;picture&quot; name=&quot;picture&quot; type=&quot;file&quot; /&gt;
 
-  file_field_tag 'file', :accept => 'text/html', :class => 'upload', :value => 'index.html'
-  # => <input accept="text/html" class="upload" id="file" name="file" type="file" value="index.html" />
+file_field_tag 'resume', :value =&gt; '~/resume.doc'
+# =&gt; &lt;input id=&quot;resume&quot; name=&quot;resume&quot; type=&quot;file&quot; value=&quot;~/resume.doc&quot; /&gt;
+
+file_field_tag 'user_pic', :accept =&gt; 'image/png,image/gif,image/jpeg'
+# =&gt; &lt;input accept=&quot;image/png,image/gif,image/jpeg&quot; id=&quot;user_pic&quot; name=&quot;user_pic&quot; type=&quot;file&quot; /&gt;
+
+file_field_tag 'file', :accept =&gt; 'text/html', :class =&gt; 'upload', :value =&gt; 'index.html'
+# =&gt; &lt;input accept=&quot;text/html&quot; class=&quot;upload&quot; id=&quot;file&quot; name=&quot;file&quot; type=&quot;file&quot; value=&quot;index.html&quot; /&gt;</pre>
+
 
 
 

@@ -1,18 +1,21 @@
 <h1>ActionView::Helpers::AssetTagHelper#image_path</h1>
 
-Computes the path to an image asset.
-Full paths from the document root will be passed through.
-Used internally by +image_tag+ to build the image path:
 
-  image_path("edit")                                         # => "/assets/edit"
-  image_path("edit.png")                                     # => "/assets/edit.png"
-  image_path("icons/edit.png")                               # => "/assets/icons/edit.png"
-  image_path("/icons/edit.png")                              # => "/icons/edit.png"
-  image_path("http://www.example.com/img/edit.png")          # => "http://www.example.com/img/edit.png"
+<p>Computes the path to an image asset in the public images directory. Full
+paths from the document root will be passed through. Used internally by
+<tt>image_tag</tt> to build the image path:</p>
 
-If you have images as application resources this method may conflict with their named routes.
-The alias +path_to_image+ is provided to avoid that. Rails uses the alias internally, and
-plugin authors are encouraged to do so.
+<pre data-language="ruby">image_path(&quot;edit&quot;)                                         # =&gt; &quot;/images/edit&quot;
+image_path(&quot;edit.png&quot;)                                     # =&gt; &quot;/images/edit.png&quot;
+image_path(&quot;icons/edit.png&quot;)                               # =&gt; &quot;/images/icons/edit.png&quot;
+image_path(&quot;/icons/edit.png&quot;)                              # =&gt; &quot;/icons/edit.png&quot;
+image_path(&quot;http://www.example.com/img/edit.png&quot;)          # =&gt; &quot;http://www.example.com/img/edit.png&quot;</pre>
+
+<p>If you have images as application resources this method may conflict with
+their named routes. The alias <tt>path_to_image</tt> is provided to avoid
+that. Rails uses the alias internally, and plugin authors are encouraged to
+do so.</p>
+
 
 
 

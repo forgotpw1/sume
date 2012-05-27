@@ -1,21 +1,26 @@
 <h1>ActionView::Helpers::TextHelper#concat</h1>
 
-The preferred method of outputting text in your views is to use the
-<%= "text" %> eRuby syntax. The regular _puts_ and _print_ methods
-do not operate as expected in an eRuby code block. If you absolutely must
-output text within a non-output code block (i.e., <% %>), you can use the concat method.
 
-  <%
-      concat "hello"
-      # is the equivalent of <%= "hello" %>
+<p>The preferred method of outputting text in your views is to use the &lt;%=
+"text" %&gt; eRuby syntax. The regular <em>puts</em> and <em>print</em>
+methods do not operate as expected in an eRuby code block. If you
+absolutely must output text within a non-output code block (i.e., &lt;%
+%&gt;), you can use the concat method.</p>
 
-      if logged_in
-        concat "Logged in!"
-      else
-        concat link_to('login', :action => :login)
-      end
-      # will either display "Logged in!" or a login link
-  %>
+<h4>Examples</h4>
+
+<pre data-language="ruby">&lt;%
+    concat &quot;hello&quot;
+    # is the equivalent of &lt;%= &quot;hello&quot; %&gt;
+
+    if logged_in
+      concat &quot;Logged in!&quot;
+    else
+      concat link_to('login', :action =&gt; login)
+    end
+    # will either display &quot;Logged in!&quot; or a login link
+%&gt;</pre>
+
 
 
 

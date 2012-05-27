@@ -1,46 +1,50 @@
 <h1>ActionView::Helpers::TagHelper#tag</h1>
 
-Returns an empty HTML tag of type +name+ which by default is XHTML
-compliant. Set +open+ to true to create an open tag compatible
-with HTML 4.0 and below. Add HTML attributes by passing an attributes
-hash to +options+. Set +escape+ to false to disable attribute value
-escaping.
 
-==== Options
-You can use symbols or strings for the attribute names.
+<p>Returns an empty HTML tag of type <tt>name</tt> which by default is XHTML
+compliant. Set <tt>open</tt> to true to create an open tag compatible with
+HTML 4.0 and below. Add HTML attributes by passing an attributes hash to
+<tt>options</tt>. Set <tt>escape</tt> to false to disable attribute value
+escaping.</p>
 
-Use +true+ with boolean attributes that can render with no value, like
-+disabled+ and +readonly+.
+<h4>Options</h4>
 
-HTML5 <tt>data-*</tt> attributes can be set with a single +data+ key
-pointing to a hash of sub-attributes.
+<p>You can use symbols or strings for the attribute names.</p>
 
-To play nicely with JavaScript conventions sub-attributes are dasherized.
-For example, a key +user_id+ would render as <tt>data-user-id</tt> and
-thus accessed as <tt>dataset.userId</tt>.
+<p>Use <tt>true</tt> with boolean attributes that can render with no value,
+like <tt>disabled</tt> and <tt>readonly</tt>.</p>
 
-Values are encoded to JSON, with the exception of strings and symbols.
-This may come in handy when using jQuery's HTML5-aware <tt>.data()</tt>
-from 1.4.3.
+<p>HTML5 <tt>data-*</tt> attributes can be set with a single <tt>data</tt> key
+pointing to a hash of sub-attributes.</p>
 
-==== Examples
-  tag("br")
-  # => <br />
+<p>To play nicely with JavaScript conventions sub-attributes are dasherized.
+For example, a key <tt>user_id</tt> would render as <tt>data-user-id</tt>
+and thus accessed as <tt>dataset.userId</tt>.</p>
 
-  tag("br", nil, true)
-  # => <br>
+<p>Values are encoded to JSON, with the exception of strings and symbols. This
+may come in handy when using jQuery's HTML5-aware
+&lt;tt&gt;.data()&lt;tt&gt; from 1.4.3.</p>
 
-  tag("input", :type => 'text', :disabled => true)
-  # => <input type="text" disabled="disabled" />
+<h4>Examples</h4>
 
-  tag("img", :src => "open & shut.png")
-  # => <img src="open &amp; shut.png" />
+<pre data-language="ruby">tag(&quot;br&quot;)
+# =&gt; &lt;br /&gt;
 
-  tag("img", {:src => "open &amp; shut.png"}, false, false)
-  # => <img src="open &amp; shut.png" />
+tag(&quot;br&quot;, nil, true)
+# =&gt; &lt;br&gt;
 
-  tag("div", :data => {:name => 'Stephen', :city_state => %w(Chicago IL)})
-  # => <div data-name="Stephen" data-city-state="[&quot;Chicago&quot;,&quot;IL&quot;]" />
+tag(&quot;input&quot;, :type =&gt; 'text', :disabled =&gt; true)
+# =&gt; &lt;input type=&quot;text&quot; disabled=&quot;disabled&quot; /&gt;
+
+tag(&quot;img&quot;, :src =&gt; &quot;open &amp; shut.png&quot;)
+# =&gt; &lt;img src=&quot;open &amp;amp; shut.png&quot; /&gt;
+
+tag(&quot;img&quot;, {:src =&gt; &quot;open &amp;amp; shut.png&quot;}, false, false)
+# =&gt; &lt;img src=&quot;open &amp;amp; shut.png&quot; /&gt;
+
+tag(&quot;div&quot;, :data =&gt; {:name =&gt; 'Stephen', :city_state =&gt; %w(Chicago IL)})
+# =&gt; &lt;div data-name=&quot;Stephen&quot; data-city-state=&quot;[&amp;quot;Chicago&amp;quot;,&amp;quot;IL&amp;quot;]&quot; /&gt;</pre>
+
 
 
 

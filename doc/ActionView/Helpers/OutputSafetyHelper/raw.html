@@ -1,13 +1,14 @@
 <h1>ActionView::Helpers::OutputSafetyHelper#raw</h1>
 
-This method outputs without escaping a string. Since escaping tags is
-now default, this can be used when you don't want Rails to automatically
-escape tags. This is not recommended if the data is coming from the user's
-input.
 
-For example:
+<p>This method outputs without escaping a string. Since escaping tags is now
+default, this can be used when you don't want Rails to automatically escape
+tags. This is not recommended if the data is coming from the user's input.</p>
 
-<%=raw @user.name %>
+<p>For example:</p>
+
+<p>&lt;%=raw @user.name %&gt;</p>
+
 
 
 

@@ -1,26 +1,28 @@
 <h1>Module#alias_method_chain</h1>
 
-Encapsulates the common pattern of:
 
-  alias_method :foo_without_feature, :foo
-  alias_method :foo, :foo_with_feature
+<p>Encapsulates the common pattern of:</p>
 
-With this, you simply do:
+<pre data-language="ruby">alias_method :foo_without_feature, :foo
+alias_method :foo, :foo_with_feature</pre>
 
-  alias_method_chain :foo, :feature
+<p>With this, you simply do:</p>
 
-And both aliases are set up for you.
+<pre data-language="ruby">alias_method_chain :foo, :feature</pre>
 
-Query and bang methods (foo?, foo!) keep the same punctuation:
+<p>And both aliases are set up for you.</p>
 
-  alias_method_chain :foo?, :feature
+<p>Query and bang methods (foo?, foo!) keep the same punctuation:</p>
 
-is equivalent to
+<pre data-language="ruby">alias_method_chain :foo?, :feature</pre>
 
-  alias_method :foo_without_feature?, :foo?
-  alias_method :foo?, :foo_with_feature?
+<p>is equivalent to</p>
 
-so you can safely chain foo, foo?, and foo! with the same feature.
+<pre data-language="ruby">alias_method :foo_without_feature?, :foo?
+alias_method :foo?, :foo_with_feature?</pre>
+
+<p>so you can safely chain foo, foo?, and foo! with the same feature.</p>
+
 
 
 

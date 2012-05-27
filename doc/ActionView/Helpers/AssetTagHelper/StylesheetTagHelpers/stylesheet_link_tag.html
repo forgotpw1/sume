@@ -1,73 +1,80 @@
 <h1>ActionView::Helpers::AssetTagHelper::StylesheetTagHelpers#stylesheet_link_tag</h1>
 
-Returns a stylesheet link tag for the sources specified as arguments. If
-you don't specify an extension, <tt>.css</tt> will be appended automatically.
-You can modify the link attributes by passing a hash as the last argument.
-For historical reasons, the 'media' attribute will always be present and defaults
-to "screen", so you must explicitely set it to "all" for the stylesheet(s) to
-apply to all media types.
 
-  stylesheet_link_tag "style" # =>
-    <link href="/stylesheets/style.css" media="screen" rel="stylesheet" />
+<p>Returns a stylesheet link tag for the sources specified as arguments. If
+you don't specify an extension, <tt>.css</tt> will be appended
+automatically. You can modify the link attributes by passing a hash as the
+last argument.</p>
 
-  stylesheet_link_tag "style.css" # =>
-    <link href="/stylesheets/style.css" media="screen" rel="stylesheet" />
+<h4>Examples</h4>
 
-  stylesheet_link_tag "http://www.example.com/style.css" # =>
-    <link href="http://www.example.com/style.css" media="screen" rel="stylesheet" />
+<pre data-language="ruby">stylesheet_link_tag &quot;style&quot; # =&gt;
+  &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-  stylesheet_link_tag "style", :media => "all" # =>
-    <link href="/stylesheets/style.css" media="all" rel="stylesheet" />
+stylesheet_link_tag &quot;style.css&quot; # =&gt;
+  &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-  stylesheet_link_tag "style", :media => "print" # =>
-    <link href="/stylesheets/style.css" media="print" rel="stylesheet" />
+stylesheet_link_tag &quot;http://www.example.com/style.css&quot; # =&gt;
+  &lt;link href=&quot;http://www.example.com/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-  stylesheet_link_tag "random.styles", "/css/stylish" # =>
-    <link href="/stylesheets/random.styles" media="screen" rel="stylesheet" />
-    <link href="/css/stylish.css" media="screen" rel="stylesheet" />
+stylesheet_link_tag &quot;style&quot;, :media =&gt; &quot;all&quot; # =&gt;
+  &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-You can also include all styles in the stylesheets directory using <tt>:all</tt> as the source:
+stylesheet_link_tag &quot;style&quot;, :media =&gt; &quot;print&quot; # =&gt;
+  &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;print&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-  stylesheet_link_tag :all # =>
-    <link href="/stylesheets/style1.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/styleB.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/styleX2.css" media="screen" rel="stylesheet" />
+stylesheet_link_tag &quot;random.styles&quot;, &quot;/css/stylish&quot; # =&gt;
+  &lt;link href=&quot;/stylesheets/random.styles&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/css/stylish.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</pre>
 
-If you want Rails to search in all the subdirectories under stylesheets, you should explicitly set <tt>:recursive</tt>:
+<p>You can also include all styles in the stylesheets directory using
+<tt>:all</tt> as the source:</p>
 
-  stylesheet_link_tag :all, :recursive => true
+<pre data-language="ruby">stylesheet_link_tag :all # =&gt;
+  &lt;link href=&quot;/stylesheets/style1.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/styleB.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/styleX2.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</pre>
 
-== Caching multiple stylesheets into one
+<p>If you want Rails to search in all the subdirectories under stylesheets,
+you should explicitly set <tt>:recursive</tt>:</p>
 
-You can also cache multiple stylesheets into one file, which requires less HTTP connections and can better be
-compressed by gzip (leading to faster transfers). Caching will only happen if +config.perform_caching+
-is set to true (which is the case by default for the Rails production environment, but not for the development
-environment). Examples:
+<pre data-language="ruby">stylesheet_link_tag :all, :recursive =&gt; true</pre>
 
-  stylesheet_link_tag :all, :cache => true # when config.perform_caching is false =>
-    <link href="/stylesheets/style1.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/styleB.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/styleX2.css" media="screen" rel="stylesheet" />
+<h2>Caching multiple stylesheets into one</h2>
 
-  stylesheet_link_tag :all, :cache => true # when config.perform_caching is true =>
-    <link href="/stylesheets/all.css"  media="screen" rel="stylesheet" />
+<p>You can also cache multiple stylesheets into one file, which requires less
+HTTP connections and can better be compressed by gzip (leading to faster
+transfers). Caching will only happen if config.perform_caching is set to
+true (which is the case by default for the Rails production environment,
+but not for the development environment). Examples:</p>
 
-  stylesheet_link_tag "shop", "cart", "checkout", :cache => "payment" # when config.perform_caching is false =>
-    <link href="/stylesheets/shop.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/cart.css"  media="screen" rel="stylesheet" />
-    <link href="/stylesheets/checkout.css" media="screen" rel="stylesheet" />
+<h4>Examples</h4>
 
-  stylesheet_link_tag "shop", "cart", "checkout", :cache => "payment" # when config.perform_caching is true =>
-    <link href="/stylesheets/payment.css"  media="screen" rel="stylesheet" />
+<pre data-language="ruby">stylesheet_link_tag :all, :cache =&gt; true # when config.perform_caching is false =&gt;
+  &lt;link href=&quot;/stylesheets/style1.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/styleB.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/styleX2.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-The <tt>:recursive</tt> option is also available for caching:
+stylesheet_link_tag :all, :cache =&gt; true # when config.perform_caching is true =&gt;
+  &lt;link href=&quot;/stylesheets/all.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-  stylesheet_link_tag :all, :cache => true, :recursive => true
+stylesheet_link_tag &quot;shop&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;payment&quot; # when config.perform_caching is false =&gt;
+  &lt;link href=&quot;/stylesheets/shop.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/cart.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+  &lt;link href=&quot;/stylesheets/checkout.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
 
-To force concatenation (even in development mode) set <tt>:concat</tt> to true. This is useful if
-you have too many stylesheets for IE to load.
+stylesheet_link_tag &quot;shop&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;payment&quot; # when config.perform_caching is true =&gt;
+  &lt;link href=&quot;/stylesheets/payment.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</pre>
 
-  stylesheet_link_tag :all, :concat => true
+<p>The <tt>:recursive</tt> option is also available for caching:</p>
+
+<pre data-language="ruby">stylesheet_link_tag :all, :cache =&gt; true, :recursive =&gt; true</pre>
+
+<p>To force concatenation (even in development mode) set <tt>:concat</tt> to
+true. This is useful if you have too many stylesheets for IE to load.</p>
+
+<pre data-language="ruby">stylesheet_link_tag :all, :concat =&gt; true</pre>
+
 
 
 

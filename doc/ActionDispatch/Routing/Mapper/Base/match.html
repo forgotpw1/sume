@@ -1,120 +1,124 @@
 <h1>ActionDispatch::Routing::Mapper::Base#match</h1>
 
-Matches a url pattern to one or more routes. Any symbols in a pattern
-are interpreted as url query parameters and thus available as +params+
-in an action:
 
-  # sets :controller, :action and :id in params
-  match ':controller/:action/:id'
+<p>Matches a url pattern to one or more routes. Any symbols in a pattern are
+interpreted as url query parameters and thus available as <tt>params</tt>
+in an action:</p>
 
-Two of these symbols are special, +:controller+ maps to the controller
-and +:action+ to the controller's action. A pattern can also map
-wildcard segments (globs) to params:
+<pre data-language="ruby"># sets :controller, :action and :id in params
+match ':controller/:action/:id'</pre>
 
-  match 'songs/*category/:title' => 'songs#show'
+<p>Two of these symbols are special, <tt>:controller</tt> maps to the
+controller and <tt>:action</tt> to the controller's action. A pattern can
+also map wildcard segments (globs) to params:</p>
 
-  # 'songs/rock/classic/stairway-to-heaven' sets
-  #  params[:category] = 'rock/classic'
-  #  params[:title] = 'stairway-to-heaven'
+<pre data-language="ruby">match 'songs/*category/:title' =&gt; 'songs#show'
 
-When a pattern points to an internal route, the route's +:action+ and
-+:controller+ should be set in options or hash shorthand. Examples:
+# 'songs/rock/classic/stairway-to-heaven' sets
+#  params[:category] = 'rock/classic'
+#  params[:title] = 'stairway-to-heaven'</pre>
 
-  match 'photos/:id' => 'photos#show'
-  match 'photos/:id', :to => 'photos#show'
-  match 'photos/:id', :controller => 'photos', :action => 'show'
+<p>When a pattern points to an internal route, the route's <tt>:action</tt>
+and <tt>:controller</tt> should be set in options or hash shorthand.
+Examples:</p>
 
-A pattern can also point to a +Rack+ endpoint i.e. anything that
-responds to +call+:
+<pre data-language="ruby">match 'photos/:id' =&gt; 'photos#show'
+match 'photos/:id', :to =&gt; 'photos#show'
+match 'photos/:id', :controller =&gt; 'photos', :action =&gt; 'show'</pre>
 
-  match 'photos/:id' => lambda {|hash| [200, {}, "Coming soon"] }
-  match 'photos/:id' => PhotoRackApp
-  # Yes, controller actions are just rack endpoints
-  match 'photos/:id' => PhotosController.action(:show)
+<p>A pattern can also point to a <tt>Rack</tt> endpoint i.e. anything that
+responds to <tt>call</tt>:</p>
 
-=== Options
+<pre data-language="ruby">match 'photos/:id' =&gt; lambda {|hash| [200, {}, &quot;Coming soon&quot; }
+match 'photos/:id' =&gt; PhotoRackApp
+# Yes, controller actions are just rack endpoints
+match 'photos/:id' =&gt; PhotosController.action(:show)</pre>
 
-Any options not seen here are passed on as params with the url.
+<h3>Options</h3>
 
-[:controller]
-  The route's controller.
+<p>Any options not seen here are passed on as params with the url.</p>
+<dl class="rdoc-list"><dt>:controller</dt>
+<dd>
+<p>The route's controller.</p>
+</dd><dt>:action</dt>
+<dd>
+<p>The route's action.</p>
+</dd><dt>:path</dt>
+<dd>
+<p>The path prefix for the routes.</p>
+</dd><dt>:module</dt>
+<dd>
+<p>The namespace for :controller.</p>
 
-[:action]
-  The route's action.
+<pre data-language="ruby">match 'path' =&gt; 'c#a', :module =&gt; 'sekret', :controller =&gt; 'posts'
+#=&gt; Sekret::PostsController</pre>
 
-[:path]
-  The path prefix for the routes.
+<p>See <tt>Scoping#namespace</tt> for its scope equivalent.</p>
+</dd><dt>:as</dt>
+<dd>
+<p>The name used to generate routing helpers.</p>
+</dd><dt>:via</dt>
+<dd>
+<p>Allowed HTTP verb(s) for route.</p>
 
-[:module]
-  The namespace for :controller.
+<pre data-language="ruby">match 'path' =&gt; 'c#a', :via =&gt; :get
+match 'path' =&gt; 'c#a', :via =&gt; [:get, :post]</pre>
+</dd><dt>:to</dt>
+<dd>
+<p>Points to a <tt>Rack</tt> endpoint. Can be an object that responds to
+<tt>call</tt> or a string representing a controller's action.</p>
 
-    match 'path' => 'c#a', :module => 'sekret', :controller => 'posts'
-    #=> Sekret::PostsController
+<pre data-language="ruby">match 'path', :to =&gt; 'controller#action'
+match 'path', :to =&gt; lambda { [200, {}, &quot;Success!&quot;] }
+match 'path', :to =&gt; RackApp</pre>
+</dd><dt>:on</dt>
+<dd>
+<p>Shorthand for wrapping routes in a specific RESTful context. Valid values
+are <tt>:member</tt>, <tt>:collection</tt>, and <tt>:new</tt>.  Only use
+within <tt>resource(s)</tt> block. For example:</p>
 
-  See <tt>Scoping#namespace</tt> for its scope equivalent.
+<pre data-language="ruby">resource :bar do
+  match 'foo' =&gt; 'c#a', :on =&gt; :member, :via =&gt; [:get, :post]
+end</pre>
 
-[:as]
-  The name used to generate routing helpers.
+<p>Is equivalent to:</p>
 
-[:via]
-  Allowed HTTP verb(s) for route.
+<pre data-language="ruby">resource :bar do
+  member do
+    match 'foo' =&gt; 'c#a', :via =&gt; [:get, :post]
+  end
+end</pre>
+</dd><dt>:constraints</dt>
+<dd>
+<p>Constrains parameters with a hash of regular expressions or an object that
+responds to <tt>matches?</tt></p>
 
-     match 'path' => 'c#a', :via => :get
-     match 'path' => 'c#a', :via => [:get, :post]
+<pre data-language="ruby">match 'path/:id', :constraints =&gt; { :id =&gt; /[A-Z]\d{5}/ }
 
-[:to]
-  Points to a +Rack+ endpoint. Can be an object that responds to
-  +call+ or a string representing a controller's action.
+class Blacklist
+  def matches?(request) request.remote_ip == '1.2.3.4' end
+end
+match 'path' =&gt; 'c#a', :constraints =&gt; Blacklist.new</pre>
 
-     match 'path', :to => 'controller#action'
-     match 'path', :to => lambda { |env| [200, {}, "Success!"] }
-     match 'path', :to => RackApp
+<p>See <tt>Scoping#constraints</tt> for more examples with its scope
+equivalent.</p>
+</dd><dt>:defaults</dt>
+<dd>
+<p>Sets defaults for parameters</p>
 
-[:on]
-  Shorthand for wrapping routes in a specific RESTful context. Valid
-  values are +:member+, +:collection+, and +:new+. Only use within
-  <tt>resource(s)</tt> block. For example:
+<pre data-language="ruby"># Sets params[:format] to 'jpg' by default
+match 'path' =&gt; 'c#a', :defaults =&gt; { :format =&gt; 'jpg' }</pre>
 
-     resource :bar do
-       match 'foo' => 'c#a', :on => :member, :via => [:get, :post]
-     end
+<p>See <tt>Scoping#defaults</tt> for its scope equivalent.</p>
+</dd><dt>:anchor</dt>
+<dd>
+<p>Boolean to anchor a <tt>match</tt> pattern. Default is true. When set to
+false, the pattern matches any request prefixed with the given path.</p>
 
-  Is equivalent to:
+<pre data-language="ruby"># Matches any request starting with 'path'
+match 'path' =&gt; 'c#a', :anchor =&gt; false</pre>
+</dd></dl>
 
-     resource :bar do
-       member do
-         match 'foo' => 'c#a', :via => [:get, :post]
-       end
-     end
-
-[:constraints]
-  Constrains parameters with a hash of regular expressions or an
-  object that responds to <tt>matches?</tt>
-
-    match 'path/:id', :constraints => { :id => /[A-Z]\d{5}/ }
-
-    class Blacklist
-      def matches?(request) request.remote_ip == '1.2.3.4' end
-    end
-    match 'path' => 'c#a', :constraints => Blacklist.new
-
-  See <tt>Scoping#constraints</tt> for more examples with its scope
-  equivalent.
-
-[:defaults]
-  Sets defaults for parameters
-
-    # Sets params[:format] to 'jpg' by default
-    match 'path' => 'c#a', :defaults => { :format => 'jpg' }
-
-  See <tt>Scoping#defaults</tt> for its scope equivalent.
-
-[:anchor]
-  Boolean to anchor a <tt>match</tt> pattern. Default is true. When set to
-  false, the pattern matches any request prefixed with the given path.
-
-    # Matches any request starting with 'path'
-    match 'path' => 'c#a', :anchor => false
 
 
 

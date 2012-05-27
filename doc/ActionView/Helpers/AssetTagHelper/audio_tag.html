@@ -1,17 +1,18 @@
 <h1>ActionView::Helpers::AssetTagHelper#audio_tag</h1>
 
-Returns an html audio tag for the +source+.
-The +source+ can be full path or file that exists in
-your public audios directory.
 
-  audio_tag("sound")  # =>
-    <audio src="/audios/sound" />
-  audio_tag("sound.wav")  # =>
-    <audio src="/audios/sound.wav" />
-  audio_tag("sound.wav", :autoplay => true, :controls => true)  # =>
-    <audio autoplay="autoplay" controls="controls" src="/audios/sound.wav" />
-  audio_tag("sound.wav", "sound.mid")  # =>
-    <audio><source src="/audios/sound.wav" /><source src="/audios/sound.mid" /></audio>
+<p>Returns an html audio tag for the <tt>source</tt>. The <tt>source</tt> can
+be full path or file that exists in your public audios directory.</p>
+
+<h4>Examples</h4>
+
+<pre data-language="ruby">audio_tag(&quot;sound&quot;)  # =&gt;
+  &lt;audio src=&quot;/audios/sound&quot; /&gt;
+audio_tag(&quot;sound.wav&quot;)  # =&gt;
+  &lt;audio src=&quot;/audios/sound.wav&quot; /&gt;
+audio_tag(&quot;sound.wav&quot;, :autoplay =&gt; true, :controls =&gt; true)  # =&gt;
+  &lt;audio autoplay=&quot;autoplay&quot; controls=&quot;controls&quot; src=&quot;/audios/sound.wav&quot; /&gt;</pre>
+
 
 
 

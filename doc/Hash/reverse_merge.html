@@ -1,15 +1,17 @@
 <h1>Hash#reverse_merge</h1>
 
-Merges the caller into +other_hash+. For example,
 
-  options = options.reverse_merge(:size => 25, :velocity => 10)
+<p>Merges the caller into <tt>other_hash</tt>. For example,</p>
 
-is equivalent to
+<pre data-language="ruby">options = options.reverse_merge(:size =&gt; 25, :velocity =&gt; 10)</pre>
 
-  options = {:size => 25, :velocity => 10}.merge(options)
+<p>is equivalent to</p>
 
-This is particularly useful for initializing an options hash
-with default values.
+<pre data-language="ruby">options = {:size =&gt; 25, :velocity =&gt; 10}.merge(options)</pre>
+
+<p>This is particularly useful for initializing an options hash with default
+values.</p>
+
 
 
 

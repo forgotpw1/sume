@@ -1,11 +1,14 @@
 <h1>ActionDispatch::Integration::RequestHelpers#xhr</h1>
 
-Performs an XMLHttpRequest request with the given parameters, mirroring
-a request from the Prototype library.
 
-The request_method is +:get+, +:post+, +:patch+, +:put+, +:delete+ or
-+:head+; the parameters are +nil+, a hash, or a url-encoded or multipart
-string; the headers are a hash.
+<p>Performs an XMLHttpRequest request with the given parameters, mirroring a
+request from the Prototype library.</p>
+
+<p>The request_method is <tt>:get</tt>, <tt>:post</tt>, <tt>:put</tt>,
+<tt>:delete</tt> or <tt>:head</tt>; the parameters are <tt>nil</tt>, a
+hash, or a url-encoded or multipart string; the headers are a hash.  Keys
+are automatically upcased and prefixed with 'HTTP_' if not already.</p>
+
 
 
 

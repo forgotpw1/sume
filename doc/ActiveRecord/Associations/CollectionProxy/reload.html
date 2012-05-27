@@ -1,24 +1,5 @@
 <h1>ActiveRecord::Associations::CollectionProxy#reload</h1>
 
-Reloads the collection from the database. Returns +self+.
-Equivalent to <tt>collection(true)</tt>.
-
-  class Person < ActiveRecord::Base
-    has_many :pets
-  end
-
-  person.pets # fetches pets from the database
-  # => [#<Pet id: 1, name: "Snoop", group: "dogs", person_id: 1>]
-
-  person.pets # uses the pets cache
-  # => [#<Pet id: 1, name: "Snoop", group: "dogs", person_id: 1>]
-
-  person.pets.reload # fetches pets from the database
-  # => [#<Pet id: 1, name: "Snoop", group: "dogs", person_id: 1>]
-
-  person.pets(true)  # fetches pets from the database
-  # => [#<Pet id: 1, name: "Snoop", group: "dogs", person_id: 1>]
-
 
 
 

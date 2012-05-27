@@ -1,10 +1,12 @@
 <h1>ActionDispatch::Http::MimeNegotiation#format</h1>
 
-Returns the MIME type for the \format used in the request.
 
-  GET /posts/5.xml   | request.format => Mime::XML
-  GET /posts/5.xhtml | request.format => Mime::HTML
-  GET /posts/5       | request.format => Mime::HTML or MIME::JS, or request.accepts.first
+<p>Returns the MIME type for the format used in the request.</p>
+
+<pre data-language="ruby">GET /posts/5.xml   | request.format =&gt; Mime::XML
+GET /posts/5.xhtml | request.format =&gt; Mime::HTML
+GET /posts/5       | request.format =&gt; Mime::HTML or MIME::JS, or request.accepts.first</pre>
+
 
 
 

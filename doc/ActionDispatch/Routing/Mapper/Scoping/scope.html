@@ -1,37 +1,40 @@
 <h1>ActionDispatch::Routing::Mapper::Scoping#scope</h1>
 
-Scopes a set of routes to the given default options.
 
-Take the following route definition as an example:
+<p>Scopes a set of routes to the given default options.</p>
 
-  scope :path => ":account_id", :as => "account" do
-    resources :projects
-  end
+<p>Take the following route definition as an example:</p>
 
-This generates helpers such as +account_projects_path+, just like +resources+ does.
-The difference here being that the routes generated are like /:account_id/projects,
-rather than /accounts/:account_id/projects.
+<pre data-language="ruby">scope :path =&gt; &quot;:account_id&quot;, :as =&gt; &quot;account&quot; do
+  resources :projects
+end</pre>
 
-=== Options
+<p>This generates helpers such as <tt>account_projects_path</tt>, just like
+<tt>resources</tt> does. The difference here being that the routes
+generated are like /rails/projects/2, rather than
+/accounts/rails/projects/2.</p>
 
-Takes same options as <tt>Base#match</tt> and <tt>Resources#resources</tt>.
+<h3>Options</h3>
 
-=== Examples
+<p>Takes same options as <tt>Base#match</tt> and <tt>Resources#resources</tt>.</p>
 
-  # route /posts (without the prefix /admin) to <tt>Admin::PostsController</tt>
-  scope :module => "admin" do
-    resources :posts
-  end
+<h3>Examples</h3>
 
-  # prefix the posts resource's requests with '/admin'
-  scope :path => "/admin" do
-    resources :posts
-  end
+<pre data-language="ruby"># route /posts (without the prefix /admin) to &lt;tt&gt;Admin::PostsController&lt;/tt&gt;
+scope :module =&gt; &quot;admin&quot; do
+  resources :posts
+end
 
-  # prefix the routing helper name: +sekret_posts_path+ instead of +posts_path+
-  scope :as => "sekret" do
-    resources :posts
-  end
+# prefix the posts resource's requests with '/admin'
+scope :path =&gt; &quot;/admin&quot; do
+  resources :posts
+end
+
+# prefix the routing helper name: <tt>sekret_posts_path</tt> instead of <tt>posts_path</tt>
+scope :as =&gt; &quot;sekret&quot; do
+  resources :posts
+end</pre>
+
 
 
 

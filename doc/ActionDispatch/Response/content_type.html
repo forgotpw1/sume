@@ -1,6 +1,15 @@
 <h1>ActionDispatch::Response#content_type</h1>
 
-Returns the value of attribute content_type
+
+<p>Sets the HTTP response's content MIME type. For example, in the controller
+you could write this:</p>
+
+<pre data-language="ruby">response.content_type = &quot;text/plain&quot;</pre>
+
+<p>If a character set has been defined for this response (see charset=) then
+the character set information will also be included in the content type
+information.</p>
+
 
 
 

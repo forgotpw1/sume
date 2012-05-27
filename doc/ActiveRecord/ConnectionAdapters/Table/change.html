@@ -1,10 +1,14 @@
 <h1>ActiveRecord::ConnectionAdapters::Table#change</h1>
 
-Changes the column's definition according to the new options.
-See TableDefinition#column for details of the options you can use.
 
- t.change(:name, :string, :limit => 80)
- t.change(:description, :text)
+<p>Changes the column's definition according to the new options. See
+TableDefinition#column for details of the options you can use.</p>
+
+<h5>Examples</h5>
+
+<pre data-language="ruby">t.change(:name, :string, :limit =&gt; 80)
+t.change(:description, :text)</pre>
+
 
 
 

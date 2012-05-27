@@ -3,10 +3,15 @@ A typical module looks like this:
   module M
     def self.included(base)
       base.extend ClassMethods
+      base.send(:include, InstanceMethods)
       scope :disabled, where(:disabled => true)
     end
 
     module ClassMethods
+      ...
+    end
+
+    module InstanceMethods
       ...
     end
   end
@@ -23,6 +28,10 @@ By using <tt>ActiveSupport::Concern</tt> the above module could instead be writt
     end
 
     module ClassMethods
+      ...
+    end
+
+    module InstanceMethods
       ...
     end
   end

@@ -1,13 +1,9 @@
 <h1>ActiveRecord::FinderMethods#all</h1>
 
-Examples:
 
-  Person.all # returns an array of objects for all the rows fetched by SELECT * FROM people
-  Person.where(["category IN (?)", categories]).limit(50).all
-  Person.where({ :friends => ["Bob", "Steve", "Fred"] }).all
-  Person.offset(10).limit(10).all
-  Person.includes([:account, :friends]).all
-  Person.group("category").all
+<p>A convenience wrapper for <tt>find(:all, *args)</tt>. You can pass in all
+the same arguments to this method as you can to <tt>find(:all)</tt>.</p>
+
 
 
 

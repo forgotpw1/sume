@@ -1,23 +1,25 @@
 <h1>Enumerable#sum</h1>
 
-Calculates a sum from the elements.
 
- payments.sum { |p| p.price * p.tax_rate }
- payments.sum(&:price)
+<p>Calculates a sum from the elements. Examples:</p>
 
-The latter is a shortcut for:
+<pre data-language="ruby">payments.sum { |p| p.price * p.tax_rate }
+payments.sum(&amp;:price)</pre>
 
- payments.inject(0) { |sum, p| sum + p.price }
+<p>The latter is a shortcut for:</p>
 
-It can also calculate the sum without the use of a block.
+<pre data-language="ruby">payments.inject(0) { |sum, p| sum + p.price }</pre>
 
- [5, 15, 10].sum # => 30
- ['foo', 'bar'].sum # => "foobar"
- [[1, 2], [3, 1, 5]].sum => [1, 2, 3, 1, 5]
+<p>It can also calculate the sum without the use of a block.</p>
 
-The default sum of an empty list is zero. You can override this default:
+<pre data-language="ruby">[5, 15, 10].sum # =&gt; 30
+[&quot;foo&quot;, &quot;bar&quot;].sum # =&gt; &quot;foobar&quot;
+[[1, 2], [3, 1, 5]].sum =&gt; [1, 2, 3, 1, 5]</pre>
 
- [].sum(Payment.new(0)) { |i| i.amount } # => Payment.new(0)
+<p>The default sum of an empty list is zero. You can override this default:</p>
+
+<pre data-language="ruby">[].sum(Payment.new(0)) { |i| i.amount } # =&gt; Payment.new(0)</pre>
+
 
 
 

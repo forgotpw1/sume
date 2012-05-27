@@ -1,25 +1,27 @@
 <h1>ActiveSupport::Callbacks::Callback#_compile_filter</h1>
 
-Filters support:
 
-  Arrays::  Used in conditions. This is used to specify
-            multiple conditions. Used internally to
-            merge conditions from skip_* filters
-  Symbols:: A method to call
-  Strings:: Some content to evaluate
-  Procs::   A proc to call with the object
-  Objects:: An object with a before_foo method on it to call
+<p>Filters support:</p>
 
-All of these objects are compiled into methods and handled
-the same after this point:
+<pre data-language="ruby">Arrays::  Used in conditions. This is used to specify
+          multiple conditions. Used internally to
+          merge conditions from skip_* filters
+Symbols:: A method to call
+Strings:: Some content to evaluate
+Procs::   A proc to call with the object
+Objects:: An object with a before_foo method on it to call</pre>
 
-  Arrays::  Merged together into a single filter
-  Symbols:: Already methods
-  Strings:: class_eval'ed into methods
-  Procs::   define_method'ed into methods
-  Objects::
-    a method is created that calls the before_foo method
-    on the object.
+<p>All of these objects are compiled into methods and handled the same after
+this point:</p>
+
+<pre data-language="ruby">Arrays::  Merged together into a single filter
+Symbols:: Already methods
+Strings:: class_eval'ed into methods
+Procs::   define_method'ed into methods
+Objects::
+  a method is created that calls the before_foo method
+  on the object.</pre>
+
 
 
 

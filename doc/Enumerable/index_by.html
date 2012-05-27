@@ -1,11 +1,13 @@
 <h1>Enumerable#index_by</h1>
 
-Convert an enumerable to a hash.
 
-  people.index_by(&:login)
-    => { "nextangle" => <Person ...>, "chade-" => <Person ...>, ...}
-  people.index_by { |person| "#{person.first_name} #{person.last_name}" }
-    => { "Chade- Fowlersburg-e" => <Person ...>, "David Heinemeier Hansson" => <Person ...>, ...}
+<p>Convert an enumerable to a hash. Examples:</p>
+
+<pre data-language="ruby">people.index_by(&amp;:login)
+  =&gt; { &quot;nextangle&quot; =&gt; &lt;Person ...&gt;, &quot;chade-&quot; =&gt; &lt;Person ...&gt;, ...}
+people.index_by { |person| &quot;#{person.first_name} #{person.last_name}&quot; }
+  =&gt; { &quot;Chade- Fowlersburg-e&quot; =&gt; &lt;Person ...&gt;, &quot;David Heinemeier Hansson&quot; =&gt; &lt;Person ...&gt;, ...}</pre>
+
 
 
 

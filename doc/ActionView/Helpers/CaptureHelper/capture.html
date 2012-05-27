@@ -1,28 +1,33 @@
 <h1>ActionView::Helpers::CaptureHelper#capture</h1>
 
-The capture method allows you to extract part of a template into a
-variable. You can then use this variable anywhere in your templates or layout.
 
-The capture method can be used in ERB templates...
+<p>The capture method allows you to extract part of a template into a
+variable. You can then use this variable anywhere in your templates or
+layout.</p>
 
-  <% @greeting = capture do %>
-    Welcome to my shiny new web page!  The date and time is
-    <%= Time.now %>
-  <% end %>
+<h4>Examples</h4>
 
-...and Builder (RXML) templates.
+<p>The capture method can be used in ERB templates...</p>
 
-  @timestamp = capture do
-    "The current timestamp is #{Time.now}."
-  end
+<pre data-language="ruby">&lt;% @greeting = capture do %&gt;
+  Welcome to my shiny new web page!  The date and time is
+  &lt;%= Time.now %&gt;
+&lt;% end %&gt;</pre>
 
-You can then use that variable anywhere else. For example:
+<p>...and Builder (RXML) templates.</p>
 
-  <html>
-  <head><title><%= @greeting %></title></head>
-  <body>
-  <b><%= @greeting %></b>
-  </body></html>
+<pre data-language="ruby">@timestamp = capture do
+  &quot;The current timestamp is #{Time.now}.&quot;
+end</pre>
+
+<p>You can then use that variable anywhere else.  For example:</p>
+
+<pre data-language="ruby">&lt;html&gt;
+&lt;head&gt;&lt;title&gt;&lt;%= @greeting %&gt;&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+&lt;b&gt;&lt;%= @greeting %&gt;&lt;/b&gt;
+&lt;/body&gt;&lt;/html&gt;</pre>
+
 
 
 

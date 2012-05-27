@@ -1,39 +1,39 @@
 <h1>ActionDispatch::Routing::Redirection#redirect</h1>
 
-Redirect any path to another path:
 
-  match "/stories" => redirect("/posts")
+<p>Redirect any path to another path:</p>
 
-You can also use interpolation in the supplied redirect argument:
+<pre data-language="ruby">match &quot;/stories&quot; =&gt; redirect(&quot;/posts&quot;)</pre>
 
-  match 'docs/:article', :to => redirect('/wiki/%{article}')
+<p>You can also use interpolation in the supplied redirect argument:</p>
 
-Alternatively you can use one of the other syntaxes:
+<pre data-language="ruby">match 'docs/:article', :to =&gt; redirect('/wiki/%{article}')</pre>
 
-The block version of redirect allows for the easy encapsulation of any logic associated with
-the redirect in question. Either the params and request are supplied as arguments, or just
-params, depending of how many arguments your block accepts. A string is required as a
-return value.
+<p>Alternatively you can use one of the other syntaxes:</p>
 
-  match 'jokes/:number', :to => redirect { |params, request|
-    path = (params[:number].to_i.even? ? "wheres-the-beef" : "i-love-lamp")
-    "http://#{request.host_with_port}/#{path}"
-  }
+<p>The block version of redirect allows for the easy encapsulation of any
+logic associated with the redirect in question. Either the params and
+request are supplied as arguments, or just params, depending of how many
+arguments your block accepts. A string is required as a return value.</p>
 
-Note that the +do end+ syntax for the redirect block wouldn't work, as Ruby would pass
-the block to +match+ instead of +redirect+. Use <tt>{ ... }</tt> instead.
+<pre data-language="ruby">match 'jokes/:number', :to =&gt; redirect do |params, request|
+  path = (params[:number].to_i.even? ? &quot;/wheres-the-beef&quot; : &quot;/i-love-lamp&quot;)
+  &quot;http://#{request.host_with_port}/#{path}&quot;
+end</pre>
 
-The options version of redirect allows you to supply only the parts of the url which need
-to change, it also supports interpolation of the path similar to the first example.
+<p>The options version of redirect allows you to supply only the parts of the
+url which need to change, it also supports interpolation of the path
+similar to the first example.</p>
 
-  match 'stores/:name',       :to => redirect(:subdomain => 'stores', :path => '/%{name}')
-  match 'stores/:name(*all)', :to => redirect(:subdomain => 'stores', :path => '/%{name}%{all}')
+<pre data-language="ruby">match 'stores/:name',       :to =&gt; redirect(:subdomain =&gt; 'stores', :path =&gt; '/%{name}')
+match 'stores/:name(*all)', :to =&gt; redirect(:subdomain =&gt; 'stores', :path =&gt; '/%{name}%{all}')</pre>
 
-Finally, an object which responds to call can be supplied to redirect, allowing you to reuse
-common redirect routes. The call method must accept two arguments, params and request, and return
-a string.
+<p>Finally, an object which responds to call can be supplied to redirect,
+allowing you to reuse common redirect routes. The call method must accept
+two arguments, params and request, and return a string.</p>
 
-  match 'accounts/:name' => redirect(SubdomainRedirector.new('api'))
+<pre data-language="ruby">match 'accounts/:name' =&gt; redirect(SubdomainRedirector.new('api'))</pre>
+
 
 
 

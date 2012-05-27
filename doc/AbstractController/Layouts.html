@@ -63,40 +63,27 @@ or provided.
 == Inheritance Examples
 
   class BankController < ActionController::Base
-    # bank.html.erb exists
-
-  class ExchangeController < BankController
-    # exchange.html.erb exists
-
-  class CurrencyController < BankController
+    layout "bank_standard"
 
   class InformationController < BankController
-    layout "information"
 
-  class TellerController < InformationController
+  class TellerController < BankController
     # teller.html.erb exists
 
-  class EmployeeController < InformationController
-    # employee.html.erb exists
-    layout nil
+  class TillController < TellerController
 
   class VaultController < BankController
     layout :access_level_layout
 
-  class TillController < BankController
-    layout false
+  class EmployeeController < BankController
+    layout nil
 
-In these examples, we have three implicit lookup scenarios:
-* The BankController uses the "bank" layout.
-* The ExchangeController uses the "exchange" layout.
-* The CurrencyController inherits the layout from BankController.
-
-However, when a layout is explicitly set, the explicitly set layout wins:
-* The InformationController uses the "information" layout, explicitly set.
-* The TellerController also uses the "information" layout, because the parent explicitly set it.
-* The EmployeeController uses the "employee" layout, because it set the layout to nil, resetting the parent configuration.
+In these examples:
+* The InformationController uses the "bank_standard" layout, inherited from BankController.
+* The TellerController follows convention and uses +app/views/layouts/teller.html.erb+.
+* The TillController inherits the layout from TellerController and uses +teller.html.erb+ as well.
 * The VaultController chooses a layout dynamically by calling the <tt>access_level_layout</tt> method.
-* The TillController does not use a layout at all.
+* The EmployeeController does not use a layout at all.
 
 == Types of layouts
 
@@ -117,7 +104,6 @@ The method reference is the preferred approach to variable layouts and is used l
       def writers_and_readers
         logged_in? ? "writer_layout" : "reader_layout"
       end
-  end
 
 Now when a new request for the index action is processed, the layout will vary depending on whether the person accessing
 is logged in or not.
@@ -125,14 +111,7 @@ is logged in or not.
 If you want to use an inline method, such as a proc, do something like this:
 
   class WeblogController < ActionController::Base
-    layout proc { |controller| controller.logged_in? ? "writer_layout" : "reader_layout" }
-  end
-
-If an argument isn't given to the proc, it's evaluated in the context of
-the current controller anyway.
-
-  class WeblogController < ActionController::Base
-    layout proc { logged_in? ? "writer_layout" : "reader_layout" }
+    layout proc{ |controller| controller.logged_in? ? "writer_layout" : "reader_layout" }
   end
 
 Of course, the most common way of specifying a layout is still just as a plain template name:
@@ -141,24 +120,8 @@ Of course, the most common way of specifying a layout is still just as a plain t
     layout "weblog_standard"
   end
 
-The template will be looked always in <tt>app/views/layouts/</tt> folder. But you can point
-<tt>layouts</tt> folder direct also. <tt>layout "layouts/demo"</tt> is the same as <tt>layout "demo"</tt>.
-
-Setting the layout to nil forces it to be looked up in the filesystem and fallbacks to the parent behavior if none exists.
-Setting it to nil is useful to re-enable template lookup overriding a previous configuration set in the parent:
-
-    class ApplicationController < ActionController::Base
-      layout "application"
-    end
-
-    class PostsController < ApplicationController
-      # Will use "application" layout
-    end
-
-    class CommentsController < ApplicationController
-      # Will search for "comments" layout and fallback "application" layout
-      layout nil
-    end
+If no directory is specified for the template name, the template will by default be looked for in <tt>app/views/layouts/</tt>.
+Otherwise, it will be looked up relative to the template root.
 
 == Conditional layouts
 

@@ -1,58 +1,60 @@
 <h1>ActiveSupport::Inflector#transliterate</h1>
 
-Replaces non-ASCII characters with an ASCII approximation, or if none
-exists, a replacement character which defaults to "?".
 
-   transliterate("Ærøskøbing")
-   # => "AEroskobing"
+<p>Replaces non-ASCII characters with an ASCII approximation, or if none
+exists, a replacement character which defaults to “?”.</p>
 
-Default approximations are provided for Western/Latin characters,
-e.g, "ø", "ñ", "é", "ß", etc.
+<pre data-language="ruby">transliterate(&quot;Ærøskøbing&quot;)
+# =&gt; &quot;AEroskobing&quot;</pre>
 
-This method is I18n aware, so you can set up custom approximations for a
-locale. This can be useful, for example, to transliterate German's "ü"
-and "ö" to "ue" and "oe", or to add support for transliterating Russian
-to ASCII.
+<p>Default approximations are provided for Western/Latin characters, e.g, “ø”,
+“ñ”, “é”, “ß”, etc.</p>
 
-In order to make your custom transliterations available, you must set
-them as the <tt>i18n.transliterate.rule</tt> i18n key:
+<p>This method is I18n aware, so you can set up custom approximations for a
+locale. This can be useful, for example, to transliterate German’s “ü” and
+“ö” to “ue” and “oe”, or to add support for transliterating Russian to
+ASCII.</p>
 
-  # Store the transliterations in locales/de.yml
-  i18n:
-    transliterate:
-      rule:
-        ü: "ue"
-        ö: "oe"
+<p>In order to make your custom transliterations available, you must set them
+as the <tt>i18n.transliterate.rule</tt> i18n key:</p>
 
-  # Or set them using Ruby
-  I18n.backend.store_translations(:de, :i18n => {
-    :transliterate => {
-      :rule => {
-        "ü" => "ue",
-        "ö" => "oe"
-      }
+<pre data-language="ruby"># Store the transliterations in locales/de.yml
+i18n:
+  transliterate:
+    rule:
+      ü: &quot;ue&quot;
+      ö: &quot;oe&quot;
+
+# Or set them using Ruby
+I18n.backend.store_translations(:de, :i18n =&gt; {
+  :transliterate =&gt; {
+    :rule =&gt; {
+      &quot;ü&quot; =&gt; &quot;ue&quot;,
+      &quot;ö&quot; =&gt; &quot;oe&quot;
     }
-  })
+  }
+})</pre>
 
-The value for <tt>i18n.transliterate.rule</tt> can be a simple Hash that maps
-characters to ASCII approximations as shown above, or, for more complex
-requirements, a Proc:
+<p>The value for <tt>i18n.transliterate.rule</tt> can be a simple Hash that
+maps characters to ASCII approximations as shown above, or, for more
+complex requirements, a Proc:</p>
 
-  I18n.backend.store_translations(:de, :i18n => {
-    :transliterate => {
-      :rule => lambda {|string| MyTransliterator.transliterate(string)}
-    }
-  })
+<pre data-language="ruby">I18n.backend.store_translations(:de, :i18n =&gt; {
+  :transliterate =&gt; {
+    :rule =&gt; lambda {|string| MyTransliterator.transliterate(string)}
+  }
+})</pre>
 
-Now you can have different transliterations for each locale:
+<p>Now you can have different transliterations for each locale:</p>
 
-  I18n.locale = :en
-  transliterate("Jürgen")
-  # => "Jurgen"
+<pre data-language="ruby">I18n.locale = :en
+transliterate(&quot;Jürgen&quot;)
+# =&gt; &quot;Jurgen&quot;
 
-  I18n.locale = :de
-  transliterate("Jürgen")
-  # => "Juergen"
+I18n.locale = :de
+transliterate(&quot;Jürgen&quot;)
+# =&gt; &quot;Juergen&quot;</pre>
+
 
 
 

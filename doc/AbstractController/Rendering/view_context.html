@@ -1,14 +1,19 @@
 <h1>AbstractController::Rendering#view_context</h1>
 
-An instance of a view class. The default view class is ActionView::Base
 
-The view class must have the following methods:
-View.new[lookup_context, assigns, controller]
-  Create a new ActionView instance for a controller
-View#render[options]
-  Returns String with the rendered template
+<p>An instance of a view class. The default view class is ActionView::Base</p>
 
-Override this method in a module to change the default behavior.
+<p>The view class must have the following methods: View.new[lookup_context,
+assigns, controller]</p>
+
+<pre data-language="ruby">Create a new ActionView instance for a controller</pre>
+
+<p><a href="http://options">View#render</a></p>
+
+<pre data-language="ruby">Returns String with the rendered template</pre>
+
+<p>Override this method in a module to change the default behavior.</p>
+
 
 
 

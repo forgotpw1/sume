@@ -1,6 +1,6 @@
 The record identifier encapsulates a number of naming conventions for dealing with records, like Active Records or
-pretty much any other model type that has an id. These patterns are then used to try elevate the view actions to
-a higher logical level.
+Active Resources or pretty much any other model type that has an id. These patterns are then used to try elevate
+the view actions to a higher logical level. Example:
 
   # routes
   resources :posts
@@ -11,9 +11,9 @@ a higher logical level.
   <% end %>                  </div>
 
   # controller
-  def update
+  def destroy
     post = Post.find(params[:id])
-    post.update_attributes(params[:post])
+    post.destroy
 
     redirect_to(post) # Calls polymorphic_url(post) which in turn calls post_url(post)
   end

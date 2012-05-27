@@ -1,56 +1,40 @@
 <h1>ActionView::Helpers::FormOptionsHelper#select</h1>
 
-Create a select tag and a series of contained option tags for the provided object and method.
-The option currently held by the object will be selected, provided that the object is available.
 
-There are two possible formats for the choices parameter, corresponding to other helpers' output:
-  * A flat collection: see options_for_select
-  * A nested collection: see grouped_options_for_select
+<p>Create a select tag and a series of contained option tags for the provided
+object and method. The option currently held by the object will be
+selected, provided that the object is available. See options_for_select for
+the required format of the choices parameter.</p>
 
-Example with @post.person_id => 1:
-  select("post", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, { :include_blank => true })
+<p>Example with @post.person_id =&gt; 1:</p>
 
-could become:
+<pre data-language="ruby">select(&quot;post&quot;, &quot;person_id&quot;, Person.all.collect {|p| [ p.name, p.id ] }, { :include_blank =&gt; true })</pre>
 
-  <select name="post[person_id]">
-    <option value=""></option>
-    <option value="1" selected="selected">David</option>
-    <option value="2">Sam</option>
-    <option value="3">Tobias</option>
-  </select>
+<p>could become:</p>
 
-This can be used to provide a default set of options in the standard way: before rendering the create form, a
-new model instance is assigned the default options and bound to @model_name. Usually this model is not saved
-to the database. Instead, a second model object is created when the create request is received.
-This allows the user to submit a form page more than once with the expected results of creating multiple records.
-In addition, this allows a single partial to be used to generate form inputs for both edit and create forms.
+<pre data-language="ruby">&lt;select name=&quot;post[person_id]&quot;&gt;
+  &lt;option value=&quot;&quot;&gt;&lt;/option&gt;
+  &lt;option value=&quot;1&quot; selected=&quot;selected&quot;&gt;David&lt;/option&gt;
+  &lt;option value=&quot;2&quot;&gt;Sam&lt;/option&gt;
+  &lt;option value=&quot;3&quot;&gt;Tobias&lt;/option&gt;
+&lt;/select&gt;</pre>
 
-By default, <tt>post.person_id</tt> is the selected option. Specify <tt>:selected => value</tt> to use a different selection
-or <tt>:selected => nil</tt> to leave all options unselected. Similarly, you can specify values to be disabled in the option
-tags by specifying the <tt>:disabled</tt> option. This can either be a single value or an array of values to be disabled.
+<p>This can be used to provide a default set of options in the standard way:
+before rendering the create form, a new model instance is assigned the
+default options and bound to @model_name. Usually this model is not saved
+to the database. Instead, a second model object is created when the create
+request is received. This allows the user to submit a form page more than
+once with the expected results of creating multiple records. In addition,
+this allows a single partial to be used to generate form inputs for both
+edit and create forms.</p>
 
-==== Gotcha
+<p>By default, <tt>post.person_id</tt> is the selected option.  Specify
+<tt>:selected =&gt; value</tt> to use a different selection or
+<tt>:selected =&gt; nil</tt> to leave all options unselected. Similarly,
+you can specify values to be disabled in the option tags by specifying the
+<tt>:disabled</tt> option. This can either be a single value or an array of
+values to be disabled.</p>
 
-The HTML specification says when +multiple+ parameter passed to select and all options got deselected
-web browsers do not send any value to server. Unfortunately this introduces a gotcha:
-if an +User+ model has many +roles+ and have +role_ids+ accessor, and in the form that edits roles of the user
-the user deselects all roles from +role_ids+ multiple select box, no +role_ids+ parameter is sent. So,
-any mass-assignment idiom like
-
-  @user.update_attributes(params[:user])
-
-wouldn't update roles.
-
-To prevent this the helper generates an auxiliary hidden field before
-every multiple select. The hidden field has the same name as multiple select and blank value.
-
-This way, the client either sends only the hidden field (representing
-the deselected multiple select box), or both fields. Since the HTML specification
-says key/value pairs have to be sent in the same order they appear in the
-form, and parameters extraction gets the last occurrence of any repeated
-key in the query string, that works for ordinary forms.
-
-In case if you don't want the helper to generate this hidden field you can specify <tt>:include_blank => false</tt> option.
 
 
 

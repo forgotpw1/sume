@@ -1,19 +1,22 @@
 <h1>Object#presence</h1>
 
-Returns object if it's <tt>present?</tt> otherwise returns +nil+.
-<tt>object.presence</tt> is equivalent to <tt>object.present? ? object : nil</tt>.
 
-This is handy for any representation of objects where blank is the same
-as not present at all. For example, this simplifies a common check for
-HTTP POST/query parameters:
+<p>Returns object if it's <tt>present?</tt> otherwise returns <tt>nil</tt>.
+<tt>object.presence</tt> is equivalent to <tt>object.present? ? object :
+nil</tt>.</p>
 
-  state   = params[:state]   if params[:state].present?
-  country = params[:country] if params[:country].present?
-  region  = state || country || 'US'
+<p>This is handy for any representation of objects where blank is the same as
+not present at all.  For example, this simplifies a common check for HTTP
+POST/query parameters:</p>
 
-...becomes:
+<pre data-language="ruby">state   = params[:state]   if params[:state].present?
+country = params[:country] if params[:country].present?
+region  = state || country || 'US'</pre>
 
-  region = params[:state].presence || params[:country].presence || 'US'
+<p>...becomes:</p>
+
+<pre data-language="ruby">region = params[:state].presence || params[:country].presence || 'US'</pre>
+
 
 
 

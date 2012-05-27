@@ -1,21 +1,31 @@
 <h1>ActionView::Helpers::TextHelper#highlight</h1>
 
-Highlights one or more +phrases+ everywhere in +text+ by inserting it into
-a <tt>:highlighter</tt> string. The highlighter can be specialized by passing <tt>:highlighter</tt>
-as a single-quoted string with <tt>\1</tt> where the phrase is to be inserted (defaults to
-'<mark>\1</mark>')
 
-  highlight('You searched for: rails', 'rails')
-  # => You searched for: <mark>rails</mark>
+<p>Highlights one or more <tt>phrases</tt> everywhere in <tt>text</tt> by
+inserting it into a <tt>:highlighter</tt> string. The highlighter can be
+specialized by passing <tt>:highlighter</tt> as a single-quoted string with
+1 where the phrase is to be inserted (defaults to '&lt;strong
+class="highlight"&gt;1&lt;/strong&gt;')</p>
 
-  highlight('You searched for: ruby, rails, dhh', 'actionpack')
-  # => You searched for: ruby, rails, dhh
+<h4>Examples</h4>
 
-  highlight('You searched for: rails', ['for', 'rails'], :highlighter => '<em>\1</em>')
-  # => You searched <em>for</em>: <em>rails</em>
+<pre data-language="ruby">highlight('You searched for: rails', 'rails')
+# =&gt; You searched for: &lt;strong class=&quot;highlight&quot;&gt;rails&lt;/strong&gt;
 
-  highlight('You searched for: rails', 'rails', :highlighter => '<a href="search?q=\1">\1</a>')
-  # => You searched for: <a href="search?q=rails">rails</a>
+highlight('You searched for: ruby, rails, dhh', 'actionpack')
+# =&gt; You searched for: ruby, rails, dhh
+
+highlight('You searched for: rails', ['for', 'rails'], :highlighter =&gt; '&lt;em&gt;\1&lt;/em&gt;')
+# =&gt; You searched &lt;em&gt;for&lt;/em&gt;: &lt;em&gt;rails&lt;/em&gt;
+
+highlight('You searched for: rails', 'rails', :highlighter =&gt; '&lt;a href=&quot;search?q=\1&quot;&gt;\1&lt;/a&gt;')
+# =&gt; You searched for: &lt;a href=&quot;search?q=rails&quot;&gt;rails&lt;/a&gt;</pre>
+
+<p>You can still use <tt>highlight</tt> with the old API that accepts the
+<tt>highlighter</tt> as its optional third parameter:</p>
+
+<pre data-language="ruby">highlight('You searched for: rails', 'rails', '&lt;a href=&quot;search?q=\1&quot;&gt;\1&lt;/a&gt;')     # =&gt; You searched for: &lt;a href=&quot;search?q=rails&quot;&gt;rails&lt;/a&gt;</pre>
+
 
 
 

@@ -1,18 +1,17 @@
 <h1>ActiveRecord::NestedAttributes#assign_nested_attributes_for_one_to_one_association</h1>
 
-Assigns the given attributes to the association.
 
-If an associated record does not yet exist, one will be instantiated. If
-an associated record already exists, the method's behavior depends on
-the value of the update_only option. If update_only is +false+ and the
-given attributes include an <tt>:id</tt> that matches the existing record's
-id, then the existing record will be modified. If no <tt>:id</tt> is provided
-it will be replaced with a new record. If update_only is +true+ the existing
-record will be modified regardless of whether an <tt>:id</tt> is provided.
+<p>Assigns the given attributes to the association.</p>
 
-If the given attributes include a matching <tt>:id</tt> attribute, or
+<p>If update_only is false and the given attributes include an <tt>:id</tt>
+that matches the existing record's id, then the existing record will be
+modified. If update_only is true, a new record is only created when no
+object exists. Otherwise a new record will be built.</p>
+
+<p>If the given attributes include a matching <tt>:id</tt> attribute, or
 update_only is true, and a <tt>:_destroy</tt> key set to a truthy value,
-then the existing record will be marked for destruction.
+then the existing record will be marked for destruction.</p>
+
 
 
 

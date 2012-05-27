@@ -1,11 +1,13 @@
 <h1>ActionView::Helpers::SanitizeHelper::ClassMethods#full_sanitizer</h1>
 
-Gets the HTML::FullSanitizer instance used by +strip_tags+. Replace with
-any object that responds to +sanitize+.
 
-  class Application < Rails::Application
-    config.action_view.full_sanitizer = MySpecialSanitizer.new
-  end
+<p>Gets the HTML::FullSanitizer instance used by <tt>strip_tags</tt>.  Replace
+with any object that responds to <tt>sanitize</tt>.</p>
+
+<pre data-language="ruby">class Application &lt; Rails::Application
+  config.action_view.full_sanitizer = MySpecialSanitizer.new
+end</pre>
+
 
 
 

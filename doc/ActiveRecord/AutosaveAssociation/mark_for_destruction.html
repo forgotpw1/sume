@@ -1,10 +1,13 @@
 <h1>ActiveRecord::AutosaveAssociation#mark_for_destruction</h1>
 
-Marks this record to be destroyed as part of the parents save transaction.
-This does _not_ actually destroy the record instantly, rather child record will be destroyed
-when <tt>parent.save</tt> is called.
 
-Only useful if the <tt>:autosave</tt> option on the parent is enabled for this associated model.
+<p>Marks this record to be destroyed as part of the parents save transaction.
+This does <em>not</em> actually destroy the record instantly, rather child
+record will be destroyed when <tt>parent.save</tt> is called.</p>
+
+<p>Only useful if the <tt>:autosave</tt> option on the parent is enabled for
+this associated model.</p>
+
 
 
 

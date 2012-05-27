@@ -1,15 +1,15 @@
 <h1>String#first</h1>
 
-Returns the first character. If a limit is supplied, returns a substring
-from the beginning of the string until it reaches the limit value. If the
-given limit is greater than or equal to the string length, returns self.
 
-  str = "hello"
-  str.first    #=> "h"
-  str.first(1) #=> "h"
-  str.first(2) #=> "he"
-  str.first(0) #=> ""
-  str.first(6) #=> "hello"
+<p>Returns the first character of the string or the first <tt>limit</tt>
+characters.</p>
+
+<p>Examples:</p>
+
+<pre data-language="ruby">&quot;hello&quot;.first     # =&gt; &quot;h&quot;
+&quot;hello&quot;.first(2)  # =&gt; &quot;he&quot;
+&quot;hello&quot;.first(10) # =&gt; &quot;hello&quot;</pre>
+
 
 
 

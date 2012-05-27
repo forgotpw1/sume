@@ -1,7 +1,13 @@
 <h1>ActionView::Helpers::UrlHelper#url_options</h1>
 
-We need to override url_optoins, _routes_context
-and optimize_routes_generation? to consider the controller.
+
+<p>Need to map default url options to controller one. def
+default_url_options(*args) #:nodoc:</p>
+
+<pre data-language="ruby">controller.send(:default_url_options, *args)</pre>
+
+<p>end</p>
+
 
 
 

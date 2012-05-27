@@ -1,11 +1,15 @@
 <h1>ActiveSupport::Inflector#inflections</h1>
 
-Yields a singleton instance of Inflector::Inflections so you can specify additional
-inflector rules.
 
-  ActiveSupport::Inflector.inflections do |inflect|
-    inflect.uncountable "rails"
-  end
+<p>Yields a singleton instance of Inflector::Inflections so you can specify
+additional inflector rules.</p>
+
+<p>Example:</p>
+
+<pre data-language="ruby">ActiveSupport::Inflector.inflections do |inflect|
+  inflect.uncountable &quot;rails&quot;
+end</pre>
+
 
 
 

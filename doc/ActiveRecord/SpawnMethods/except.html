@@ -1,11 +1,13 @@
 <h1>ActiveRecord::SpawnMethods#except</h1>
 
-Removes from the query the condition(s) specified in +skips+.
 
-Example:
+<p>Removes from the query the condition(s) specified in <tt>skips</tt>.</p>
 
-  Post.order('id asc').except(:order)                  # discards the order condition
-  Post.where('id > 10').order('id asc').except(:where) # discards the where condition but keeps the order
+<p>Example:</p>
+
+<pre data-language="ruby">Post.order('id asc').except(:order)                  # discards the order condition
+Post.where('id &gt; 10').order('id asc').except(:where) # discards the where condition but keeps the order</pre>
+
 
 
 

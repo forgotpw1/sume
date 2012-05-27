@@ -1,13 +1,9 @@
 <h1>ActiveRecord::FinderMethods#last</h1>
 
-Find the last record (or last N records if a parameter is supplied).
-If no order is defined it will order by primary key.
 
-Examples:
+<p>A convenience wrapper for <tt>find(:last, *args)</tt>. You can pass in all
+the same arguments to this method as you can to <tt>find(:last)</tt>.</p>
 
-  Person.last # returns the last object fetched by SELECT * FROM people
-  Person.where(["user_name = ?", user_name]).last
-  Person.order("created_on DESC").offset(5).last
 
 
 

@@ -1,10 +1,12 @@
 <h1>ActiveRecord::Associations::Builder::HasAndBelongsToMany#join_table_name</h1>
 
-Generates a join table name from two provided table names.
-The names in the join table names end up in lexicographic order.
 
-  join_table_name("members", "clubs")         # => "clubs_members"
-  join_table_name("members", "special_clubs") # => "members_special_clubs"
+<p>Generates a join table name from two provided table names. The names in the
+join table names end up in lexicographic order.</p>
+
+<pre data-language="ruby">join_table_name(&quot;members&quot;, &quot;clubs&quot;)         # =&gt; &quot;clubs_members&quot;
+join_table_name(&quot;members&quot;, &quot;special_clubs&quot;) # =&gt; &quot;members_special_clubs&quot;</pre>
+
 
 
 

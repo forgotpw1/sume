@@ -1,18 +1,20 @@
 <h1>File.atomic_write</h1>
 
-Write to a file atomically. Useful for situations where you don't
-want other processes or threads to see half-written files.
 
-  File.atomic_write('important.file') do |file|
-    file.write('hello')
-  end
+<p>Write to a file atomically.  Useful for situations where you don't want
+other processes or threads to see half-written files.</p>
 
-If your temp directory is not on the same filesystem as the file you're
-trying to write, you can provide a different temporary directory.
+<pre data-language="ruby">File.atomic_write(&quot;important.file&quot;) do |file|
+  file.write(&quot;hello&quot;)
+end</pre>
 
-  File.atomic_write('/data/something.important', '/data/tmp') do |file|
-    file.write('hello')
-  end
+<p>If your temp directory is not on the same filesystem as the file you're
+trying to write, you can provide a different temporary directory.</p>
+
+<pre data-language="ruby">File.atomic_write(&quot;/data/something.important&quot;, &quot;/data/tmp&quot;) do |file|
+  file.write(&quot;hello&quot;)
+end</pre>
+
 
 
 

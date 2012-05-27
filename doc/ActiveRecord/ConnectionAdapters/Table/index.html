@@ -1,14 +1,23 @@
 <h1>ActiveRecord::ConnectionAdapters::Table#index</h1>
 
-Adds a new index to the table. +column_name+ can be a single Symbol, or
-an Array of Symbols. See SchemaStatements#add_index
 
-====== Creating a simple index
- t.index(:name)
-====== Creating a unique index
- t.index([:branch_id, :party_id], :unique => true)
-====== Creating a named index
- t.index([:branch_id, :party_id], :unique => true, :name => 'by_branch_party')
+<p>Adds a new index to the table. <tt>column_name</tt> can be a single Symbol,
+or an Array of Symbols. See SchemaStatements#add_index</p>
+
+<h5>Examples</h5>
+
+<h6>Creating a simple index</h6>
+
+<pre data-language="ruby">t.index(:name)</pre>
+
+<h6>Creating a unique index</h6>
+
+<pre data-language="ruby">t.index([:branch_id, :party_id], :unique =&gt; true)</pre>
+
+<h6>Creating a named index</h6>
+
+<pre data-language="ruby">t.index([:branch_id, :party_id], :unique =&gt; true, :name =&gt; 'by_branch_party')</pre>
+
 
 
 

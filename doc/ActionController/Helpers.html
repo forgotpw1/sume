@@ -3,16 +3,14 @@ numbers and model objects, to name a few. These helpers are available to all tem
 by default.
 
 In addition to using the standard template helpers provided, creating custom helpers to
-extract complicated logic or reusable functionality is strongly encouraged. By default, each controller
-will include all helpers.
-
-In previous versions of \Rails the controller will include a helper whose
-name matches that of the controller, e.g., <tt>MyController</tt> will automatically
-include <tt>MyHelper</tt>. To return old behavior set +config.action_controller.include_all_helpers+ to +false+.
+extract complicated logic or reusable functionality is strongly encouraged. By default, the controller will
+include a helper whose name matches that of the controller, e.g., <tt>MyController</tt> will automatically
+include <tt>MyHelper</tt>.
 
 Additional helpers can be specified using the +helper+ class method in ActionController::Base or any
 controller which inherits from it.
 
+==== Examples
 The +to_s+ method from the \Time class can be wrapped in a helper method to display a custom message if
 a \Time object is blank:
 
@@ -27,7 +25,7 @@ FormattedTimeHelper can now be included in a controller, using the +helper+ clas
   class EventsController < ActionController::Base
     helper FormattedTimeHelper
     def index
-      @events = Event.all
+      @events = Event.find(:all)
     end
   end
 

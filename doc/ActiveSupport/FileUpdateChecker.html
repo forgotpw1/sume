@@ -1,24 +1,7 @@
-\FileUpdateChecker specifies the API used by Rails to watch files
-and control reloading. The API depends on four methods:
-
-* +initialize+ which expects two parameters and one block as
-  described below;
-
-* +updated?+ which returns a boolean if there were updates in
-  the filesystem or not;
-
-* +execute+ which executes the given block on initialization
-  and updates the latest watched files and timestamp;
-
-* +execute_if_updated+ which just executes the block if it was updated;
-
-After initialization, a call to +execute_if_updated+ must execute
-the block only if there was really a change in the filesystem.
-
-== Examples
-
-This class is used by Rails to reload the I18n framework whenever
-they are changed upon a new request.
+This class is responsible to track files and invoke the given block
+whenever one of these files are changed. For example, this class
+is used by Rails to reload the I18n framework whenever they are
+changed upon a new request.
 
   i18n_reloader = ActiveSupport::FileUpdateChecker.new(paths) do
     I18n.reload!

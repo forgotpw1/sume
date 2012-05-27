@@ -1,32 +1,34 @@
 <h1>ActiveRecord::NestedAttributes#assign_nested_attributes_for_collection_association</h1>
 
-Assigns the given attributes to the collection association.
 
-Hashes with an <tt>:id</tt> value matching an existing associated record
-will update that record. Hashes without an <tt>:id</tt> value will build
-a new record for the association. Hashes with a matching <tt>:id</tt>
-value and a <tt>:_destroy</tt> key set to a truthy value will mark the
-matched record for destruction.
+<p>Assigns the given attributes to the collection association.</p>
 
-For example:
+<p>Hashes with an <tt>:id</tt> value matching an existing associated record
+will update that record. Hashes without an <tt>:id</tt> value will build a
+new record for the association. Hashes with a matching <tt>:id</tt> value
+and a <tt>:_destroy</tt> key set to a truthy value will mark the matched
+record for destruction.</p>
 
-  assign_nested_attributes_for_collection_association(:people, {
-    '1' => { :id => '1', :name => 'Peter' },
-    '2' => { :name => 'John' },
-    '3' => { :id => '2', :_destroy => true }
-  })
+<p>For example:</p>
 
-Will update the name of the Person with ID 1, build a new associated
-person with the name `John', and mark the associated Person with ID 2
-for destruction.
+<pre data-language="ruby">assign_nested_attributes_for_collection_association(:people, {
+  '1' =&gt; { :id =&gt; '1', :name =&gt; 'Peter' },
+  '2' =&gt; { :name =&gt; 'John' },
+  '3' =&gt; { :id =&gt; '2', :_destroy =&gt; true }
+})</pre>
 
-Also accepts an Array of attribute hashes:
+<p>Will update the name of the Person with ID 1, build a new associated person
+with the name `John', and mark the associated Person with ID 2 for
+destruction.</p>
 
-  assign_nested_attributes_for_collection_association(:people, [
-    { :id => '1', :name => 'Peter' },
-    { :name => 'John' },
-    { :id => '2', :_destroy => true }
-  ])
+<p>Also accepts an Array of attribute hashes:</p>
+
+<pre data-language="ruby">assign_nested_attributes_for_collection_association(:people, [
+  { :id =&gt; '1', :name =&gt; 'Peter' },
+  { :name =&gt; 'John' },
+  { :id =&gt; '2', :_destroy =&gt; true }
+])</pre>
+
 
 
 

@@ -1,17 +1,22 @@
 <h1>NilClass#try</h1>
 
-Calling +try+ on +nil+ always returns +nil+.
-It becomes specially helpful when navigating through associations that may return +nil+.
 
-=== Examples
+<p>Calling <tt>try</tt> on <tt>nil</tt> always returns <tt>nil</tt>. It
+becomes specially helpful when navigating through associations that may
+return <tt>nil</tt>.</p>
 
-  nil.try(:name) # => nil
+<h3>Examples</h3>
 
-Without +try+
-  @person && !@person.children.blank? && @person.children.first.name
+<pre data-language="ruby">nil.try(:name) # =&gt; nil</pre>
 
-With +try+
-  @person.try(:children).try(:first).try(:name)
+<p>Without <tt>try</tt></p>
+
+<pre data-language="ruby">@person &amp;&amp; !@person.children.blank? &amp;&amp; @person.children.first.name</pre>
+
+<p>With <tt>try</tt></p>
+
+<pre data-language="ruby">@person.try(:children).try(:first).try(:name)</pre>
+
 
 
 

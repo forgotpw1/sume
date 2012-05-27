@@ -1,50 +1,37 @@
 <h1>ActionView::Helpers::RecordTagHelper#content_tag_for</h1>
 
-content_tag_for creates an HTML element with id and class parameters
-that relate to the specified Active Record object. For example:
 
-   <%= content_tag_for(:tr, @person) do %>
-     <td><%= @person.first_name %></td>
-     <td><%= @person.last_name %></td>
-   <% end %>
+<p>content_tag_for creates an HTML element with id and class parameters that
+relate to the specified Active Record object. For example:</p>
 
-would produce the following HTML (assuming @person is an instance of
-a Person object, with an id value of 123):
+<pre data-language="ruby">&lt;%= content_tag_for(:tr, @person) do %&gt;
+  &lt;td&gt;&lt;%= @person.first_name %&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;%= @person.last_name %&gt;&lt;/td&gt;
+&lt;% end %&gt;</pre>
 
-   <tr id="person_123" class="person">....</tr>
+<p>would produce the following HTML (assuming @person is an instance of a
+Person object, with an id value of 123):</p>
 
-If you require the HTML id attribute to have a prefix, you can specify it:
+<pre data-language="ruby">&lt;tr id=&quot;person_123&quot; class=&quot;person&quot;&gt;....&lt;/tr&gt;</pre>
 
-   <%= content_tag_for(:tr, @person, :foo) do %> ...
+<p>If you require the HTML id attribute to have a prefix, you can specify it:</p>
 
-produces:
+<pre data-language="ruby">&lt;%= content_tag_for(:tr, @person, :foo) do %&gt; ...</pre>
 
-   <tr id="foo_person_123" class="person">...
+<p>produces:</p>
 
-You can also pass an array of objects which this method will loop through
-and yield the current object to the supplied block, reducing the need for
-having to iterate through the object (using <tt>each</tt>) beforehand.
-For example (assuming @people is an array of Person objects):
+<pre data-language="ruby">&lt;tr id=&quot;foo_person_123&quot; class=&quot;person&quot;&gt;...</pre>
 
-   <%= content_tag_for(:tr, @people) do |person| %>
-     <td><%= person.first_name %></td>
-     <td><%= person.last_name %></td>
-   <% end %>
+<p>content_tag_for also accepts a hash of options, which will be converted to
+additional HTML attributes. If you specify a <tt>:class</tt> value, it will
+be combined with the default class name for your object. For example:</p>
 
-produces:
+<pre data-language="ruby">&lt;%= content_tag_for(:li, @person, :class =&gt; &quot;bar&quot;) %&gt;...</pre>
 
-  <tr id="person_123" class="person">...</tr>
-  <tr id="person_124" class="person">...</tr>
+<p>produces:</p>
 
-content_tag_for also accepts a hash of options, which will be converted to
-additional HTML attributes. If you specify a <tt>:class</tt> value, it will be combined
-with the default class name for your object. For example:
+<pre data-language="ruby">&lt;li id=&quot;person_123&quot; class=&quot;person bar&quot;&gt;...</pre>
 
-   <%= content_tag_for(:li, @person, :class => "bar") %>...
-
-produces:
-
-   <li id="person_123" class="person bar">...
 
 
 

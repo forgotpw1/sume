@@ -1,6 +1,6 @@
 = Active Record Session Store
 
-A session store backed by an Active Record class. A default class is
+A session store backed by an Active Record class.  A default class is
 provided, but any object duck-typing to an Active Record Session class
 with text +session_id+ and +data+ attributes is sufficient.
 
@@ -22,7 +22,7 @@ For example, at the end of <tt>config/application.rb</tt>:
   ActiveRecord::SessionStore::Session.data_column_name = 'legacy_session_data'
 
 Note that setting the primary key to the +session_id+ frees you from
-having a separate +id+ column if you don't want it. However, you must
+having a separate +id+ column if you don't want it.  However, you must
 set <tt>session.model.id = session.session_id</tt> by hand!  A before filter
 on ApplicationController is a good place.
 
@@ -45,6 +45,6 @@ You must implement these methods:
   save
   destroy
 
-The example SqlBypass class is a generic SQL session store. You may
+The example SqlBypass class is a generic SQL session store.  You may
 use it as a basis for high-performance database-specific stores.
 

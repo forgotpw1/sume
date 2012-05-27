@@ -1,12 +1,17 @@
 <h1>ActionView::Helpers::TagHelper#escape_once</h1>
 
-Returns an escaped version of +html+ without affecting existing escaped entities.
 
-  escape_once("1 < 2 &amp; 3")
-  # => "1 &lt; 2 &amp; 3"
+<p>Returns an escaped version of <tt>html</tt> without affecting existing
+escaped entities.</p>
 
-  escape_once("&lt;&lt; Accept & Checkout")
-  # => "&lt;&lt; Accept &amp; Checkout"
+<h4>Examples</h4>
+
+<pre data-language="ruby">escape_once(&quot;1 &lt; 2 &amp;amp; 3&quot;)
+# =&gt; &quot;1 &amp;lt; 2 &amp;amp; 3&quot;
+
+escape_once(&quot;&amp;lt;&amp;lt; Accept &amp; Checkout&quot;)
+# =&gt; &quot;&amp;lt;&amp;lt; Accept &amp;amp; Checkout&quot;</pre>
+
 
 
 

@@ -1,18 +1,23 @@
 <h1>ActionDispatch::Assertions::TagAssertions#assert_no_tag</h1>
 
-Identical to +assert_tag+, but asserts that a matching tag does _not_
-exist. (See +assert_tag+ for a full discussion of the syntax.)
 
-  # Assert that there is not a "div" containing a "p"
-  assert_no_tag :tag => "div", :descendant => { :tag => "p" }
+<p>Identical to <tt>assert_tag</tt>, but asserts that a matching tag does
+<em>not</em> exist. (See <tt>assert_tag</tt> for a full discussion of the
+syntax.)</p>
 
-  # Assert that an unordered list is empty
-  assert_no_tag :tag => "ul", :descendant => { :tag => "li" }
+<h3>Examples</h3>
 
-  # Assert that there is not a "p" tag with between 1 to 3 "img" tags
-  # as immediate children
-  assert_no_tag :tag => "p",
-             :children => { :count => 1..3, :only => { :tag => "img" } }
+<pre data-language="ruby"># Assert that there is not a &quot;div&quot; containing a &quot;p&quot;
+assert_no_tag :tag =&gt; &quot;div&quot;, :descendant =&gt; { :tag =&gt; &quot;p&quot; }
+
+# Assert that an unordered list is empty
+assert_no_tag :tag =&gt; &quot;ul&quot;, :descendant =&gt; { :tag =&gt; &quot;li&quot; }
+
+# Assert that there is not a &quot;p&quot; tag with between 1 to 3 &quot;img&quot; tags
+# as immediate children
+assert_no_tag :tag =&gt; &quot;p&quot;,
+           :children =&gt; { :count =&gt; 1..3, :only =&gt; { :tag =&gt; &quot;img&quot; } }</pre>
+
 
 
 

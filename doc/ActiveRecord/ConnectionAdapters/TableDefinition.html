@@ -5,13 +5,13 @@ Inside migration files, the +t+ object in +create_table+ and
 +change_table+ is actually of this type:
 
   class SomeMigration < ActiveRecord::Migration
-    def up
+    def self.up
       create_table :foo do |t|
         puts t.class  # => "ActiveRecord::ConnectionAdapters::TableDefinition"
       end
     end
 
-    def down
+    def self.down
       ...
     end
   end

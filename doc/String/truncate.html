@@ -1,23 +1,23 @@
 <h1>String#truncate</h1>
 
-Truncates a given +text+ after a given <tt>length</tt> if +text+ is longer than <tt>length</tt>:
 
-  'Once upon a time in a world far far away'.truncate(27)
-  # => "Once upon a time in a wo..."
+<p>Truncates a given <tt>text</tt> after a given <tt>length</tt> if
+<tt>text</tt> is longer than <tt>length</tt>:</p>
 
-Pass a string or regexp <tt>:separator</tt> to truncate +text+ at a natural break:
+<pre data-language="ruby">&quot;Once upon a time in a world far far away&quot;.truncate(27)
+# =&gt; &quot;Once upon a time in a wo...&quot;</pre>
 
-  'Once upon a time in a world far far away'.truncate(27, :separator => ' ')
-  # => "Once upon a time in a..."
+<p>Pass a <tt>:separator</tt> to truncate <tt>text</tt> at a natural break:</p>
 
-  'Once upon a time in a world far far away'.truncate(27, :separator => /\s/)
-  # => "Once upon a time in a..."
+<pre data-language="ruby">&quot;Once upon a time in a world far far away&quot;.truncate(27, :separator =&gt; ' ')
+# =&gt; &quot;Once upon a time in a...&quot;</pre>
 
-The last characters will be replaced with the <tt>:omission</tt> string (defaults to "...")
-for a total length not exceeding <tt>:length</tt>:
+<p>The last characters will be replaced with the <tt>:omission</tt> string
+(defaults to "...") for a total length not exceeding <tt>:length</tt>:</p>
 
-  'And they found that many people were sleeping better.'.truncate(25, :omission => '... (continued)')
-  # => "And they f... (continued)"
+<pre data-language="ruby">&quot;And they found that many people were sleeping better.&quot;.truncate(25, :omission =&gt; &quot;... (continued)&quot;)
+# =&gt; &quot;And they f... (continued)&quot;</pre>
+
 
 
 

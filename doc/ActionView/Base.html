@@ -1,7 +1,7 @@
 = Action View Base
 
-Action View templates can be written in several ways. If the template file has a <tt>.erb</tt> extension then it uses a mixture of ERb
-(included in Ruby) and HTML. If the template file has a <tt>.builder</tt> extension then Jim Weirich's Builder::XmlMarkup library is used.
+Action View templates can be written in several ways. If the template file has a <tt>.erb</tt> (or <tt>.rhtml</tt>) extension then it uses a mixture of ERb
+(included in Ruby) and HTML. If the template file has a <tt>.builder</tt> (or <tt>.rxml</tt>) extension then Jim Weirich's Builder::XmlMarkup library is used.
 
 == ERB
 
@@ -85,10 +85,10 @@ Here are some basic examples:
 
 Any method with a block will be treated as an XML markup tag with nested markup in the block. For example, the following:
 
-  xml.div do
+  xml.div {
     xml.h1(@person.name)
     xml.p(@person.bio)
-  end
+  }
 
 would produce something like:
 
@@ -107,7 +107,7 @@ A full-length RSS example actually used on Basecamp:
       xml.language "en-us"
       xml.ttl "40"
 
-      @recent_items.each do |item|
+      for item in @recent_items
         xml.item do
           xml.title(item_title(item))
           xml.description(item_description(item)) if item_description(item)

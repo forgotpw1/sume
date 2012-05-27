@@ -1,18 +1,15 @@
 <h1>String#to</h1>
 
-Returns a substring from the beginning of the string to the given position.
-If the position is negative, it is counted from the end of the string.
 
-  str = "hello"
-  str.to(0)  #=> "h"
-  str.to(3)  #=> "hell"
-  str.to(-2) #=> "hell"
+<p>Returns the beginning of the string up to the <tt>position</tt> treating
+the string as an array (where 0 is the first character).</p>
 
-You can mix it with +from+ method and do fun things like:
+<p>Examples:</p>
 
-  str = "hello"
-  str.from(0).to(-1) #=> "hello"
-  str.from(1).to(-2) #=> "ell"
+<pre data-language="ruby">&quot;hello&quot;.to(0)  # =&gt; &quot;h&quot;
+&quot;hello&quot;.to(2)  # =&gt; &quot;hel&quot;
+&quot;hello&quot;.to(10) # =&gt; &quot;hello&quot;</pre>
+
 
 
 

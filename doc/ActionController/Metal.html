@@ -28,7 +28,7 @@ can do the following:
 
   class HelloController < ActionController::Metal
     include ActionController::Rendering
-    append_view_path "#/app/views"
+    append_view_path "#{Rails.root}/app/views"
 
     def index
       render "hello/index"

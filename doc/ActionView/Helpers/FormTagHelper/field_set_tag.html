@@ -1,25 +1,28 @@
 <h1>ActionView::Helpers::FormTagHelper#field_set_tag</h1>
 
-Creates a field set for grouping HTML form elements.
 
-<tt>legend</tt> will become the fieldset's title (optional as per W3C).
-<tt>options</tt> accept the same values as tag.
+<p>Creates a field set for grouping HTML form elements.</p>
 
-==== Examples
-  <%= field_set_tag do %>
-    <p><%= text_field_tag 'name' %></p>
-  <% end %>
-  # => <fieldset><p><input id="name" name="name" type="text" /></p></fieldset>
+<p><tt>legend</tt> will become the fieldset's title (optional as per W3C).
+<tt>options</tt> accept the same values as tag.</p>
 
-  <%= field_set_tag 'Your details' do %>
-    <p><%= text_field_tag 'name' %></p>
-  <% end %>
-  # => <fieldset><legend>Your details</legend><p><input id="name" name="name" type="text" /></p></fieldset>
+<h4>Examples</h4>
 
-  <%= field_set_tag nil, :class => 'format' do %>
-    <p><%= text_field_tag 'name' %></p>
-  <% end %>
-  # => <fieldset class="format"><p><input id="name" name="name" type="text" /></p></fieldset>
+<pre data-language="ruby">&lt;%= field_set_tag do %&gt;
+  &lt;p&gt;&lt;%= text_field_tag 'name' %&gt;&lt;/p&gt;
+&lt;% end %&gt;
+# =&gt; &lt;fieldset&gt;&lt;p&gt;&lt;input id=&quot;name&quot; name=&quot;name&quot; type=&quot;text&quot; /&gt;&lt;/p&gt;&lt;/fieldset&gt;
+
+&lt;%= field_set_tag 'Your details' do %&gt;
+  &lt;p&gt;&lt;%= text_field_tag 'name' %&gt;&lt;/p&gt;
+&lt;% end %&gt;
+# =&gt; &lt;fieldset&gt;&lt;legend&gt;Your details&lt;/legend&gt;&lt;p&gt;&lt;input id=&quot;name&quot; name=&quot;name&quot; type=&quot;text&quot; /&gt;&lt;/p&gt;&lt;/fieldset&gt;
+
+&lt;%= field_set_tag nil, :class =&gt; 'format' do %&gt;
+  &lt;p&gt;&lt;%= text_field_tag 'name' %&gt;&lt;/p&gt;
+&lt;% end %&gt;
+# =&gt; &lt;fieldset class=&quot;format&quot;&gt;&lt;p&gt;&lt;input id=&quot;name&quot; name=&quot;name&quot; type=&quot;text&quot; /&gt;&lt;/p&gt;&lt;/fieldset&gt;</pre>
+
 
 
 

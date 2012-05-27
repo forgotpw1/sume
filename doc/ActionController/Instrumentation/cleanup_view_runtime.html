@@ -1,13 +1,15 @@
 <h1>ActionController::Instrumentation#cleanup_view_runtime</h1>
 
-A hook which allows you to clean up any time taken into account in
-views wrongly, like database querying time.
 
-  def cleanup_view_runtime
-    super - time_taken_in_something_expensive
-  end
+<p>A hook which allows you to clean up any time taken into account in views
+wrongly, like database querying time.</p>
 
-:api: plugin
+<pre data-language="ruby">def cleanup_view_runtime
+  super - time_taken_in_something_expensive
+end</pre>
+
+<p>:api: plugin</p>
+
 
 
 

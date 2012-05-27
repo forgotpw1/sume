@@ -1,14 +1,18 @@
 <h1>String#camelcase</h1>
 
-By default, +camelize+ converts strings to UpperCamelCase. If the argument to camelize
-is set to <tt>:lower</tt> then camelize produces lowerCamelCase.
 
-+camelize+ will also convert '/' to '::' which is useful for converting paths to namespaces.
+<p>By default, <tt>camelize</tt> converts strings to UpperCamelCase. If the
+argument to camelize is set to <tt>:lower</tt> then camelize produces
+lowerCamelCase.</p>
 
-  'active_record'.camelize                # => "ActiveRecord"
-  'active_record'.camelize(:lower)        # => "activeRecord"
-  'active_record/errors'.camelize         # => "ActiveRecord::Errors"
-  'active_record/errors'.camelize(:lower) # => "activeRecord::Errors"
+<p><tt>camelize</tt> will also convert '/' to '::' which is useful for
+converting paths to namespaces.</p>
+
+<pre data-language="ruby">&quot;active_record&quot;.camelize                # =&gt; &quot;ActiveRecord&quot;
+&quot;active_record&quot;.camelize(:lower)        # =&gt; &quot;activeRecord&quot;
+&quot;active_record/errors&quot;.camelize         # =&gt; &quot;ActiveRecord::Errors&quot;
+&quot;active_record/errors&quot;.camelize(:lower) # =&gt; &quot;activeRecord::Errors&quot;</pre>
+
 
 
 

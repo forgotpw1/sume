@@ -11,13 +11,13 @@ together in your router:
 This will create a number of routes for each of the posts and comments
 controller. For <tt>Admin::PostsController</tt>, Rails will create:
 
-  GET       /admin/posts
-  GET       /admin/posts/new
-  POST      /admin/posts
-  GET       /admin/posts/1
-  GET       /admin/posts/1/edit
-  PATCH/PUT /admin/posts/1
-  DELETE    /admin/posts/1
+  GET	    /admin/posts
+  GET	    /admin/posts/new
+  POST	  /admin/posts
+  GET	    /admin/posts/1
+  GET	    /admin/posts/1/edit
+  PUT	    /admin/posts/1
+  DELETE  /admin/posts/1
 
 If you want to route /posts (without the prefix /admin) to
 <tt>Admin::PostsController</tt>, you could use
@@ -45,11 +45,11 @@ In each of these cases, the named routes remain the same as if you did
 not use scope. In the last case, the following paths map to
 +PostsController+:
 
-  GET       /admin/posts
-  GET       /admin/posts/new
-  POST      /admin/posts
-  GET       /admin/posts/1
-  GET       /admin/posts/1/edit
-  PATCH/PUT /admin/posts/1
-  DELETE    /admin/posts/1
+  GET	    /admin/posts
+  GET	    /admin/posts/new
+  POST	  /admin/posts
+  GET	    /admin/posts/1
+  GET	    /admin/posts/1/edit
+  PUT	    /admin/posts/1
+  DELETE  /admin/posts/1
 

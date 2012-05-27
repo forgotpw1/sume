@@ -1,28 +1,17 @@
 Form helpers are designed to make working with resources much easier
 compared to using vanilla HTML.
 
-Typically, a form designed to create or update a resource reflects the
-identity of the resource in several ways: (i) the url that the form is
-sent to (the form element's +action+ attribute) should result in a request
-being routed to the appropriate controller action (with the appropriate <tt>:id</tt>
-parameter in the case of an existing resource), (ii) input fields should
-be named in such a way that in the controller their values appear in the
-appropriate places within the +params+ hash, and (iii) for an existing record,
-when the form is initially displayed, input fields corresponding to attributes
-of the resource should show the current values of those attributes.
+Forms for models are created with +form_for+. That method yields a form
+builder that knows the model the form is about. The form builder is thus
+able to generate default values for input fields that correspond to model
+attributes, and also convenient names, IDs, endpoints, etc.
 
-In Rails, this is usually achieved by creating the form using +form_for+ and
-a number of related helper methods. +form_for+ generates an appropriate <tt>form</tt>
-tag and yields a form builder object that knows the model the form is about.
-Input fields are created by calling methods defined on the form builder, which
-means they are able to generate the appropriate names and default values
-corresponding to the model attributes, as well as convenient IDs, etc.
-Conventions in the generated field names allow controllers to receive form data
-nicely structured in +params+ with no effort on your side.
+Conventions in the generated field names allow controllers to receive form
+data nicely structured in +params+ with no effort on your side.
 
 For example, to create a new person you typically set up a new instance of
 +Person+ in the <tt>PeopleController#new</tt> action, <tt>@person</tt>, and
-in the view template pass that object to +form_for+:
+pass it to +form_for+:
 
   <%= form_for @person do |f| %>
     <%= f.label :first_name %>:
@@ -41,10 +30,10 @@ The HTML generated for this would be (modulus formatting):
       <input name="authenticity_token" type="hidden" value="NrOp5bsjoLRuK8IW5+dQEYjKGUJDe7TQoZVvq95Wteg=" />
     </div>
     <label for="person_first_name">First name</label>:
-    <input id="person_first_name" name="person[first_name]" type="text" /><br />
+    <input id="person_first_name" name="person[first_name]" size="30" type="text" /><br />
 
     <label for="person_last_name">Last name</label>:
-    <input id="person_last_name" name="person[last_name]" type="text" /><br />
+    <input id="person_last_name" name="person[last_name]" size="30" type="text" /><br />
 
     <input name="commit" type="submit" value="Create Person" />
   </form>
@@ -72,10 +61,10 @@ the code above as is would yield instead:
       <input name="authenticity_token" type="hidden" value="NrOp5bsjoLRuK8IW5+dQEYjKGUJDe7TQoZVvq95Wteg=" />
     </div>
     <label for="person_first_name">First name</label>:
-    <input id="person_first_name" name="person[first_name]" type="text" value="John" /><br />
+    <input id="person_first_name" name="person[first_name]" size="30" type="text" value="John" /><br />
 
     <label for="person_last_name">Last name</label>:
-    <input id="person_last_name" name="person[last_name]" type="text" value="Smith" /><br />
+    <input id="person_last_name" name="person[last_name]" size="30" type="text" value="Smith" /><br />
 
     <input name="commit" type="submit" value="Update Person" />
   </form>

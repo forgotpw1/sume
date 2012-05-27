@@ -1,15 +1,17 @@
 <h1>Object#blank?</h1>
 
-An object is blank if it's false, empty, or a whitespace string.
-For example, '', '   ', +nil+, [], and {} are all blank.
 
-This simplifies:
+<p>An object is blank if it's false, empty, or a whitespace string. For
+example, "", "   ", <tt>nil</tt>, [], and {} are all blank.</p>
 
-  if address.nil? || address.empty?
+<p>This simplifies:</p>
 
-...to:
+<pre data-language="ruby">if address.nil? || address.empty?</pre>
 
-  if address.blank?
+<p>...to:</p>
+
+<pre data-language="ruby">if address.blank?</pre>
+
 
 
 

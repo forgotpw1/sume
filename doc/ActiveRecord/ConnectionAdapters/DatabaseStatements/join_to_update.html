@@ -1,8 +1,11 @@
 <h1>ActiveRecord::ConnectionAdapters::DatabaseStatements#join_to_update</h1>
 
-The default strategy for an UPDATE with joins is to use a subquery. This doesn't work
-on mysql (even when aliasing the tables), but mysql allows using JOIN directly in
-an UPDATE statement, so in the mysql adapters we redefine this to do that.
+
+<p>The default strategy for an UPDATE with joins is to use a subquery. This
+doesn't work on mysql (even when aliasing the tables), but mysql allows
+using JOIN directly in an UPDATE statement, so in the mysql adapters we
+redefine this to do that.</p>
+
 
 
 

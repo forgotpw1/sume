@@ -1,21 +1,5 @@
 <h1>ActiveRecord::TestFixtures::ClassMethods#set_fixture_class</h1>
 
-Sets the model class for a fixture when the class name cannot be inferred from the fixture name.
-
-Examples:
-
-  set_fixture_class :some_fixture        => SomeModel,
-                    'namespaced/fixture' => Another::Model
-
-The keys must be the fixture names, that coincide with the short paths to the fixture files.
---
-It is also possible to pass the class name instead of the class:
-  set_fixture_class 'some_fixture' => 'SomeModel'
-I think this option is redundant, i propose to deprecate it.
-Isn't it easier to always pass the class itself?
-(2011-12-20 alexeymuranov)
-++
-
 
 
 

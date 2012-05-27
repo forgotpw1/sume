@@ -1,35 +1,33 @@
 <h1>ActionView::Helpers::NumberHelper#number_to_phone</h1>
 
-Formats a +number+ into a US phone number (e.g., (555)
-123-9876). You can customize the format in the +options+ hash.
 
-==== Options
+<p>Formats a <tt>number</tt> into a US phone number (e.g., (555) 123-9876).
+You can customize the format in the <tt>options</tt> hash.</p>
 
-* <tt>:area_code</tt> - Adds parentheses around the area code.
-* <tt>:delimiter</tt> - Specifies the delimiter to use
-  (defaults to "-").
-* <tt>:extension</tt> - Specifies an extension to add to the
-  end of the generated number.
-* <tt>:country_code</tt> - Sets the country code for the phone
-  number.
-* <tt>:raise</tt> - If true, raises +InvalidNumberError+ when
-  the argument is invalid.
+<h4>Options</h4>
+<ul><li>
+<p><tt>:area_code</tt>  - Adds parentheses around the area code.</p>
+</li><li>
+<p><tt>:delimiter</tt>  - Specifies the delimiter to use (defaults to "-").</p>
+</li><li>
+<p><tt>:extension</tt>  - Specifies an extension to add to the end of the
+generated number.</p>
+</li><li>
+<p><tt>:country_code</tt>  - Sets the country code for the phone number.</p>
+</li></ul>
 
-==== Examples
+<h4>Examples</h4>
 
- number_to_phone(5551234)                                           # => 555-1234
- number_to_phone("5551234")                                         # => 555-1234
- number_to_phone(1235551234)                                        # => 123-555-1234
- number_to_phone(1235551234, :area_code => true)                    # => (123) 555-1234
- number_to_phone(1235551234, :delimiter => " ")                     # => 123 555 1234
- number_to_phone(1235551234, :area_code => true, :extension => 555) # => (123) 555-1234 x 555
- number_to_phone(1235551234, :country_code => 1)                    # => +1-123-555-1234
- number_to_phone("123a456")                                         # => 123a456
+<pre data-language="ruby">number_to_phone(5551234)                                           # =&gt; 555-1234
+number_to_phone(1235551234)                                        # =&gt; 123-555-1234
+number_to_phone(1235551234, :area_code =&gt; true)                    # =&gt; (123) 555-1234
+number_to_phone(1235551234, :delimiter =&gt; &quot; &quot;)                     # =&gt; 123 555 1234
+number_to_phone(1235551234, :area_code =&gt; true, :extension =&gt; 555) # =&gt; (123) 555-1234 x 555
+number_to_phone(1235551234, :country_code =&gt; 1)                    # =&gt; +1-123-555-1234
 
- number_to_phone("1234a567", :raise => true)                        # => InvalidNumberError
+number_to_phone(1235551234, :country_code =&gt; 1, :extension =&gt; 1343, :delimiter =&gt; &quot;.&quot;)
+=&gt; +1.123.555.1234 x 1343</pre>
 
- number_to_phone(1235551234, :country_code => 1, :extension => 1343, :delimiter => ".")
- # => +1.123.555.1234 x 1343
 
 
 

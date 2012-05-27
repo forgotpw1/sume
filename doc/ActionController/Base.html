@@ -40,7 +40,7 @@ The full request object is available via the request accessor and is primarily u
 
   def server_ip
     location = request.env["SERVER_ADDR"]
-    render :text => "This server hosted at #location"
+    render :text => "This server hosted at #{location}"
   end
 
 == Parameters
@@ -71,7 +71,7 @@ You can place objects in the session by using the <tt>session</tt> method, which
 
 And retrieved again through the same hash:
 
-  Hello #session[:person]
+  Hello #{session[:person]}
 
 For removing objects from the session, you can either assign a single key to +nil+:
 
@@ -113,12 +113,12 @@ Which are then automatically available to the view:
 
   Title: <%= @post.title %>
 
-You don't have to rely on the automated rendering. For example, actions that could result in the rendering of different templates
+You don't have to rely on the automated rendering. For example, actions that could result in the rendering of different templates 
 will use the manual rendering methods:
 
   def search
     @results = Search.find(params[:query])
-    case @results.count
+    case @results
       when 0 then render :action => "no_results"
       when 1 then render :action => "show"
       when 2..10 then render :action => "show_many"
@@ -130,7 +130,7 @@ Read more about writing ERB and Builder templates in ActionView::Base.
 == Redirects
 
 Redirects are used to move from one action to another. For example, after a <tt>create</tt> action, which stores a blog entry to the
-database, we might like to show the user the new entry. Because we're following good DRY principles (Don't Repeat Yourself), we're
+database, we might like to show the user the new entry. Because we're following good DRY principles (Don't Repeat Yourself), we're 
 going to reuse (and redirect to) a <tt>show</tt> action that we'll assume has already been created. The code might look like this:
 
   def create

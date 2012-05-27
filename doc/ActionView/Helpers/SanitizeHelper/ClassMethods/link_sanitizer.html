@@ -1,11 +1,13 @@
 <h1>ActionView::Helpers::SanitizeHelper::ClassMethods#link_sanitizer</h1>
 
-Gets the HTML::LinkSanitizer instance used by +strip_links+. Replace with
-any object that responds to +sanitize+.
 
-  class Application < Rails::Application
-    config.action_view.link_sanitizer = MySpecialSanitizer.new
-  end
+<p>Gets the HTML::LinkSanitizer instance used by <tt>strip_links</tt>. 
+Replace with any object that responds to <tt>sanitize</tt>.</p>
+
+<pre data-language="ruby">class Application &lt; Rails::Application
+  config.action_view.link_sanitizer = MySpecialSanitizer.new
+end</pre>
+
 
 
 

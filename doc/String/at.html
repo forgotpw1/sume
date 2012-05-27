@@ -1,30 +1,15 @@
 <h1>String#at</h1>
 
-If you pass a single Fixnum, returns a substring of one character at that
-position. The first character of the string is at position 0, the next at
-position 1, and so on. If a range is supplied, a substring containing
-characters at offsets given by the range is returned. In both cases, if an
-offset is negative, it is counted from the end of the string. Returns nil
-if the initial offset falls outside the string. Returns an empty string if
-the beginning of the range is greater than the end of the string.
 
-  str = "hello"
-  str.at(0)      #=> "h"
-  str.at(1..3)   #=> "ell"
-  str.at(-2)     #=> "l"
-  str.at(-2..-1) #=> "lo"
-  str.at(5)      #=> nil
-  str.at(5..-1)  #=> ""
+<p>Returns the character at the <tt>position</tt> treating the string as an
+array (where 0 is the first character).</p>
 
-If a Regexp is given, the matching portion of the string is returned.
-If a String is given, that given string is returned if it occurs in
-the string. In both cases, nil is returned if there is no match.
+<p>Examples:</p>
 
-  str = "hello"
-  str.at(/lo/) #=> "lo"
-  str.at(/ol/) #=> nil
-  str.at("lo") #=> "lo"
-  str.at("ol") #=> nil
+<pre data-language="ruby">&quot;hello&quot;.at(0)  # =&gt; &quot;h&quot;
+&quot;hello&quot;.at(4)  # =&gt; &quot;o&quot;
+&quot;hello&quot;.at(10) # =&gt; ERROR if &lt; 1.9, nil in 1.9</pre>
+
 
 
 
